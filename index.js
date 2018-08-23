@@ -3,10 +3,13 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const config = require('./config');
 
+const morgan = require('morgan');
+
 // connect to the database and load models
 require('./server/models').connect(config.dbUri);
 
 const app = express();
+app.use(morgan('dev')); // log every request to the console
 // tell the app to look for static files in these directories
 app.use(express.static('./server/static/'));
 app.use(express.static('./client/dist/'));
@@ -36,5 +39,5 @@ app.set('port', (process.env.PORT || 3000));
 
 // start the server
 app.listen(app.get('port'), () => {
-  console.log(`Server is running on port ${app.get('port')}`);
+  console.log(`👩🏼‍💻👨🏾‍💻👩🏿‍💻👨🏻‍💻 School is in session on Port ${app.get('port')}!`);
 });

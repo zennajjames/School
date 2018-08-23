@@ -1,4 +1,4 @@
 {
-  "dbUri": "mongodb://localhost/lms",
+  "dbUri": "mongodb://localhost/school",
   "jwtSecret": "a secret phrase!!"
 }

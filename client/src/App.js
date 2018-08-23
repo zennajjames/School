@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 // import routes from './routes.js';
 
 import {
@@ -12,12 +13,13 @@ import {
   withRouter
 } from 'react-router-dom'
 
-import Base from './components/Base.jsx';
-import HomePage from './components/HomePage.jsx';
-import LoginPage from './containers/LoginPage.jsx';
-import LogoutFunction from './containers/LogoutFunction.jsx';
-import SignUpPage from './containers/SignUpPage.jsx';
-import DashboardPage from './containers/DashboardPage.jsx';
+import Base from './components/Base';
+import HomePage from './components/HomePage';
+import Nav from "./components/Nav";
+import LoginPage from './containers/LoginPage';
+import LogoutFunction from './containers/LogoutFunction';
+import SignUpPage from './containers/SignUpPage';
+import DashboardPage from './containers/DashboardPage';
 import Auth from './modules/Auth';
 
 // remove tap delay, essential for MaterialUI to work properly
@@ -55,7 +57,7 @@ const PropsRoute = ({ component: Component, ...rest }) => (
   )}/>
 )
 
-class Main extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -78,24 +80,7 @@ class Main extends Component {
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Router>
           <div>
-            <div className="top-bar">
-              <div className="top-bar-left">
-                <Link to="/">React App</Link>
-              </div>
-              {this.state.authenticated ? (
-                <div className="top-bar-right">
-                  <Link to="/dashboard">Dashboard</Link>
-                  <Link to="/logout">Log out</Link>
-                </div>
-              ) : (
-                <div className="top-bar-right">
-                  <Link to="/login">Log in</Link>
-                  <Link to="/signup">Sign up</Link>
-                </div>
-              )}
-
-            </div>
-
+          <Nav />
             <PropsRoute exact path="/" component={HomePage} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} />
             <PrivateRoute path="/dashboard" component={DashboardPage}/>
             <LoggedOutRoute path="/login" component={LoginPage} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} />
@@ -109,4 +94,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default App;
