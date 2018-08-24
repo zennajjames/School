@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000;
 module.exports = {
     mode: 'development',
 
-    entry: './src/index.js',
+    entry: './client/src/index.js',
     output: {
       filename: 'bundle.[hash].js',
       publicPath: '/'
@@ -47,8 +47,8 @@ module.exports = {
       plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-          template: 'public/index.html',
-          favicon: 'public/favicon.ico'
+          template: 'client/public/index.html',
+          favicon: 'client/public/favicon.ico'
         })
       ],
 

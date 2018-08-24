@@ -1,10 +1,10 @@
 import React from 'react';
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Signup from './Signup';
-import Home from './Home';
-import DynamicPage from './DynamicPage';
-import NoMatch from './NoMatch';
+import Signup from './pages/Signup';
+import Home from './pages/Home';
+import DynamicPage from './pages/DynamicPage';
+import NoMatch from './pages/NoMatch';
 
 const App = () => {
   return (
@@ -12,7 +12,9 @@ const App = () => {
       <div>
         <Switch>
           <Route exact path="/" component={Signup} />
-          <Route exact path="/dynamic" component={DynamicPage} />
+          <Route exact path="/dynamic" component={DynamicPage} />          
+          <Route exact path="/home" component={Home} />
+
           <Route component={NoMatch} />
         </Switch>
       </div>

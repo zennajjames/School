@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { Component } from 'react';
+import API from "../utils/API";
 import { Link } from 'react-router-dom';
-import { Button, Checkbox, Form } from 'semantic-ui-react'
+import { Button, Checkbox, Form } from 'semantic-ui-react';
 
 import Layout from './Layout';
 
@@ -25,11 +25,11 @@ class Signup extends Component {
 		})
 	}
 	handleSubmit(event) {
-		console.log('User: '+this.state.username+"successfully added.")
+		console.log('User: '+this.state.username+" successfully added.")
     event.preventDefault()
 
     	//request to server to add a new username/password
-		axios.post('/user/', {
+		API.saveUser({
 			username: this.state.username,
       password: this.state.password,
       fname: this.state.fname,

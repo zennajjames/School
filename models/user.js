@@ -6,9 +6,11 @@ mongoose.promise = Promise
 // Define userSchema
 const userSchema = new Schema({
 
+	fname: { type: String, unique: false, required: false },
+	lname: { type: String, unique: false, required: false },
 	username: { type: String, unique: false, required: false },
-	password: { type: String, unique: false, required: false }
-
+	password: { type: String, unique: false, required: false },
+	email: { type: String, unique: false, required: false }
 })
 
 // Define schema methods
@@ -35,4 +37,4 @@ userSchema.pre('save', function (next) {
 })
 
 const User = mongoose.model('User', userSchema)
-module.exports = User
+module.exports = User;
