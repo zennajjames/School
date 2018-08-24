@@ -1,32 +1,62 @@
-const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const port = process.env.PORT || 3000;
 
 module.exports = {
-  // the entry file for the bundle
-  entry: path.join(__dirname, '/client/src/app.jsx'),
+    mode: 'development',
 
-  // the bundle file we will get in the result
-  output: {
-    path: path.join(__dirname, '/client/dist/js'),
-    filename: 'app.js',
-  },
+    entry: './src/index.js',
+    output: {
+      filename: 'bundle.[hash].js',
+      publicPath: '/'
+    },
 
-  module: {
+    devtool: 'inline-source-map',
 
-    // apply loaders to files that meet given conditions
+    module: {
+        rules: [
+    
+          // First Rule
+          {
+            test: /\.(js)$/,
+            exclude: /node_modules/,
+            use: ['babel-loader']
+          },
+    
+          // Second Rule
+          {
+            test: /\.css$/,
+            use: [
+              {
+                loader: 'style-loader'
+              },
+              {
+                loader: 'css-loader',
+                options: {
+                  modules: true,
+                  camelCase: true,
+                  sourceMap: true
+                }
+              }
+            ]
+          }
+        ]
+      },
 
-    // npm install --save-dev babel-plugin-transform-es2015-destructuring
-    // npm install --save-dev babel-plugin-transform-object-rest-spread
-    loaders: [{
-      test: /\.jsx?$/,
-      include: path.join(__dirname, '/client/src'),
-      loader: 'babel-loader',
-      query: {
-        presets: ["react", "es2015"],
-        plugins: ["transform-es2015-destructuring", "transform-object-rest-spread"]
+      plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new HtmlWebpackPlugin({
+          template: 'public/index.html',
+          favicon: 'public/favicon.ico'
+        })
+      ],
+
+      devServer: {
+        host: 'localhost',
+        port: port,
+        historyApiFallback: true,
+        open: true,
+        hot: true
       }
-    }],
-  },
-
-  // start Webpack in a watch mode, so Webpack will rebuild the bundle on changes
-  watch: true
 };
