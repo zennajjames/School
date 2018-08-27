@@ -7,7 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import LogoutFunction from './pages/LogoutFunction';
-import SignUp from "./pages/SignUp";
+import UserSignUp from "./pages/Users";
 import Dashboard from "./pages/Dashboard";
 import Auth from './modules/Auth';
 
@@ -92,7 +92,7 @@ class App extends Component {
               <PropsRoute exact path="/" component={Home} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} />
               <PrivateRoute path="/dashboard" component={Dashboard}/>
               <LoggedOutRoute path="/login" component={Login} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} />
-              <LoggedOutRoute path="/signup" component={SignUp}/>
+              <LoggedOutRoute path="/signup" component={UserSignUp}/>
               <Route path="/logout" component={LogoutFunction}/>
               </div>
 
