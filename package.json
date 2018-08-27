@@ -1,8 +1,8 @@
 {
-  "name": "school",
+  "name": "mern",
   "version": "1.0.0",
+  "description": "",
   "main": "server.js",
-  "license": "MIT",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js",
@@ -13,40 +13,24 @@
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^3.5.0",
+    "nodemon": "^1.11.0"
+  },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.16.2",
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.18.3",
-    "connect-mongo": "^2.0.1",
-    "express": "^4.16.3",
-    "express-session": "^1.15.6",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
     "if-env": "^1.0.4",
-    "mongoose": "^5.2.9",
+    "jsonwebtoken": "^8.3.0",
+    "material-ui": "^0.20.2",
+    "mongoose": "^5.0.17",
     "morgan": "^1.9.0",
     "passport": "^0.4.0",
-    "passport-local": "^1.0.0",
-    "path": "^0.12.7",
     "prop-types": "^15.6.2",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-router-dom": "^4.3.1",
-    "semantic-ui-react": "^0.82.3"
-  },
-  "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-1": "^6.24.1",
-    "concurrently": "^3.6.1",
-    "css-loader": "^1.0.0",
-    "html-webpack-plugin": "^3.2.0",
-    "nodemon": "^1.18.3",
-    "react-hot-loader": "^4.3.5",
-    "style-loader": "^0.22.1",
-    "webpack": "^4.17.1",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5"
-  },
-  "proxy": "http://localhost:8080"
+    "validator": "^10.7.0"
+  }
 }

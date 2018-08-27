@@ -13,5 +13,9 @@ router
   .put(usersController.update)
   .delete(usersController.remove);
 
-module.exports = router;
+  // Matches with "/api/users"
+router.route("/login")
+.get(usersController.findAll)
+.post(usersController.create);
 
+module.exports = router;
