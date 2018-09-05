@@ -24,11 +24,11 @@ class Nav extends Component {
             </NavItem>
             <NavItem>
             <Dropdown>
-                <DropdownToggle nav caret>Courses</DropdownToggle>
+                <DropdownToggle nav caret>More</DropdownToggle>
                   <DropdownMenu>
-                      <DropdownItem href="#">Action</DropdownItem>
-                      <DropdownItem href="#">Another Action</DropdownItem>
-                      <DropdownItem href="#">Something else here</DropdownItem>
+                      <DropdownItem href="/feed">Newsfeed</DropdownItem>
+                      <DropdownItem href="/galleries">Galleries</DropdownItem>
+                      <DropdownItem href="/mywork">My Work</DropdownItem>
                       <DropdownItem href="#">Something else here</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
@@ -55,6 +55,7 @@ class Nav extends Component {
   }
 
   render() {
+    
     const collapsed = this.state.collapsed;
     const overlay = <div id="sidenav-overlay" style={{backgroundColor: 'transparent'}}/>
     return (

@@ -3,6 +3,7 @@ const router = express.Router()
 const User = require('../db/models/user')
 const passport = require('../passport')
 
+
 const aws = require('aws-sdk');
     const AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY;
     const AWS_SECRET_KEY = process.env.AWS_SECRET_KEY;
@@ -37,16 +38,14 @@ router.get('/google', passport.authenticate('google', {
 }))
 
 router.get(
-	'/google/callback',
-	passport.authenticate('google', {
+	'/google/callback', passport.authenticate('google', {
 		successRedirect: '/dashboard',
 		failureRedirect: '/login'
-	})
-)
+}))
 
 router.get('/', (req, res) => {
     res.sendFile(`${__dirname}/index.html`);
-  });
+});
   
 router.get('/upload', (req, res) => {
 	console.log("made it");
@@ -65,7 +64,7 @@ router.get('/user', (req, res, next) => {
 		return res.json({
 				user: req.user
 			}),
-			console.log(user);
+			console.log(req.user);
 	} else {
 		console.log("No user logged in.")
 		return res.json({
@@ -144,5 +143,11 @@ router.post('/signup', (req, res) => {
 		}
 	)
 })
+
+// router.route('/auth/signin')
+//   .post(authCtrl.signin)
+
+// router.route('/auth/signout')
+//   .get(authCtrl.signout)
 
 module.exports = router

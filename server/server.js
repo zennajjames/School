@@ -1,52 +1,49 @@
 // Loading evnironmental variables here
 if (process.env.NODE_ENV !== 'production') {
-	console.log('loading dev environments')
+	console.log('Loading dev environments...')
 	require('dotenv').config()
 }
 require('dotenv').config();
 
-const fileupload = require("express-fileupload");
 const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const session = require('express-session')
+
 const MongoStore = require('connect-mongo')(session)
 const dbConnection = require('./db') // loads our connection to the mongo database
-const passport = require('./passport')
 
+const passport = require('./passport')
+const fileupload = require("express-fileupload");
+
+// ===================
 const app = express()
 const PORT = process.env.PORT || 3001
 
 // ===== Middleware ====
 app.use(morgan('dev'))
-app.use(
-	bodyParser.urlencoded({
-		extended: false
-	})
-)
+app.use(bodyParser.urlencoded({ extended: false	}))
 app.use(bodyParser.json())
 
 // ======= Socket.io =====
-// const http = require('http').Server(app);
-// const io = require('socket.io')(http);
-// io.on('connection', function(socket){
-//   console.log('A user connected.');
-//   socket.on('disconnect', function(){
-//     console.log('User disconnected.');
-//   });
-//   socket.on('example_message', function(msg){
-//     console.log('message: ' + msg);
-//   });
-// });
-// io.listen(8000);
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+io.on('connection', function(socket){
+  console.log('A user connected.');
+  socket.on('disconnect', function(){
+    console.log('User disconnected.');
+  });
+  socket.on('example_message', function(msg){
+    console.log('message: ' + msg);
+  });
+});
+io.listen(8000);
 
 // ===== Authentication ====
 app.use(
 	session({
 		secret: process.env.APP_SECRET || 'lwfhkjweioeowfhikmks',
-		store: new MongoStore({
-			mongooseConnection: dbConnection
-		}),
+		store: new MongoStore({ mongooseConnection: dbConnection }),
 		resave: false,
 		saveUninitialized: false
 	})
@@ -65,6 +62,8 @@ if (process.env.NODE_ENV === 'production') {
 		res.sendFile(path.join(__dirname, '../build/'))
 	})
 }
+
+// ================ Amazon Services
 
 const BUCKET_NAME = 'schoollms';
 const IAM_USER_KEY = process.env.AWS_ACCESS_KEY_ID;
@@ -105,7 +104,6 @@ function uploadToS3(file){
   
 /* Express app ROUTING */
 app.use('/auth', require('./auth'))
-
 
 // ====== Error handler ====
 app.use(function (err, req, res, next) {

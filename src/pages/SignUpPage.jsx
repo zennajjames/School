@@ -7,11 +7,10 @@ import { Container, Input, Button } from 'mdbreact';
 class SignupForm extends Component {
   
   state = {
-    username: "",
-    password: "",
-    fname: "",
-    lanme: "",
+		fname: "",
+    lname: "",
     email: "",
+    password: "",
     confirmPassword: "",
     redirectTo: null, 
   };
@@ -27,19 +26,17 @@ class SignupForm extends Component {
     // TODO - validate!
     axios
       .post("/auth/signup", {
-        username: this.state.username,
+        username: this.state.email,
         password: this.state.password,
         email: this.state.email,
         fname: this.state.fname,
         lname: this.state.lname
       })
       .then(response => {
-				let email = response.data.local.email;
-				let password = this.state.password;
-				console.log("Signed up:"+email+" "+this.state.password)
+				console.log("Success! Welcome "+response.data.fname)
         if (!response.data.errmsg) {
-          console.log("User registered! Logging in..."+email,password);
-					this.props.login(email, password);
+          console.log("User registered! Logging in...");
+					this.props.login(this.state.email, this.state.password);
 						if (response.status === 200) {
 						this.setState({
 							redirectTo: "/dashboard"
@@ -77,13 +74,6 @@ class SignupForm extends Component {
 					type="text"
 					name="email"
 					value={this.state.email}
-					onChange={this.handleChange}
-				/>
-				<label htmlFor="username">Username: Optional</label>
-				<Input
-					type="text"
-					name="username"
-					value={this.state.username}
 					onChange={this.handleChange}
 				/>
 				<label htmlFor="password">Password: </label>

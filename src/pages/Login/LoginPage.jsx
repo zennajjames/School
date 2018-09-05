@@ -5,9 +5,6 @@ import { Button, Card, CardBody, CardTitle, Input } from "mdbreact";
 // import googleButton from './google_signin_buttons/web/1x/btn_google_signin_dark_disabled_web.png'
 import googleButton from "./google_white.png";
 
-import "../styles/Login.css";
-
-
 class LoginPage extends Component {
   state = {
     email: "",
@@ -25,18 +22,17 @@ class LoginPage extends Component {
   handleSubmit = event => {
     event.preventDefault();
     console.log("Logging user "+this.state.email+" in from login page...");
-
-    this.props.login(this.state.email, this.state.password)
-    if (this.props.responseCode === 200) {
-      this.setState({
-        redirectTo: "/dashboard"
-      });
-      } else {
-        this.setState({
-          redirectTo: "/"
-        });
-        console.log("Log in failed.");
-      }
+    this.props.login(this.state.email, this.state.password);
+  //   if (this.props.responseCode === 200) {
+  //     this.setState({
+  //       redirectTo: "/dashboard"
+  //     });
+  //     } else {
+  //       this.setState({
+  //         redirectTo: "/dashboard"
+  //       });
+  //       console.log("Log in failed.");
+  //     }
   };
 
   render() {
