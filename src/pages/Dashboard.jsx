@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Button, Fa, Card, Input } from 'mdbreact';
 import Dropzone from 'react-dropzone'; 
 
-import openSocket from 'socket.io-client';
-const socket = openSocket('http://localhost:8000');
+// import openSocket from 'socket.io-client';
+// const socket = openSocket('http://localhost:8000');
 
 class Dashboard extends Component {
 
@@ -14,9 +14,9 @@ class Dashboard extends Component {
     user: this.props.user
   }
 
-    sendSocketIO = () => {
-    socket.emit('example_message', 'demo');
-  }
+  //   sendSocketIO = () => {
+  //   socket.emit('example_message', 'demo');
+  // }
 
   componentDidMount = () => {
     console.log(this.state.user);
@@ -72,7 +72,7 @@ class Dashboard extends Component {
       <Container>
         <section className="text-center my-5">
           <h2 className="h1-responsive font-weight-bold my-5">Hello {this.props.user}!</h2>
-          <Button onClick={this.sendSocketIO}>Send Socket.io</Button>
+          {/* <Button onClick={this.sendSocketIO}>Send Socket.io</Button> */}
           <p className="grey-text w-responsive mx-auto mb-5">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit est laborum.</p>
           <Row>
             <Col md="12" className="mb-4">

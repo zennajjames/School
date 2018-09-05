@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Button, Card, CardBody, CardTitle, Input } from "mdbreact";
 
-// import googleButton from './google_signin_buttons/web/1x/btn_google_signin_dark_disabled_web.png'
-import googleButton from "./google_white.png";
-
 class LoginPage extends Component {
   state = {
     email: "",
@@ -63,7 +60,7 @@ class LoginPage extends Component {
               </form>
               <a href="/auth/google">
                 {/* <GoogleButton /> */}
-                <img className="img" src={googleButton} alt="SignIn Google Button" />
+                <img className="img" src="/assets/images/google_white.png" alt="SignIn Google Button" />
               </a>
             </CardBody>
           </Card>

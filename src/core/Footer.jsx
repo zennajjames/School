@@ -5,7 +5,7 @@ class Foot extends Component {
   render() {
     return(
 
-        <Footer color="blue" dark expand="md">
+        <Footer color="blue">
         <p className="footer-copyright mb-0 py-3 text-center">
         &copy; {(new Date().getFullYear())} Copyright: <a href="https://www.zennajduke.com"> Zenna J. Duke </a>
         </p>

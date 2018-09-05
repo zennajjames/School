@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Button, Fa, Card } from 'mdbreact';
-import PropTypes from 'prop-types'
-import auth from './../auth/auth-helper'
+// import PropTypes from 'prop-types'
+import auth from '../auth/auth-helper'
 // import FindPeople from './../user/FindPeople'
 // import Newsfeed from './../post/Newsfeed'
 
@@ -82,8 +82,5 @@ class Home extends Component {
   };
 }
 
-Home.propTypes = {
-  classes: PropTypes.object.isRequired
-}
 
 export default Home;
