@@ -78,7 +78,7 @@ class Register extends Component {
 				<Row>
 					<Col></Col>
 						<Col className="col-8">
-						<Card color="amber lighten-4">
+						<Card>
 							<CardBody>
 								<h2 style={styles.heading}>Register</h2>
 									<hr />

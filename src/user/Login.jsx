@@ -57,32 +57,22 @@ class LoginPage extends Component {
         <Container>
           <Row>
             <Col></Col>
-             <Col className="col-8">
-               <Card color="amber lighten-4">
+             <Col className="col-6">
+               <Card>
                 <CardBody>
                 <form>
-                  <h2 style={styles.heading}>Log In</h2>
-                  <hr />
-                  <label htmlFor="email">Email: </label>
-                  <Input
-                    type="text"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.handleChange('email')}
-                  /><br />
-                  <label htmlFor="password">Password: </label>
-                  <Input
-                    type="password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.handleChange('password')}
-                  />
-                  <p className="font-small grey-text d-flex justify-content-end">Forgot <a href="#" className="dark-grey-text font-weight-bold ml-1"> Password?</a></p>
+                  <h3 style={styles.heading} className="text-center mb-4">Log In</h3>
+                  <label htmlFor="defaultFormLoginEmailEx" className="grey-text">Email</label>
+                  <input type="text" name="email" id="defaultFormLoginEmailEx" className="form-control" value={this.state.email}
+                    onChange={this.handleChange('email')}/>
                   <br />
+                  <label htmlFor="defaultFormLoginPasswordEx" className="grey-text">Password</label>
+                  <input type="password" name="password" value={this.state.password} onChange={this.handleChange('password')} id="defaultFormLoginPasswordEx" className="form-control"/>
+                  <p className="font-small grey-text d-flex justify-content-end">Forgot <a href="#" className="dark-grey-text font-weight-bold ml-1"> Password?</a></p>
                   <div className="text-center">
                     <Button onClick={this.handleSubmit}>Login</Button>
                   </div>
-                  <br/>
+                  <br />
                   <p className="font-small grey-text d-flex justify-content-center">Don't have an account? <a href="/register" className="dark-grey-text font-weight-bold ml-1"> Register</a></p>
                 </form>
               </CardBody>
@@ -96,3 +86,5 @@ class LoginPage extends Component {
   }
 
 export default LoginPage;
+
+
