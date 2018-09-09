@@ -11,9 +11,10 @@ import {listByUser} from '../../post/api-post'
 
 const styles = {
   bigAvatar: {
-    width: 60,
-    height: 60,
-    margin: 10
+    width: 80,
+    height: 80,
+    margin: 10,
+    borderRadius: 50
   },
   heading: {
     fontWeight: 300

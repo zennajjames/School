@@ -17,6 +17,11 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     required: 'Name is required'
   },
+  classcode: {
+    type: String,
+    trim: true,
+    required: 'Name is required'
+  },
   email: {
     type: String,
     trim: true,

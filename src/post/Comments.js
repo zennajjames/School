@@ -1,11 +1,34 @@
 import React, {Component} from 'react'
 import auth from '../auth/auth-helper'
 
-import { CardTitle, Input, Fa } from 'mdbreact';
+import { Card, CardTitle, Input, Fa } from 'mdbreact';
 
 import {comment, uncomment} from './api-post'
 import {Link} from 'react-router-dom'
 
+const styles = {
+  smallAvatar: {
+    width: 25,
+    height: 25
+  },
+  commentField: {
+    width: '96%'
+  },
+  commentText: {
+    backgroundColor: 'white',
+    padding: 2,
+  },
+  commentDate: {
+    display: 'block',
+    color: 'gray',
+    fontSize: '0.8em'
+ },
+ commentDelete: {
+   fontSize: '1.6em',
+   verticalAlign: 'middle',
+   cursor: 'pointer'
+ }
+}
 class Comments extends Component {
   
   state = {text: ''}
@@ -49,47 +72,41 @@ class Comments extends Component {
   }
 
   render() {
-    // const {classes} = this.props
     const commentBody = item => {
       return (
-        <p>
+        <p style={styles.commentText}>
           <Link to={"/user/" + item.postedBy._id}>{item.postedBy.name}</Link><br/>
           {item.text}
-          <span>
+          <span style={styles.commentDate}>
             {(new Date(item.created)).toDateString()} |
             {auth.isAuthenticated().user._id === item.postedBy._id &&
-              <Fa onClick={this.deleteComment(item)}/> }
+              <Fa icon="trash" onClick={this.deleteComment(item)} style={styles.commentDelete}/> }
           </span>
         </p>
       )
     }
 
-    return (<div>
-        <CardTitle
-              avatar={
-                <img src={'/api/users/photo/'+auth.isAuthenticated().user._id}/>
-              }
-              title={ 
-              <Input
+    return (<Card>
+              <CardTitle>
+                  <img style={styles.smallAvatar} src={'/api/users/photo/'+auth.isAuthenticated().user._id}/>
+              </CardTitle>
+              <input
                 onKeyDown={this.addComment}
                 value={this.state.text}
                 onChange={this.handleChange('text')}
                 placeholder="Write something ..."
-                />}
-        />
-        { this.props.comments.map((item, i) => {
-            return <CardTitle
-                      avatar={
-                        <img src={'/api/users/photo/'+item.postedBy._id}/>
-                      }
-                      title={commentBody(item)}
-                      key={i}/>
-              })
-        }
-    </div>)
-  }
-}
+                />
 
+              { this.props.comments.map((item, i) => {
+                  return <div key={i}>
+                    <CardTitle>
+                      <img style={styles.smallAvatar} src={'/api/users/photo/'+item.postedBy._id}/>
+                      <p>{commentBody(item)}</p>
+                    </CardTitle>
+                  </div>  })}
+            </Card>)
+    }
+  }
 // Comments.propTypes = {
 //   classes: PropTypes.object.isRequired,
 //   postId: PropTypes.string.isRequired,

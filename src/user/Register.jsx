@@ -20,6 +20,7 @@ class Register extends Component {
 		lastname: '',
 		password: '',
 		email: '',
+		classcode: '',
 		modal: false,
 		error: '', 
 		isUploading: false,
@@ -39,6 +40,7 @@ class Register extends Component {
 			name: fullname || undefined,
       email: this.state.email || undefined,
 			password: this.state.password || undefined,
+			classcode: this.state.classcode || undefined,
 		}
 		console.log(user)
     create(user).then((data) => {
@@ -77,42 +79,54 @@ class Register extends Component {
 			<Container className="SignupForm">
 				<Row>
 					<Col></Col>
-						<Col className="col-8">
+						<Col className="col-6">
 						<Card>
 							<CardBody>
-								<h2 style={styles.heading}>Register</h2>
+								<h2 className="text-center mb-4" style={styles.heading}>Register</h2>
 									<hr />
-									<label htmlFor="name">First Name: </label>
-									<Input
+									<label className="grey-text" htmlFor="name">First Name: </label>
+									<input
 										type="text"
 										name="firstname"
-										size = "sm"
+									  className="form-control"
 										value={this.state.firstname}
 										onChange={this.handleChange('firstname')}
 									/>
-									<label htmlFor="name">Last Name: </label>
-									<Input
+									<br/>
+									<label className="grey-text" htmlFor="name">Last Name: </label>
+									<input
 										type="text"
 										name="lastname"
-										size = "sm"
+									  className="form-control"
 										value={this.state.lastname}
 										onChange={this.handleChange('lastname')}
 									/>
-									<label htmlFor="email">Email: </label>
-									<Input
+									<br/>
+									<label className="grey-text" htmlFor="email">Email: </label>
+									<input
 										type="text"
 										name="email"
-										size = "sm"
+									  className="form-control"
 										value={this.state.email}
 										onChange={this.handleChange('email')}
 									/>
-									<label htmlFor="password">Password: </label>
-									<Input
+									<br/>
+									<label className="grey-text" htmlFor="password">Password: </label>
+									<input
 										type="password"
 										name="password"
-										size = "sm"
+									  className="form-control"
 										value={this.state.password}
 										onChange={this.handleChange('password')} 
+									/>
+									<br/> 
+									<label className="grey-text" htmlFor="classcode">Class Code: </label>
+									<input
+										type="classcode"
+										name="classcode"
+									  className="form-control"
+										value={this.state.classcode}
+										onChange={this.handleChange('classcode')} 
 									/>
 									<br/> 
 									{

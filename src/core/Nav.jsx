@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
+import { Fa, Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
 import auth from './../auth/auth-helper'
 import {withRouter} from 'react-router-dom'
 
@@ -41,12 +41,15 @@ const Nav = withRouter(({history}) => (
       {
         auth.isAuthenticated() && (
         <NavbarNav right>
+         <NavItem>
+            <NavLink to={"/"}><Fa icon="home"/></NavLink>
+          </NavItem>
           <NavItem>
-            <NavLink to={"/user/" + auth.isAuthenticated().user._id} style={isActive(history, "/user/" + auth.isAuthenticated().user._id)}>My Profile</NavLink>
+            <NavLink to={"/user/" + auth.isAuthenticated().user._id} style={isActive(history, "/user/" + auth.isAuthenticated().user._id)}>Profile</NavLink>
           </NavItem>
           <NavItem>
              <Dropdown>
-                 <DropdownToggle nav caret>More</DropdownToggle>
+                 <DropdownToggle nav caret></DropdownToggle>
                    <DropdownMenu>
                        <DropdownItem href="/">Course Materials</DropdownItem>
                        <DropdownItem href="/social">Social</DropdownItem>

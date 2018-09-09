@@ -24,7 +24,7 @@ class MainRouter extends Component {
 		return (
 			<div style={{backgroundImage: 'url(/assets/images/blue.jpg)'}}>
 				<Nav/>
-				<div className="main-wrapper" style={{paddingTop: '10rem', paddingBottom: '6rem'}}>
+				<div className="main-wrapper" style={{paddingTop: '8rem', paddingBottom: '4rem'}}>
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route exact path="/login" component={LogIn}/>
