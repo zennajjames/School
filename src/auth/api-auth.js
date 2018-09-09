@@ -14,6 +14,7 @@ const signin = (user) => {
 }
 
 const signout = () => {
+  console.log("Signing out...")
   return fetch('/auth/signout/', {
     method: 'GET',
   }).then(response => {
@@ -21,7 +22,7 @@ const signout = () => {
   }).catch((err) => console.log(err))
 }
 
-export {
+module.exports = {
   signin,
   signout
 }

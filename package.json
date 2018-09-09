@@ -25,11 +25,10 @@
 				"mdbreact": "^4.7.0",
 				"mongoose": "^5.2.10",
 				"morgan": "^1.9.0",
-				"passport": "^0.4.0",
 				"passport-google-oauth": "^1.0.0",
-				"passport-local": "^1.0.0",
 				"prop-types": "^15.6.2",
 				"react-dropzone": "^5.0.1",
+				"react-router-dom": "^4.4.0-alpha.1",
 				"socket.io": "^2.1.1",
 				"socket.io-client": "^2.1.1"
 		},

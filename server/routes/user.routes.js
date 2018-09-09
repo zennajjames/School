@@ -9,10 +9,9 @@ router.route('/api/users')
   .post(userCtrl.create)
 
 router.route('/api/users/photo/:userId')
-  .get(userCtrl.photo)
-  //userCtrl.defaultPhoto
-// router.route('/api/users/defaultphoto')
-//   .get(userCtrl.defaultPhoto)
+  .get(userCtrl.photo, userCtrl.defaultPhoto)
+router.route('/api/users/defaultphoto')
+  .get(userCtrl.defaultPhoto)
 
 router.route('/api/users/follow')
     .put(authCtrl.requireSignin, userCtrl.addFollowing, userCtrl.addFollower)

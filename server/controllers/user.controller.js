@@ -3,7 +3,6 @@ const _ = require('lodash')
 const errorHandler = require('./../helpers/dbErrorHandler')
 const formidable = require('formidable')
 const fs = require('fs')
-// const profileImage = require('../../public/assets/images/profile-pic.png')
 
 const create = (req, res, next) => {
   const user = new User(req.body)
@@ -14,7 +13,6 @@ const create = (req, res, next) => {
       })
     }
     res.status(200).json({
-      message: "Successfully signed up!"
     })
   })
 }
@@ -58,7 +56,7 @@ const update = (req, res, next) => {
   form.parse(req, (err, fields, files) => {
     if (err) {
       return res.status(400).json({
-        error: "Photo could not be uploaded"
+        error: "Photo could not be uploaded."
       })
     }
     let user = req.profile
@@ -100,13 +98,14 @@ const photo = (req, res, next) => {
     res.set("Content-Type", req.profile.photo.contentType)
     return res.send(req.profile.photo.data)
   }
-}
-//   next()
-// }
 
-// const defaultPhoto = (req, res) => {
-//   return res.sendFile(process.cwd()+profileImage)
-// }
+  next()
+}
+
+const defaultPhoto = (req, res) => {
+  console.log(process.cwd()+'/public/assets/images/profile-pic.png')
+  return res.sendFile(process.cwd()+'/public/assets/images/profile-pic.png')
+}
 
 const addFollowing = (req, res, next) => {
   User.findByIdAndUpdate(req.body.userId, {$push: {following: req.body.followId}}, (err, result) => {
@@ -182,7 +181,7 @@ module.exports = {
   remove,
   update,
   photo,
-  // defaultPhoto,
+  defaultPhoto,
   addFollowing,
   addFollower,
   removeFollowing,
