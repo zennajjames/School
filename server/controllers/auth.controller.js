@@ -10,7 +10,7 @@ const signin = (req, res) => {
 
     if (err || !user)
       return res.status('401').json({
-        error: "User not found"
+        error: "User not found."
       })
 
     if (!user.authenticate(req.body.password)) {

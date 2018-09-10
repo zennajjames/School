@@ -1,45 +1,35 @@
 import React, {Component} from 'react'
 
-import { Table, TableBody, TableHead, Button } from 'mdbreact';
-
-import {Link} from 'react-router-dom'
+import { Container } from 'mdbreact';
 
 const styles = {
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-  },
-  bigAvatar: {
-    width: 60,
-    height: 60,
-    margin: 'auto'
-  },
-  gridList: {
-    width: 500,
-    height: 220,
+  avatar: {
+    width: 80,
+    height: 80,
+    margin: 'auto',
+    borderRadius: 50
   },
   tileText: {
     textAlign: 'center',
-    marginTop: 10
+    color: "black",
+    fontSize: 16
   }
 }
 
 class FollowGrid extends Component {
   render() {
-    return (<div>
-      <Table borderless>
-        {this.props.people.map((person, i) => {
-           return  <tr style={{'height':120}} key={i}>
-              <Link to={"/user/" + person._id}>
-                <img alt="avatar" src={'/api/users/photo/'+person._id} className={styles.bigAvatar}/>
-                <h4 className={styles.tileText}>{person.name}</h4>
-              </Link>
-            </tr>
-        })}
-      </Table>
-    </div>)
+    return (<Container className="d-flex flex-wrap">
+            {this.props.people.map((person, i) => {
+            return <div className="p-2">
+                      <div className="d-flex flex-column" style={{'height':120}} key={i}>
+                        <img className="p-2" style={styles.avatar} alt="avatarPic" src={'/api/users/photo/'+person._id}/>
+                        <a styles={styles.tileText} className="p-2" href={"/user/" + person._id}>
+                          <p className="p-2" styles={styles.tileText}>{person.name}</p>
+                        </a>
+                      </div>
+                   </div>
+                })}
+            </Container>)
   }
 }
 

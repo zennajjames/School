@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Input, Button, Fa, Card, CardBody } from 'mdbreact';
-import Modal from '../core/Modal'
+import { Container, Row, Col, Badge, Button, Card, CardBody } from 'mdbreact';
 
 import "../styles/Input.css";
 
@@ -24,7 +23,8 @@ class Register extends Component {
 		modal: false,
 		error: '', 
 		isUploading: false,
-    photo: ''
+		photo: '',
+		success: ''
   };
 
   handleChange = name => event => {
@@ -32,7 +32,6 @@ class Register extends Component {
 	}
 
   handleSubmit = () => {
-		const defaultPhoto = '/api/users/defaultphoto';
 		const fullname = this.state.firstname + ' ' + this.state.lastname;
     const user = {
 			firstname: this.state.firstname || undefined,
@@ -42,44 +41,25 @@ class Register extends Component {
 			password: this.state.password || undefined,
 			classcode: this.state.classcode || undefined,
 		}
-		console.log(user)
     create(user).then((data) => {
 			console.log(data)
       if (data.error) {
-        this.setState({error: data.error})
+				this.setState({error: data.error})
+			if (data.error === "11000 duplicate key error collection: SchoolDB.users index: email already exists") {
+				this.setState({error: "User already exists. Need to reset your password?"})
+			}
       } else {
-				console.log("Registration successful!")
-        this.setState({error: '', modal: !this.state.modal})
+				this.setState({error: '', success: 'Welcome to School! Log in here.'})
       }
     })
 	}
 
   render() {
-		const divStyle = {
-      width: 400,
-      height: 200,
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderWidth: 2,
-      borderColor: '#666',
-      borderStyle: 'solid',
-      borderRadius: 5
-    };
-
-    const activeStyle = {
-      opacity: 0.5,
-      backgroundColor: '#eee'
-    };
-
-    const rejectStyle = {
-      backgroundColor: '#ffdddd'
-    };
 		return (
 			<Container className="SignupForm">
 				<Row>
 					<Col></Col>
-						<Col className="col-6">
+						<Col className="col-8">
 						<Card>
 							<CardBody>
 								<h2 className="text-center mb-4" style={styles.heading}>Register</h2>
@@ -130,9 +110,12 @@ class Register extends Component {
 									/>
 									<br/> 
 									{
-										this.state.error && (<h5 component="p" className="deep-orange-text">
-											<Fa icon="exclamation-circle" className="deep-orange-text"/>
-											{this.state.error}</h5>)
+										this.state.error && (<h4>
+											<Badge className="mx-auto" tag="a" href="#!" color="danger">{this.state.error}</Badge></h4>)
+									} 
+										{
+										this.state.success && (<h4>
+											<Badge tag="a" href="/login" color="success">{this.state.success}</Badge></h4>)
 									}
 									<div className="text-center">
 										<Button onClick={this.handleSubmit}>Register</Button>
@@ -148,4 +131,5 @@ class Register extends Component {
 }
 
 export default Register;
+
 

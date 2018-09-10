@@ -1,20 +1,29 @@
 import React, {Component} from 'react'
-import { Button, Badge, Fa, Card, CardBody, CardTitle, CardText, ListGroup, ListGroupItem } from 'mdbreact';
+import { Badge, Chip, ListGroup } from 'mdbreact';
 
 
-import {Link} from 'react-router-dom'
-import {findPeople, follow} from './api-user.js'
-import auth from '../auth/auth-helper.js'
+// import {Link} from 'react-router-dom'
+import {findPeople, follow} from '../api-user.js'
+import auth from '../../auth/auth-helper.js'
 
 
 const styles = {
   avatar: {
-    width: 60,
-    height: 60,
-    margin: 10
+    width: 75,
+    height: 75,
+    margin: 5,
+    borderRadius: 50
   },
   heading: {
-    fontWeight: 300
+    color: "white"
+  },
+  badge: {
+    width: 250,
+    height:90
+  },
+  nameLink: {
+    color: "black",
+    fontSize: 16
   }
 }
 
@@ -61,28 +70,18 @@ class FindPeople extends Component {
   render() {
     // const {classes} = this.props
     return (
-    <div>
-      <Card>
-        <CardBody>
-        <CardTitle style={styles.heading}>Classmates</CardTitle>
+    <div>     
+      <h4 style={styles.heading}>Classmates</h4>
         <hr />
-
         <ListGroup>
           {this.state.users.map((item, i) => { 
-            return <span key={i}>
-                  <ListGroupItem>
-                      <img style={styles.avatar} alt="profilePic" src={'/api/users/photo/'+item._id}/>
-                      <Link to={"/user/" + item._id}>
-                        <CardText>{item.name}</CardText>
-                        <Badge onClick={this.clickFollow.bind(this, item, i)} color="indigo">Follow</Badge>
-                      </Link>
-                  </ListGroupItem>
-                </span>
+            return <span className="d-flex flex-row" key={i}>
+            <Chip className="z-depth-1-half" bgColor="amber" text="white" size="lg" src={'/api/users/photo/'+item._id} alt="Classmates" waves>{item.name}</Chip>
+            <h6 className="p-2"><Badge onClick={this.clickFollow.bind(this, item, i)} color="cyan">Follow</Badge></h6>
+            </span>
           })
           }
         </ListGroup>
-        </CardBody>
-      </Card>
       <Badge
           open={this.state.open}
           onClose={this.handleRequestClose}

@@ -26,7 +26,7 @@ const userByID = (req, res, next, id) => {
     .populate('followers', '_id name')
     .exec((err, user) => {
     if (err || !user) return res.status('400').json({
-      error: "User not found"
+      error: "User not found."
     })
     req.profile = user
     next()

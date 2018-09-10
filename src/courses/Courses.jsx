@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, View, Mask, CardBody, Button, Fa, Card } from 'mdbreact';
+import { Container, Row, Col, View, Mask, CardBody, Button, Fa } from 'mdbreact';
+
 
 class Courses extends Component {
   render() {
@@ -11,20 +12,19 @@ class Courses extends Component {
           <Row className="text-center">
             <Col lg="4" md="12" className="mb-lg-0 mb-4">
               <View className="overlay rounded z-depth-1" waves>
-                <img src="https://mdbootstrap.com/img/Photos/Others/images/58.jpg" alt="sample photo" className="img-fluid"/>
+                <img src="https://mdbootstrap.com/img/Photos/Others/images/58.jpg" alt="course" className="img-fluid"/>
                 <a>
                   <Mask overlay="white-slight"/>
                 </a>
               </View>
               <CardBody className="pb-0">
                 <h4 className="font-weight-bold my-3">Composition I</h4>
-                <p className="grey-text">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae.</p>
-                <Button color="indigo" size="sm"><Fa icon="clone" className="left"/> View Course</Button>
+                <Button href="/composition" color="indigo" size="sm"><Fa icon="clone" className="left"/> View Course</Button>
               </CardBody>
             </Col>
             <Col lg="4" md="12" className="mb-lg-0 mb-4">
               <View className="overlay rounded z-depth-1" waves>
-                <img src="https://mdbootstrap.com/img/Photos/Others/project4.jpg" alt="sample photo" className="img-fluid"/>
+                <img src="https://mdbootstrap.com/img/Photos/Others/project4.jpg" alt="course" className="img-fluid"/>
                 <a>
                   <Mask overlay="white-slight"/>
                 </a>
@@ -37,7 +37,7 @@ class Courses extends Component {
             </Col>
             <Col lg="4" md="12" className="mb-lg-0 mb-4">
               <View className="overlay rounded z-depth-1" waves>
-                <img src="https://mdbootstrap.com/img/Photos/Others/images/88.jpg" alt="sample photo" className="img-fluid"/>
+                <img src="https://mdbootstrap.com/img/Photos/Others/images/88.jpg" alt="course" className="img-fluid"/>
                 <a>
                   <Mask overlay="white-slight"/>
                 </a>

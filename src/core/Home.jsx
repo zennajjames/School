@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Button, Fa, Card } from 'mdbreact';
+import { Container, Row, Col, Button, Fa } from 'mdbreact';
 // import PropTypes from 'prop-types'
 import auth from '../auth/auth-helper'
-import FindPeople from '../user/FindPeople'
 import Newsfeed from '../post/Newsfeed.jsx'
 
 const styles = {
@@ -68,7 +67,6 @@ class Home extends Component {
               <Newsfeed/>
             </Col>
             <Col className="col-4">
-              <FindPeople/>
             </Col>
             </Row>
           }
@@ -79,18 +77,3 @@ class Home extends Component {
 
 
 export default Home;
-
-
-{/* <Card className="card-image" style={{backgroundImage: 'url(/assets/images/files.jpg)', backgroundSize: 'cover', backgroundPosition: 'center'}}>
-<div className="text-white text-center d-flex align-items-center py-5 px-4 rounded">
-  <div>
-    <h6 className="purple-text">
-      <Fa icon="paperclip"></Fa><strong> Sign In</strong>
-    </h6>
-    <h3 className="py-3 font-weight-bold">
-      <strong>Welcome! Sign in!</strong>
-    </h3>
-    <p className="pb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat fugiat, laboriosam, voluptatem, optio vero odio nam sit officia accusamus minus error nisi architecto nulla ipsum dignissimos. Odit sed qui, dolorum!</p>
-      </div>
-                </div>
-              </Card> */}

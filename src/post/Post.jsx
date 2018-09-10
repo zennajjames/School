@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import auth from '../auth/auth-helper'
-import { Card, CardHeader, CardBody, CardFooter, Button, Fa, Container, Row, a, Collapse, Input } from 'mdbreact';
+import {Fa, Container, Row, Collapse } from 'mdbreact';
 
-import {Link} from 'react-router-dom'
 import {remove, like, unlike} from './api-post'
 import Comments from './Comments'
 
@@ -19,9 +18,12 @@ const styles = {
   card: {
     minWidth:500,
     maxWidth:600,
-    margin: 'auto',
-    backgroundColor: 'rgba(0, 0, 0, 0.06)',
-    padding: 15
+    margin: 20,
+    // backgroundColor: 'rgba(255, 255, 255, 0.6)'
+  },
+  container: {
+    maxWidth: '80%',
+    marginLeft: 20
   }
 }
 
@@ -90,65 +92,67 @@ class Post extends Component {
   render() {
     console.log(this.props)
     return (
-      <Container style={{maxWidth: '80%'}}>
+      <Container style={styles.container}>
         <Row>
-          <Card style={styles.card}>
-            <CardHeader>
-              <ul className="list-inline">
-                  <li className="list-inline-item">
-                    <img style={styles.avatar} className="rounded-circle z-depth-1-half" src={'/api/users/photo/'+this.props.post.postedBy._id}/>
-                  </li>
-                  <li className="list-inline-item">
-                    <a to={"/user/" + this.props.post.postedBy._id} className="name">{this.props.post.postedBy.name}</a>
-                  </li>
-                  <li className="list-inline-item">
-                    <div className="grey-text" className="date">{(new Date(this.props.post.created)).toDateString()}</div>
-                  </li>
+          <div className="mdb-feed">
+            <div style={styles.card} className="news">
+              <div className="label">
+                <img src={'/api/users/photo/'+this.props.post.postedBy._id} alt="profilePic" className="rounded-circle z-depth-1-half"/>
+              </div>
+              <div className="excerpt">
+                <div className="brief">
+                  <a className="name" to={"/user/" + this.props.post.postedBy._id}>{this.props.post.postedBy.name}</a> added <a>2 new illustrations</a>
+                  <div className="date">{(new Date(this.props.post.created)).toDateString()}</div>
                   {this.props.post.postedBy._id === auth.isAuthenticated().user._id &&
-                  <li className="list-inline-item" >
-                    <Fa icon="trash" onClick={this.deletePost}/>
-                  </li>
-                   }
-              </ul>
-            </CardHeader>
-            <CardBody>
-              <div className="added-text">{this.props.post.text}</div>
-                {this.props.post.photo &&
-                  (<div>
-                    <img
-                      style={styles.media} src={'/api/posts/photo/'+this.props.post._id}
-                      />
-              </div>)}
-            </CardBody>
-            <CardFooter>
-              { this.state.like
-                ? <a>
-                      <Fa icon="heart" onClick={this.like} color="red" aria-label="Like"/>
-                      <span>    {this.state.likes}</span>
-                  </a>
-                : <a>
-                      <Fa icon="heart" onClick={this.like} aria-label="Unlike"/>
-                      <span>    {this.state.likes}</span>
-                  </a>
-                } 
-              <a>
-              <a className="comment" aria-expanded="false" aria-controls="collapseExample-1" onClick={this.toggle}>Comment </a> &middot; <span><a>{this.state.comments.length}</a></span>
-              </a>
-            <Collapse id="collapseExample-1" isOpen={this.state.collapse}>
-              <Card className="card-body mt-1">
-                <Comments postId={this.props.post._id} comments={this.state.comments} updateComments={this.updateComments}/>
-                <input type="textarea" label="Add comment"/>
-                <div className="d-flex justify-content-end">
-                  <Button onClick={this.toggle}>Cancel</Button>
+                      <Fa className="float-right" icon="trash" onClick={this.deletePost}/>
+                    }
                 </div>
-              </Card>
-            </Collapse>
-            </CardFooter>
-        </Card>
+                <div className="added-text">{this.props.post.text}</div>
+                <div className="added-images">
+                  {this.props.post.photo &&
+                    (<div>
+                        <img
+                          className="z-depth-1 rounded mb-md-0 mb-2" alt="profilePic" src={'/api/posts/photo/'+this.props.post._id}
+                          />
+                    </div>)}
+                </div>
+
+                <div className="feed-footer">
+
+                  <a style={styles.likes} className="comment" aria-expanded="false" onClick={this.toggle}>Comments</a> 
+                  &nbsp;
+                    <span>
+                      <a>{this.state.comments.length}</a>
+                    </span>
+                  &emsp;
+                  { this.state.like
+                  ? <a className="like">
+                        <i className="fa fa-heart" aria-label="Like" onClick={this.like}></i>
+                    <span>{this.state.likes}</span>   
+                    </a>
+                  : <a className="like">
+                          <i className="fa fa-heart" aria-label="Unlike" onClick={this.like}></i>
+                        <span>{this.state.likes}</span> 
+                    </a>
+                  } 
+                  
+                  <Collapse id="collapseComment" isOpen={this.state.collapse}>
+                    <div className="card-body mt-1">
+                      <Comments toggle={this.toggle} postId={this.props.post._id} comments={this.state.comments} updateComments={this.updateComments}/>
+                      <div className="d-flex justify-content-end">
+                      </div>
+                    </div>
+                  </Collapse>
+                </div>
+              </div>
+            </div>
+        </div>
       </Row>
     </Container>
-    )
+  )
   }
 }
 
 export default Post;
+
+

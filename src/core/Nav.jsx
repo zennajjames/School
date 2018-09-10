@@ -1,5 +1,5 @@
 import React from "react";
-import { Fa, Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
+import { Fa, Navbar, NavbarBrand, NavbarNav, NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
 import auth from './../auth/auth-helper'
 import {withRouter} from 'react-router-dom'
 
@@ -51,7 +51,7 @@ const Nav = withRouter(({history}) => (
              <Dropdown>
                  <DropdownToggle nav caret></DropdownToggle>
                    <DropdownMenu>
-                       <DropdownItem href="/">Course Materials</DropdownItem>
+                       <DropdownItem href="/courses">My Courses</DropdownItem>
                        <DropdownItem href="/social">Social</DropdownItem>
                        <DropdownItem href="/users">Users</DropdownItem>
                        <DropdownItem href="/user/edit/:userId">Edit Profile</DropdownItem>

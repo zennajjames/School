@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-// import PropTypes from 'prop-types'
-import { Card, CardTitle, CardBody } from 'mdbreact';
+import PropTypes from 'prop-types'
 
 import auth from '../auth/auth-helper'
 import {listNewsFeed} from './api-post'
@@ -9,7 +8,13 @@ import PostList from './PostList'
 
 const styles = {
   heading: {
-    fontWeight: 300
+    fontWeight: 400,
+    color: "white"
+  },
+  span: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between"
   }
 }
 
@@ -52,20 +57,19 @@ class Newsfeed extends Component {
   render() {
     // const {classes} = this.props
     return (
-      <Card>
-        <CardBody>
-        <CardTitle style={styles.heading} type="title">Newsfeed</CardTitle>
+      <div>
+        <span style={styles.span}>
+          <h3 style={styles.heading} type="title">Newfeed</h3>
+          <NewPost addUpdate={this.addPost}/>
+        </span>
         <hr />
         <PostList removeUpdate={this.removePost} posts={this.state.posts}/>
-        <hr />
-        <NewPost addUpdate={this.addPost}/>
-        </CardBody>
-      </Card>
+      </div>
     )
   }
 }
-// Newsfeed.propTypes = {
-//   classes: PropTypes.object.isRequired
-// }
+Newsfeed.propTypes = {
+  classes: PropTypes.object.isRequired
+}
 
 export default Newsfeed;

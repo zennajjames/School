@@ -5,33 +5,33 @@ const UserSchema = new mongoose.Schema({
   firstname: {
     type: String,
     trim: true,
-    required: 'Name is required'
+    required: 'First name is required.'
   },
   lastname: {
     type: String,
     trim: true,
-    required: 'Name is required'
+    required: false
   },
   name: {
     type: String,
     trim: true,
-    required: 'Name is required'
+    required: 'First name is required.'
   },
   classcode: {
     type: String,
     trim: true,
-    required: 'Name is required'
+    required: 'Class code is required.'
   },
   email: {
     type: String,
     trim: true,
-    unique: 'Email already exists',
+    unique: 'Email already exists.',
     match: [/.+\@.+\..+/, 'Please fill a valid email address'],
-    required: 'Email is required'
+    required: 'Email is required.'
   },
   hashed_password: {
     type: String,
-    required: "Password is required"
+    required: "Password is required."
   },
   salt: String,
   updated: Date,
@@ -47,8 +47,18 @@ const UserSchema = new mongoose.Schema({
     data: Buffer,
     contentType: String
   },
-  following: [{type: mongoose.Schema.ObjectId, ref: 'User'}],
-  followers: [{type: mongoose.Schema.ObjectId, ref: 'User'}]
+  courses: 
+    [
+      {type: mongoose.Schema.ObjectId, ref: 'Courses'}
+    ],
+  following: 
+    [
+      {type: mongoose.Schema.ObjectId, ref: 'User'}
+    ],
+  followers: 
+    [
+      {type: mongoose.Schema.ObjectId, ref: 'User'}
+    ]
 })
 
 UserSchema
@@ -67,7 +77,7 @@ UserSchema.path('hashed_password').validate(function(v) {
     this.invalidate('password', 'Password must be at least 6 characters.')
   }
   if (this.isNew && !this._password) {
-    this.invalidate('password', 'Password is required')
+    this.invalidate('password', 'Password is required.')
   }
 }, null)
 

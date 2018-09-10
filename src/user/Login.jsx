@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Button, Card, CardBody, CardTitle, Input, Container, Row, Col } from "mdbreact";
+import { Button, Card, CardBody, Container, Row, Col } from "mdbreact";
 import {signin} from '../auth/api-auth.js'
 import auth from '../auth/auth-helper.js'
 
@@ -9,7 +9,6 @@ const styles = {
     fontWeight: 300
   }
 }
-
 class LoginPage extends Component {
   state = {
     email: '',
@@ -57,7 +56,7 @@ class LoginPage extends Component {
         <Container>
           <Row>
             <Col></Col>
-             <Col className="col-6">
+             <Col className="col-8">
                <Card>
                 <CardBody>
                 <form>
@@ -68,7 +67,7 @@ class LoginPage extends Component {
                   <br />
                   <label htmlFor="defaultFormLoginPasswordEx" className="grey-text">Password</label>
                   <input type="password" name="password" value={this.state.password} onChange={this.handleChange('password')} id="defaultFormLoginPasswordEx" className="form-control"/>
-                  <p className="font-small grey-text d-flex justify-content-end">Forgot <a href="#" className="dark-grey-text font-weight-bold ml-1"> Password?</a></p>
+                  <p className="font-small grey-text d-flex justify-content-end">Forgot <a href="/" className="dark-grey-text font-weight-bold ml-1"> Password?</a></p>
                   <div className="text-center">
                     <Button onClick={this.handleSubmit}>Login</Button>
                   </div>

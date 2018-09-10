@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Container, Button, Card, CardTitle, CardBody, CardImage, ListGroup, ListGroupItem, Fa } from 'mdbreact';
+import { Container, Button, Card, CardTitle, CardBody, Fa } from 'mdbreact';
 
 import {Link} from 'react-router-dom'
 import {list} from './api-user.js'

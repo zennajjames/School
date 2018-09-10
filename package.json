@@ -3,6 +3,7 @@
 		"version": "1.0.0",
 		"private": true,
 		"dependencies": {
+				"@u-wave/react-vimeo": "^0.5.0",
 				"aws-sdk": "^2.306.0",
 				"axios": "^0.18.0",
 				"bcryptjs": "^2.4.3",
@@ -22,7 +23,7 @@
 				"helmet": "^3.13.0",
 				"jsonwebtoken": "^8.3.0",
 				"lodash": "^4.17.10",
-				"mdbreact": "^4.7.0",
+				"mdbreact": "git+https://oauth2:L784vkqaXc1PkBiREZaW@git.mdbootstrap.com/mdb/react/re-pro.git",
 				"mongoose": "^5.2.10",
 				"morgan": "^1.9.0",
 				"passport-google-oauth": "^1.0.0",

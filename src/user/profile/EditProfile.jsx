@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Container, Button, Card, CardTitle, Fa, CardBody, CardImage, Input } from 'mdbreact';
+import { Container, Button, Card, CardTitle, Fa, CardBody, Input } from 'mdbreact';
 
 import auth from '../../auth/auth-helper'
 import {read, update} from '../api-user'
@@ -75,6 +75,7 @@ class EditProfile extends Component {
       password: this.state.password || undefined,
       about: this.state.about || undefined
     }
+    console.log(user)
     update({
       userId: this.match.params.userId
     }, {
