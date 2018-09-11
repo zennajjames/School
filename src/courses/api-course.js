@@ -96,7 +96,8 @@ const unfollow = (params, credentials, unfollowId) => {
 }
 
 const findCourses = (params, credentials) => {
-  return fetch('/api/courses/courses/' + params.courseId, {
+  console.log(params)
+  return fetch('/api/courses/' + params.userId, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
@@ -108,6 +109,21 @@ const findCourses = (params, credentials) => {
   }).catch((err) => console.log(err))
 }
 
+
+const listCoursesByUser = (params, credentials) => {
+  return fetch('/api/courses/by/'+ params.userId, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + credentials.t
+    }
+  }).then(response => {
+    return response.json()
+  }).catch((err) => console.log(err))
+}
+
+
 export {
   create,
   list,
@@ -116,5 +132,6 @@ export {
   remove,
   follow,
   unfollow,
-  findCourses
+  findCourses,
+  listCoursesByUser
 }

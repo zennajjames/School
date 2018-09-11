@@ -7,6 +7,7 @@ import { Redirect } from 'react-router-dom'
 import classnames from 'classnames';
 
 import FollowGrid from './FollowGrid'
+import CourseGrid from '../../courses/CourseGrid'
 import PostList from '../../post/PostList'
 import FindPeople from './FindPeople.jsx'   
 import DeleteUser from './DeleteUser'
@@ -14,6 +15,7 @@ import FollowProfileButton from '../FollowProfileButton'
 import Enroll from './Enroll.jsx'   
 
 import {listByUser} from '../../post/api-post'
+import {listCoursesByUser} from '../../courses/api-course'
 
 const styles = {
   bigAvatar: {
@@ -43,6 +45,7 @@ class Profile extends React.Component {
     this.state = {
       activeItemClassicTabs1: '1', 
       user: {following:[], followers:[]},
+      courses: [],
       redirectToSignin: false,
       following: false,
       posts: []
@@ -60,7 +63,8 @@ class Profile extends React.Component {
         this.setState({redirectToSignin: true})
       } else {
         let following = this.checkFollow(data)
-        this.setState({user: data, following: following})
+        this.setState({user: data, following: following, courses: data.courses})
+        console.log(this.state.user)
         this.loadPosts(data._id)
       }
     })
@@ -112,6 +116,22 @@ class Profile extends React.Component {
       }
     })
   }
+
+  // loadCourses = (user) => {
+  //   const jwt = auth.isAuthenticated()
+  //   listCoursesByUser({
+  //     userId: user
+  //   }, {
+  //     t: jwt.token
+  //   }).then((data) => {
+  //     if (data.error) {
+  //       console.log(data.error)
+  //     } else {
+  //       this.setState({courses: data})
+  //       console.log(this.state.courses)
+  //     }
+  //   })
+  // }
 
   removePost = (post) => {
     const updatedPosts = this.state.posts
@@ -193,6 +213,7 @@ class Profile extends React.Component {
                 </TabPane>
                 <TabPane tabId="2">
                   <h3>Courses</h3>
+                  <CourseGrid userId={this.state.user._id} courses={this.state.courses}/>
                   <Enroll userId={this.state.user._id}/>
                 </TabPane>
                 <TabPane tabId="3">

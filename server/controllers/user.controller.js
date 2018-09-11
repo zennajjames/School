@@ -1,4 +1,5 @@
 const User = require('../models/user.model')
+
 const _ = require('lodash')
 const errorHandler = require('./../helpers/dbErrorHandler')
 const formidable = require('formidable')
@@ -134,18 +135,30 @@ const addFollower = (req, res) => {
   })
 }
 
-const enrollStudent = (req, res) => {
+const addCourse = (req, res, next) => {
   let course = req.body.courseCode
-  User.findByIdAndUpdate(req.body.userId, {$push: {courses: course}}, {new: true})
-  .exec((err, result) => {
+  User.findByIdAndUpdate(req.body.userId, {$push: {courses: course}}, (err) => {
     if (err) {
       return res.status(400).json({
         error: errorHandler.getErrorMessage(err)
       })
     }
-    res.json(result)
-  })
-}
+    next()
+    })
+  }
+
+  const addStudent = (req, res) => {
+    let course = req.body.courseCode
+    Course.findOneAndUpdate({courseCode: course}, {$push: {students: req.body.userId}}, {new: true}), (err, result) => {
+          if (err) {
+        return res.status(400).json({
+          error: errorHandler.getErrorMessage(err)
+        })
+      }
+      res.json(result)
+    }
+  }
+
 
 const removeFollowing = (req, res, next) => {
   User.findByIdAndUpdate(req.body.userId, {$pull: {following: req.body.unfollowId}}, (err, result) => {
@@ -172,6 +185,8 @@ const removeFollower = (req, res) => {
     res.json(result)
   })
 }
+
+
 
 const findPeople = (req, res) => {
   let following = req.profile.following
@@ -200,5 +215,6 @@ module.exports = {
   removeFollowing,
   removeFollower,
   findPeople,
-  enrollStudent
+  addStudent,
+  addCourse
 }

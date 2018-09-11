@@ -109,8 +109,8 @@ const findPeople = (params, credentials) => {
   }).catch((err) => console.log(err))
 }
 
-const enroll = (params, credentials, courseCode) => {
-  console.log(courseCode)
+const enroll = (params, credentials, userData) => {
+  console.log(userData)
   return fetch('/api/users/enroll/', {
     method: 'PUT',
     headers: {
@@ -118,8 +118,27 @@ const enroll = (params, credentials, courseCode) => {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + credentials.t
     },
-    body: JSON.stringify({userId:params.userId, courseCode: courseCode})
+    body: JSON.stringify({userId: userData.userId, courseCode: userData.courseCode})
   }).then((response) => {
+    console.log(response)
+    return response.json()
+  }).catch((err) => {
+    console.log(err)
+  })
+}
+
+const addToRoster = (params, credentials, userData) => {
+  console.log(userData)
+  return fetch('/api/courses/enroll/', {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + credentials.t
+    },
+    body: JSON.stringify({userId: userData.userId, courseCode: userData.courseCode})
+  }).then((response) => {
+    console.log(response)
     return response.json()
   }).catch((err) => {
     console.log(err)
@@ -136,5 +155,6 @@ export {
   follow,
   unfollow,
   findPeople,
-  enroll
+  enroll,
+  addToRoster
 }

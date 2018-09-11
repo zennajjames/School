@@ -10,6 +10,7 @@ import CreateCourse from "./courses/CreateCourse.jsx";
 import LogIn from "./user/Login.jsx";
 import Register from "./user/Register.jsx";
 import EditProfile from "./user/profile/EditProfile.jsx";
+
 import Users from './user/Users.jsx'
 import Profile from "./user/profile/Profile";
 import PrivateRoute from './auth/PrivateRoute'

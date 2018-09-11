@@ -18,6 +18,7 @@ const styles = {
 
 class FollowGrid extends Component {
   render() {
+    console.log(this.props.people)
     return (<Container className="d-flex flex-wrap">
             {this.props.people.map((person, i) => {
             return <div key={i} className="p-2">

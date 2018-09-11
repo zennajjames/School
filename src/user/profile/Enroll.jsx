@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Card, CardBody, Container, Row, Col } from "mdbreact";
-import {enroll} from '../api-user'
+import {enroll, addToRoster} from '../api-user'
 import auth from '../../auth/auth-helper.js'
 
 
@@ -22,12 +22,11 @@ class Enroll extends Component {
     this.setState({[name]: event.target.value})
   }
 
-  addCourse = (event) => {
-    event.preventDefault()
+  addCourse = () => {
     console.log(this.state.courseCode)
     const jwt = auth.isAuthenticated()
-    enroll({ userId: jwt.user._id}, {t: jwt.token}, 
-      this.props.userId, {courseCode:this.state.courseCode}).then((data) => {
+    enroll({userId: jwt.user._id}, {t: jwt.token}, 
+      {userId:this.props.userId, courseCode:this.state.courseCode}).then((data) => {
       if (data.error) {
         console.log(data.error)
       } else {
@@ -35,6 +34,21 @@ class Enroll extends Component {
       }
     })
   }
+
+
+  addStudent = () => {
+    console.log(this.state.courseCode)
+    const jwt = auth.isAuthenticated()
+    addToRoster({ userId: jwt.user._id}, {t: jwt.token}, 
+      {userId:this.props.userId, courseCode:this.state.courseCode}).then((data) => {
+      if (data.error) {
+        console.log(data.error)
+      } else {
+        this.setState({courseCode: ''})
+      }
+    })
+  }
+
 
 
 // deleteComment = comment => event => {
@@ -68,6 +82,7 @@ class Enroll extends Component {
                   <p className="font-small grey-text d-flex justify-content-end">Forgot <a href="/" className="dark-grey-text font-weight-bold ml-1"> Course Code?</a></p>
                   <div className="text-center">
                     <Button onClick={this.addCourse}>Enroll</Button>
+                    <Button onClick={this.addStudent}>Add Student</Button>
                   </div>
                   <br />
                 </form>

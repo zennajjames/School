@@ -55,6 +55,7 @@ class EditProfile extends Component {
   componentDidMount = () => {
     console.log(this.props)
     this.userData = new FormData()
+    console.log(this.userData)
     const jwt = auth.isAuthenticated()
     read({
       userId: this.props.match.params.userId
@@ -76,11 +77,9 @@ class EditProfile extends Component {
       about: this.state.about || undefined
     }
     console.log(user)
-    update({
-      userId: this.match.params.userId
-    }, {
-      t: jwt.token
-    }, this.userData).then((data) => {
+    update({ userId: this.match.params.userId}, 
+      { t: jwt.token}, 
+      this.userData).then((data) => {
       if (data.error) {
         this.setState({error: data.error})
       } else {

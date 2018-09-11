@@ -19,28 +19,27 @@ const create = (req, res) => {
 /**
  * Load user and append to req.
  */
-const courseByID = (req, res, next, id) => {
-  Course.findById(id)
-    .populate('following', '_id name')
-    .populate('followers', '_id name')
-    .exec((err, course) => {
-    if (err || !course) return res.status('400').json({
-      error: "Course not found."
-    })
-    req.profile = course
+const courseById = (req, res, next, id) => {
+  Course.findById(id).exec((err, course) => {
+    if (err || !course)
+      return res.status('400').json({
+        error: "Course not found."
+      })
+    req.course = course
     next()
   })
 }
 
-const list = (req, res) => {
-  Course.find((err, users) => {
+const listCoursesByUser = (req, res) => {
+  Course.find({courseCode: "123"})
+  .exec((err, courses) => {
     if (err) {
       return res.status(400).json({
         error: errorHandler.getErrorMessage(err)
       })
     }
     res.json(courses)
-  }).select('title description instructor')
+  })
 }
 
 const update = (req, res, next) => {
@@ -99,13 +98,16 @@ const defaultPhoto = (req, res) => {
   return res.sendFile(process.cwd()+'/public/assets/images/fish.png')
 }
 
-const addStudent = (req, res, next) => {
-  Course.findByIdAndUpdate(req.body.userId, {$push: {studentsCurrent: req.body.followId}}, (err, result) => {
-    if (err) {
+const addStudent = (req, res) => {
+  let course = req.body.courseCode
+  Course.findOneAndUpdate({courseCode: course}, {$push: {students: req.body.userId}}, {new: true})
+  .exec((err, result) => {
+        if (err) {
       return res.status(400).json({
         error: errorHandler.getErrorMessage(err)
       })
     }
+    res.json(result)
   })
 }
 
@@ -136,9 +138,8 @@ const removeFollower = (req, res) => {
 }
 
 const findCourses = (req, res) => {
-  let following = req.profile.following
-  following.push(req.profile._id)
-  User.find({ _id: { $nin : following } }, (err, users) => {
+  console.log(req.profile)
+  Course.find({ courseCode: "123" }, (err, courses) => {
     if (err) {
       return res.status(400).json({
         error: errorHandler.getErrorMessage(err)
@@ -150,8 +151,8 @@ const findCourses = (req, res) => {
 
 module.exports = {
   create,
-  courseByID,
-  list,
+  courseById,
+  listCoursesByUser,
   remove,
   update,
   photo,

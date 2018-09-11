@@ -58,6 +58,7 @@ const listByUser = (req, res) => {
 }
 
 const listNewsFeed = (req, res) => {
+  console.log(req.profile)
   let following = req.profile.following
   following.push(req.profile._id)
   Post.find({postedBy: { $in : req.profile.following } })

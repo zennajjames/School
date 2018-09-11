@@ -5,8 +5,11 @@ const authCtrl = require('../controllers/auth.controller')
 
 const router = express.Router()
 
+router.route('/api/courses/by/:userId')
+  .get(authCtrl.requireSignin, courseCtrl.listCoursesByUser)
+
 router.route('/api/courses')
-  .get(courseCtrl.list)
+  .get(courseCtrl.courseById)
   .post(courseCtrl.create)
 
 router.route('/api/courses/photo/:courseId')
@@ -14,19 +17,21 @@ router.route('/api/courses/photo/:courseId')
 router.route('/api/courses/defaultphoto')
   .get(courseCtrl.defaultPhoto)
 
-router.route('/api/courses/follow')
-    .put(authCtrl.requireSignin, courseCtrl.addStudent, courseCtrl.addStudent)
+router.route('/api/courses/enroll')
+  .put(authCtrl.requireSignin, courseCtrl.addStudent)
 router.route('/api/courses/unfollow')
-    .put(authCtrl.requireSignin, courseCtrl.removeFollowing, courseCtrl.removeFollower)
-
-router.route('/api/courses/courses/:courseId')
-   .get(authCtrl.requireSignin, courseCtrl.findCourses)
+  .put(authCtrl.requireSignin, courseCtrl.removeFollowing, courseCtrl.removeFollower)
 
 router.route('/api/courses/:courseId')
   .get(authCtrl.requireSignin, userCtrl.read)
   .put(authCtrl.requireSignin, authCtrl.hasAuthorization, courseCtrl.update)
   .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, courseCtrl.remove)
 
-router.param('courseId', courseCtrl.courseByID)
+router.route('/api/courses/:userId')
+  .get(authCtrl.requireSignin, courseCtrl.findCourses)
 
-module.exports = router
+
+router.param('courseId', courseCtrl.courseById)
+router.param('userId', userCtrl.userByID)
+
+module.exports = router 

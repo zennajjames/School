@@ -27,8 +27,7 @@ const CourseSchema = new mongoose.Schema({
     postedBy: {type: mongoose.Schema.ObjectId, ref: 'User'}
       }
     ],
-  studentsCurrent: [{type: mongoose.Schema.ObjectId, ref: 'User'}],
-  studentsPast: [{type: mongoose.Schema.ObjectId, ref: 'User'}],
+  students: [{type: mongoose.Schema.ObjectId, ref: 'User'}],
   comments: 
     [
       {

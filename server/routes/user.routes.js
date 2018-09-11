@@ -1,7 +1,7 @@
 const express = require('express')
 const userCtrl = require('../controllers/user.controller')
 const authCtrl = require('../controllers/auth.controller')
-// const courseCtrl = require('../controllers/course.controller')
+const courseCtrl = require('../controllers/course.controller')
 
 const router = express.Router()
 
@@ -20,7 +20,7 @@ router.route('/api/users/unfollow')
     .put(authCtrl.requireSignin, userCtrl.removeFollowing, userCtrl.removeFollower)
 
 router.route('/api/users/enroll')
-.put(authCtrl.requireSignin, userCtrl.enrollStudent) //courseCtrl.addStudent
+.put(authCtrl.requireSignin, userCtrl.addCourse, userCtrl.addStudent) 
 
 router.route('/api/users/findpeople/:userId')
    .get(authCtrl.requireSignin, userCtrl.findPeople)
@@ -33,3 +33,4 @@ router.route('/api/users/:userId')
 router.param('userId', userCtrl.userByID)
 
 module.exports = router
+
