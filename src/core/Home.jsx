@@ -4,6 +4,7 @@ import { Container, Row, Col, Button, Fa } from 'mdbreact';
 import auth from '../auth/auth-helper'
 import Newsfeed from '../post/Newsfeed.jsx'
 
+
 const styles = {
   heading: {
     fontWeight: 300

@@ -9,6 +9,7 @@ const morgan = require('morgan')
 const userRoutes = require('./routes/user.routes')
 const authRoutes = require('./routes/auth.routes')
 const postRoutes = require('./routes/post.routes')
+const courseRoutes = require('./routes/course.routes')
 
 // ==== if its production environment!
 if (process.env.NODE_ENV === 'production') {
@@ -37,6 +38,7 @@ app.use(cors())
 app.use('/', userRoutes)
 app.use('/', authRoutes)
 app.use('/', postRoutes)
+app.use('/', courseRoutes)
 
 
 // Catch unauthorised errors

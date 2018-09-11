@@ -15,9 +15,9 @@ const create = (req, res, next) => {
     }
     let post = new Post(fields)
     post.postedBy= req.profile
-    if(files.photo){
-      post.photo.data = fs.readFileSync(files.photo.path)
-      post.photo.contentType = files.photo.type
+    if(files.photos){
+      post.photos.data = fs.readFileSync(files.photos.path)
+      post.photos.contentType = files.photos.type
     }
     post.save((err, result) => {
       if (err) {
@@ -87,9 +87,9 @@ const remove = (req, res) => {
     })
 }
 
-const photo = (req, res, next) => {
-    res.set("Content-Type", req.post.photo.contentType)
-    return res.send(req.post.photo.data)
+const photos = (req, res, next) => {
+    res.set("Content-Type", req.post.photos.contentType)
+    return res.send(req.post.photos.data)
 }
 
 const like = (req, res) => {
@@ -163,7 +163,7 @@ module.exports = {
   create,
   postByID,
   remove,
-  photo,
+  photos,
   like,
   unlike,
   comment,

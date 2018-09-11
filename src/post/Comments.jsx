@@ -62,6 +62,7 @@ class Comments extends Component {
   reply = (event) => {
       event.preventDefault()
       const jwt = auth.isAuthenticated()
+      console.log(this.state.text)
       comment({
         userId: jwt.user._id
       }, {
@@ -113,25 +114,27 @@ class Comments extends Component {
 
     return (<Card>
               <CardBody>
-                { this.props.comments.map((item, i) => {
-                    console.log(commentBody(item))
-                    return <div key={i}>
-                            <div style={styles.commentText}>{commentBody(item)}</div>
-                    </div>  })}
-              </CardBody>
-              <CardFooter>
-                <img className="rounded-circle z-depth-1-half" style={styles.smallAvatar} alt="profilePic" src={'/api/users/photo/'+auth.isAuthenticated().user._id}/>
-                <Input
-                  id="commentForm"
-                  onKeyDown={this.addComment}
-                  value={this.state.text}
-                  onChange={this.handleChange('text')}
-                  label="Write something ..."
-                  />
+                <div className="d-flex-inline">
+                  <img className="rounded-circle z-depth-1-half p-2" style={styles.smallAvatar} alt="profilePic" src={'/api/users/photo/'+auth.isAuthenticated().user._id}/>
+                  <Input
+                      className="p-2"
+                      id="commentForm"
+                      onKeyDown={this.addComment}
+                      value={this.state.text}
+                      onChange={this.handleChange('text')}
+                      label="Write something ..."
+                      />
+                </div>
                 <div className="float-right">
                   <Button size="sm" onClick={this.reply}>Reply</Button>
                   <Button size="sm" onClick={this.props.toggle}>Cancel</Button>
                 </div>
+              </CardBody>
+              <CardFooter>
+              { this.props.comments.map((item, i) => {
+                    return <div key={i}>
+                            <div style={styles.commentText}>{commentBody(item)}</div>
+                    </div>  })}
               </CardFooter>
           </Card>)
     }

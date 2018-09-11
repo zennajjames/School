@@ -17,11 +17,6 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     required: 'First name is required.'
   },
-  classcode: {
-    type: String,
-    trim: true,
-    required: 'Class code is required.'
-  },
   email: {
     type: String,
     trim: true,
@@ -49,7 +44,7 @@ const UserSchema = new mongoose.Schema({
   },
   courses: 
     [
-      {type: mongoose.Schema.ObjectId, ref: 'Courses'}
+      {type: String}
     ],
   following: 
     [

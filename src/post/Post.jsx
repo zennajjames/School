@@ -36,7 +36,6 @@ class Post extends Component {
   }
 
   componentDidMount = () => {
-    console.log(this.props)
     this.setState({like:this.checkLike(this.props.post.likes), likes: this.props.post.likes.length, comments: this.props.post.comments})
   }
 
@@ -90,7 +89,6 @@ class Post extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <Container style={styles.container}>
         <Row>
@@ -101,11 +99,8 @@ class Post extends Component {
               </div>
               <div className="excerpt">
                 <div className="brief">
-                  <a className="name" to={"/user/" + this.props.post.postedBy._id}>{this.props.post.postedBy.name}</a> added <a>2 new illustrations</a>
+                  <a className="name" to={"/user/" + this.props.post.postedBy._id}>{this.props.post.postedBy.name}</a>
                   <div className="date">{(new Date(this.props.post.created)).toDateString()}</div>
-                  {this.props.post.postedBy._id === auth.isAuthenticated().user._id &&
-                      <Fa className="float-right" icon="trash" onClick={this.deletePost}/>
-                    }
                 </div>
                 <div className="added-text">{this.props.post.text}</div>
                 <div className="added-images">
@@ -119,7 +114,7 @@ class Post extends Component {
 
                 <div className="feed-footer">
 
-                  <a style={styles.likes} className="comment" aria-expanded="false" onClick={this.toggle}>Comments</a> 
+                  <a className="comment" aria-expanded="false" onClick={this.toggle}>Comments</a> 
                   &nbsp;
                     <span>
                       <a>{this.state.comments.length}</a>
@@ -135,12 +130,13 @@ class Post extends Component {
                         <span>{this.state.likes}</span> 
                     </a>
                   } 
-                  
+                  &emsp;
+                  {this.props.post.postedBy._id === auth.isAuthenticated().user._id &&
+                      <Fa className="comment" icon="trash" onClick={this.deletePost}/>
+                    }
                   <Collapse id="collapseComment" isOpen={this.state.collapse}>
                     <div className="card-body mt-1">
                       <Comments toggle={this.toggle} postId={this.props.post._id} comments={this.state.comments} updateComments={this.updateComments}/>
-                      <div className="d-flex justify-content-end">
-                      </div>
                     </div>
                   </Collapse>
                 </div>

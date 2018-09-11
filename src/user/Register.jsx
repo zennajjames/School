@@ -19,7 +19,7 @@ class Register extends Component {
 		lastname: '',
 		password: '',
 		email: '',
-		classcode: '',
+		courseCode: '',
 		modal: false,
 		error: '', 
 		isUploading: false,
@@ -39,7 +39,7 @@ class Register extends Component {
 			name: fullname || undefined,
       email: this.state.email || undefined,
 			password: this.state.password || undefined,
-			classcode: this.state.classcode || undefined,
+			courseCode: this.state.courseCode || undefined,
 		}
     create(user).then((data) => {
 			console.log(data)
@@ -100,13 +100,13 @@ class Register extends Component {
 										onChange={this.handleChange('password')} 
 									/>
 									<br/> 
-									<label className="grey-text" htmlFor="classcode">Class Code: </label>
+									<label className="grey-text" htmlFor="courseCode">Class Code: </label>
 									<input
-										type="classcode"
-										name="classcode"
+										type="courseCode"
+										name="courseCode"
 									  className="form-control"
-										value={this.state.classcode}
-										onChange={this.handleChange('classcode')} 
+										value={this.state.courseCode}
+										onChange={this.handleChange('courseCode')} 
 									/>
 									<br/> 
 									{

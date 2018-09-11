@@ -3,7 +3,7 @@ import { Badge, Chip, ListGroup } from 'mdbreact';
 
 
 // import {Link} from 'react-router-dom'
-import {findPeople, follow} from '../api-user.js'
+import {findCourses, follow} from '../api-course.js'
 import auth from '../../auth/auth-helper.js'
 
 
@@ -27,14 +27,14 @@ const styles = {
   }
 }
 
-class FindPeople extends Component {
+class CourseGrid extends Component {
   state = {
-      users: [],
+      courses: [],
       open: false,
   }
   componentDidMount = () => {
     const jwt = auth.isAuthenticated()
-    findPeople({
+    findCourse({
       userId: jwt.user._id
     }, {
       t: jwt.token
@@ -42,14 +42,13 @@ class FindPeople extends Component {
       if (data.error) {
         console.log(data.error)
       } else {
-        this.setState({users: data})
+        this.setState({courses: data})
       }
     })
   }
 
   clickFollow = (user, index) => {
     const jwt = auth.isAuthenticated()
-    console.log(user)
     follow({
       userId: jwt.user._id
     }, {
@@ -60,7 +59,7 @@ class FindPeople extends Component {
       } else {
         let toFollow = this.state.users
         toFollow.splice(index, 1)
-        this.setState({users: toFollow, open: true, followMessage: `Following ${user.name}!`})
+        this.setState({courses: toFollow, open: true, followMessage: `Following ${user.name}!`})
       }
     })
   }
@@ -69,13 +68,12 @@ class FindPeople extends Component {
     this.setState({ open: false })
   }
   render() {
-    // const {classes} = this.props
     return (
     <div>     
-      <h4 style={styles.heading}>Classmates</h4>
+      <h4 style={styles.heading}>Courses</h4>
         <hr />
         <ListGroup>
-          {this.state.users.map((item, i) => { 
+          {this.state.courses.map((item, i) => { 
             return <span className="d-flex flex-row" key={i}>
             <Chip className="z-depth-1-half" bgColor="amber" text="white" size="lg" src={'/api/users/photo/'+item._id} alt="Classmates" waves>{item.name}</Chip>
             <h6 className="p-2"><Badge onClick={this.clickFollow.bind(this, item, i)} color="cyan">Follow</Badge></h6>
@@ -94,6 +92,6 @@ class FindPeople extends Component {
 }
 
 
-export default FindPeople;
+export default CourseGrid;
 
  

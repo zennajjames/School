@@ -20,7 +20,7 @@ class FollowGrid extends Component {
   render() {
     return (<Container className="d-flex flex-wrap">
             {this.props.people.map((person, i) => {
-            return <div className="p-2">
+            return <div key={i} className="p-2">
                       <div className="d-flex flex-column" style={{'height':120}} key={i}>
                         <img className="p-2" style={styles.avatar} alt="avatarPic" src={'/api/users/photo/'+person._id}/>
                         <a styles={styles.tileText} className="p-2" href={"/user/" + person._id}>

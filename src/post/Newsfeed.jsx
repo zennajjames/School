@@ -1,21 +1,21 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
 
 import auth from '../auth/auth-helper'
 import {listNewsFeed} from './api-post'
 import NewPost from './NewPost.jsx'
 import PostList from './PostList'
+import { Card } from 'mdbreact';
+
 
 const styles = {
   heading: {
     fontWeight: 400,
     color: "white"
   },
-  span: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between"
-  }
+  // postList: {
+  //   backgroundColor: 'rgba(214, 214, 214, 0.4)',
+  //   padding: 20
+  // }
 }
 
 class Newsfeed extends Component {
@@ -55,21 +55,20 @@ class Newsfeed extends Component {
   }
 
   render() {
-    // const {classes} = this.props
     return (
       <div>
-        <span style={styles.span}>
+        <span>
           <h3 style={styles.heading} type="title">Newfeed</h3>
           <NewPost addUpdate={this.addPost}/>
         </span>
         <hr />
-        <PostList removeUpdate={this.removePost} posts={this.state.posts}/>
+        <Card>
+          <PostList removeUpdate={this.removePost} posts={this.state.posts}/>
+        </Card>
       </div>
     )
   }
 }
-Newsfeed.propTypes = {
-  classes: PropTypes.object.isRequired
-}
+
 
 export default Newsfeed;

@@ -41,7 +41,6 @@ class LoginPage extends Component {
   }
 
   render() {
-    console.log(this.props)
     const {from} = this.props.location.state || {
       from: {
         pathname: '/'

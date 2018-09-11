@@ -1,13 +1,13 @@
-const create = (user) => {
-  console.log(user)
-  console.log("New registration!")
-  return fetch('/api/users/', {
+const create = (course) => {
+  console.log(course)
+  console.log("Adding new course...")
+  return fetch('/api/courses/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify(course)
     })
     .then((response) => {
       return response.json()
@@ -15,7 +15,7 @@ const create = (user) => {
 }
 
 const list = () => {
-  return fetch('/api/users/', {
+  return fetch('/api/courses/', {
     method: 'GET',
   }).then(response => {
     return response.json()
@@ -23,7 +23,7 @@ const list = () => {
 }
 
 const read = (params, credentials) => {
-  return fetch('/api/users/' + params.userId, {
+  return fetch('/api/courses/' + params.courseId, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
@@ -35,15 +35,14 @@ const read = (params, credentials) => {
   }).catch((err) => console.log(err))
 }
 
-const update = (params, credentials, user) => {
-  console.log(user)
-  return fetch('/api/users/' + params.userId, {
+const update = (params, credentials, course) => {
+  return fetch('/api/courses/' + params.courseId, {
     method: 'PUT',
     headers: {
       'Accept': 'application/json',
       'Authorization': 'Bearer ' + credentials.t
     },
-    body: user
+    body: course
   }).then((response) => {
     return response.json()
   }).catch((err) => {
@@ -52,7 +51,7 @@ const update = (params, credentials, user) => {
 }
 
 const remove = (params, credentials) => {
-  return fetch('/api/users/' + params.userId, {
+  return fetch('/api/courses/' + params.courseId, {
     method: 'DELETE',
     headers: {
       'Accept': 'application/json',
@@ -65,14 +64,14 @@ const remove = (params, credentials) => {
 }
 
 const follow = (params, credentials, followId) => {
-  return fetch('/api/users/follow/', {
+  return fetch('/api/courses/follow/', {
     method: 'PUT',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + credentials.t
     },
-    body: JSON.stringify({userId:params.userId, followId: followId})
+    body: JSON.stringify({courseId:params.courseId, followId: followId})
   }).then((response) => {
     return response.json()
   }).catch((err) => {
@@ -81,14 +80,14 @@ const follow = (params, credentials, followId) => {
 }
 
 const unfollow = (params, credentials, unfollowId) => {
-  return fetch('/api/users/unfollow/', {
+  return fetch('/api/courses/unfollow/', {
     method: 'PUT',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + credentials.t
     },
-    body: JSON.stringify({userId:params.userId, unfollowId: unfollowId})
+    body: JSON.stringify({courseId:params.courseId, unfollowId: unfollowId})
   }).then((response) => {
     return response.json()
   }).catch((err) => {
@@ -96,8 +95,8 @@ const unfollow = (params, credentials, unfollowId) => {
   })
 }
 
-const findPeople = (params, credentials) => {
-  return fetch('/api/users/findpeople/' + params.userId, {
+const findCourses = (params, credentials) => {
+  return fetch('/api/courses/courses/' + params.courseId, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
@@ -109,24 +108,6 @@ const findPeople = (params, credentials) => {
   }).catch((err) => console.log(err))
 }
 
-const enroll = (params, credentials, courseCode) => {
-  console.log(courseCode)
-  return fetch('/api/users/enroll/', {
-    method: 'PUT',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + credentials.t
-    },
-    body: JSON.stringify({userId:params.userId, courseCode: courseCode})
-  }).then((response) => {
-    return response.json()
-  }).catch((err) => {
-    console.log(err)
-  })
-}
-
-
 export {
   create,
   list,
@@ -135,6 +116,5 @@ export {
   remove,
   follow,
   unfollow,
-  findPeople,
-  enroll
+  findCourses
 }

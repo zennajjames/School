@@ -9,7 +9,7 @@ router.route('/api/posts/new/:userId')
   .post(authCtrl.requireSignin, postCtrl.create)
 
 router.route('/api/posts/photo/:postId')
-  .get(postCtrl.photo)
+  .get(postCtrl.photos)
 
 router.route('/api/posts/by/:userId')
   .get(authCtrl.requireSignin, postCtrl.listByUser)

@@ -1,12 +1,12 @@
-const User = require('../models/user.model')
+const Course = require('../models/course.model')
 const _ = require('lodash')
-const errorHandler = require('./../helpers/dbErrorHandler')
+const errorHandler = require('../helpers/dbErrorHandler')
 const formidable = require('formidable')
 const fs = require('fs')
 
-const create = (req, res, next) => {
-  const user = new User(req.body)
-  user.save((err, result) => {
+const create = (req, res) => {
+  const course = new Course(req.body)
+  course.save((err, result) => {
     if (err) {
       return res.status(400).json({
         error: errorHandler.getErrorMessage(err)
@@ -16,38 +16,31 @@ const create = (req, res, next) => {
     })
   })
 }
-
 /**
  * Load user and append to req.
  */
-const userByID = (req, res, next, id) => {
-  User.findById(id)
+const courseByID = (req, res, next, id) => {
+  Course.findById(id)
     .populate('following', '_id name')
     .populate('followers', '_id name')
-    .exec((err, user) => {
-    if (err || !user) return res.status('400').json({
-      error: "User not found."
+    .exec((err, course) => {
+    if (err || !course) return res.status('400').json({
+      error: "Course not found."
     })
-    req.profile = user
+    req.profile = course
     next()
   })
 }
 
-const read = (req, res) => {
-  req.profile.hashed_password = undefined
-  req.profile.salt = undefined
-  return res.json(req.profile)
-}
-
 const list = (req, res) => {
-  User.find((err, users) => {
+  Course.find((err, users) => {
     if (err) {
       return res.status(400).json({
         error: errorHandler.getErrorMessage(err)
       })
     }
-    res.json(users)
-  }).select('name email updated created')
+    res.json(courses)
+  }).select('title description instructor')
 }
 
 const update = (req, res, next) => {
@@ -103,47 +96,16 @@ const photo = (req, res, next) => {
 }
 
 const defaultPhoto = (req, res) => {
-  console.log(process.cwd()+'/public/assets/images/profile-pic.png')
-  return res.sendFile(process.cwd()+'/public/assets/images/profile-pic.png')
+  return res.sendFile(process.cwd()+'/public/assets/images/fish.png')
 }
 
-const addFollowing = (req, res, next) => {
-  User.findByIdAndUpdate(req.body.userId, {$push: {following: req.body.followId}}, (err, result) => {
+const addStudent = (req, res, next) => {
+  Course.findByIdAndUpdate(req.body.userId, {$push: {studentsCurrent: req.body.followId}}, (err, result) => {
     if (err) {
       return res.status(400).json({
         error: errorHandler.getErrorMessage(err)
       })
     }
-    next()
-  })
-}
-
-const addFollower = (req, res) => {
-  User.findByIdAndUpdate(req.body.followId, {$push: {followers: req.body.userId}}, {new: true})
-  .populate('following', '_id name')
-  .populate('followers', '_id name')
-  .exec((err, result) => {
-    if (err) {
-      return res.status(400).json({
-        error: errorHandler.getErrorMessage(err)
-      })
-    }
-    result.hashed_password = undefined
-    result.salt = undefined
-    res.json(result)
-  })
-}
-
-const enrollStudent = (req, res) => {
-  let course = req.body.courseCode
-  User.findByIdAndUpdate(req.body.userId, {$push: {courses: course}}, {new: true})
-  .exec((err, result) => {
-    if (err) {
-      return res.status(400).json({
-        error: errorHandler.getErrorMessage(err)
-      })
-    }
-    res.json(result)
   })
 }
 
@@ -173,7 +135,7 @@ const removeFollower = (req, res) => {
   })
 }
 
-const findPeople = (req, res) => {
+const findCourses = (req, res) => {
   let following = req.profile.following
   following.push(req.profile._id)
   User.find({ _id: { $nin : following } }, (err, users) => {
@@ -182,23 +144,20 @@ const findPeople = (req, res) => {
         error: errorHandler.getErrorMessage(err)
       })
     }
-    res.json(users)
-  }).select('name')
+    res.json(courses)
+  }).select('title')
 }
 
 module.exports = {
   create,
-  userByID,
-  read,
+  courseByID,
   list,
   remove,
   update,
   photo,
   defaultPhoto,
-  addFollowing,
-  addFollower,
+  addStudent,
   removeFollowing,
   removeFollower,
-  findPeople,
-  enrollStudent
+  findCourses
 }

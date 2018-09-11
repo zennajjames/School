@@ -52,7 +52,7 @@ const Nav = withRouter(({history}) => (
                  <DropdownToggle nav caret></DropdownToggle>
                    <DropdownMenu>
                        <DropdownItem href="/courses">My Courses</DropdownItem>
-                       <DropdownItem href="/social">Social</DropdownItem>
+                       <DropdownItem href="/createcourse">Create A Course</DropdownItem>
                        <DropdownItem href="/users">Users</DropdownItem>
                        <DropdownItem href="/user/edit/:userId">Edit Profile</DropdownItem>
                       <DropdownItem onClick={() => {auth.signout(() => history.push('/'))}}>Sign Out</DropdownItem>

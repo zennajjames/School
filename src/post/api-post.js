@@ -87,6 +87,7 @@ const unlike = (params, credentials, postId) => {
 }
 
 const comment = (params, credentials, postId, comment) => {
+  console.log(comment, postId)
   return fetch('/api/posts/comment/', {
     method: 'PUT',
     headers: {

@@ -1,16 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Container, Row, Col, Fa, CardText, TabPane, TabContent, Nav, NavItem, NavLink } from 'mdbreact';
+import auth from '../../auth/auth-helper.js'
+import {read} from '../api-user'
+import { Redirect } from 'react-router-dom'
+import classnames from 'classnames';
+
 import FollowGrid from './FollowGrid'
 import PostList from '../../post/PostList'
 import FindPeople from './FindPeople.jsx'   
-import classnames from 'classnames';
-
 import DeleteUser from './DeleteUser'
-import auth from '../../auth/auth-helper'
-import {read} from '../api-user'
-import {Redirect, Link} from 'react-router-dom'
 import FollowProfileButton from '../FollowProfileButton'
+import Enroll from './Enroll.jsx'   
+
 import {listByUser} from '../../post/api-post'
 
 const styles = {
@@ -33,7 +35,6 @@ const styles = {
   }
 
 }
-
 class Profile extends React.Component {
   constructor({match}) {
     super();
@@ -180,9 +181,9 @@ class Profile extends React.Component {
                       auth.isAuthenticated().user && auth.isAuthenticated().user._id === this.state.user._id
                       ? (
                         <div>
-                          <Link to={"/user/edit/" + this.state.user._id}>
+                          <a href={"/user/edit/" + this.state.user._id}>
                           <Fa icon="edit"/>
-                          </Link>
+                          </a>
                           <DeleteUser userId={this.state.user._id}/>             
                         </div>    
                       )
@@ -192,7 +193,7 @@ class Profile extends React.Component {
                 </TabPane>
                 <TabPane tabId="2">
                   <h3>Courses</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima.</p>
+                  <Enroll userId={this.state.user._id}/>
                 </TabPane>
                 <TabPane tabId="3">
                 <h3>Posts</h3>
