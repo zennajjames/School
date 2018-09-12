@@ -117,22 +117,6 @@ class Profile extends React.Component {
     })
   }
 
-  // loadCourses = (user) => {
-  //   const jwt = auth.isAuthenticated()
-  //   listCoursesByUser({
-  //     userId: user
-  //   }, {
-  //     t: jwt.token
-  //   }).then((data) => {
-  //     if (data.error) {
-  //       console.log(data.error)
-  //     } else {
-  //       this.setState({courses: data})
-  //       console.log(this.state.courses)
-  //     }
-  //   })
-  // }
-
   removePost = (post) => {
     const updatedPosts = this.state.posts
     const index = updatedPosts.indexOf(post)

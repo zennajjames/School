@@ -3,6 +3,8 @@ import { Button, Card, CardBody, Container, Row, Col } from "mdbreact";
 import {enroll, addToRoster} from '../api-user'
 import auth from '../../auth/auth-helper.js'
 
+import Modal from '../../core/Modal'
+
 
 const styles = {
   heading: {
@@ -49,22 +51,6 @@ class Enroll extends Component {
     })
   }
 
-
-
-// deleteComment = comment => event => {
-//   const jwt = auth.isAuthenticated()
-//   uncomment({
-//     userId: jwt.user._id
-//   }, {
-//     t: jwt.token
-//   }, this.props.postId, comment).then((data) => {
-//     if (data.error) {
-//       console.log(data.error)
-//     } else {
-//       this.props.updateComments(data.comments)
-//     }
-//   })
-// }
 
   render() {
       return (

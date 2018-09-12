@@ -16,14 +16,14 @@ class ModalPage extends React.Component {
   render() {
     return (
       <Container>
-        <Button color="success" onClick={this.toggle}>Submit</Button>
+        <Button color="success" onClick={this.toggle}>{this.props.openButton}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Welcome!</ModalHeader>
+          <ModalHeader toggle={this.toggle}>{this.props.header}</ModalHeader>
           <ModalBody>
-            Registration successful! You can now log in.
+            {this.props.body}
           </ModalBody>
           <ModalFooter>
-            <Button href="/login" color="primary">Log In!</Button>
+            <Button href="/login" color="primary">{this.props.closeButton}</Button>
           </ModalFooter>
         </Modal>
       </Container>
