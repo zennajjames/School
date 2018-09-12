@@ -1,16 +1,8 @@
 import React, { Component } from "react";
-import { Button, Card, CardBody, Container, Row, Col } from "mdbreact";
+import { Button } from "mdbreact";
 import {enroll, addToRoster} from '../api-user'
 import auth from '../../auth/auth-helper.js'
 
-import Modal from '../../core/Modal'
-
-
-const styles = {
-  heading: {
-    fontWeight: 300
-  }
-}
 class Enroll extends Component {
   state = {
     courseCode: '',
@@ -54,30 +46,17 @@ class Enroll extends Component {
 
   render() {
       return (
-        <Container>
-          <Row>
-            <Col></Col>
-             <Col className="col-8">
-               <Card>
-                <CardBody>
-                <form>
-                  <h3 style={styles.heading} className="text-center mb-4">Add A Course</h3>
-                  <label htmlFor="courseCode" className="grey-text">Course Code</label>
-                  <input type="text" name="courseCode" className="form-control" value={this.state.courseCode}
-                    onChange={this.handleChange('courseCode')}/>
-                  <p className="font-small grey-text d-flex justify-content-end">Forgot <a href="/" className="dark-grey-text font-weight-bold ml-1"> Course Code?</a></p>
-                  <div className="text-center">
-                    <Button onClick={this.addCourse}>Enroll</Button>
-                    <Button onClick={this.addStudent}>Add Student</Button>
-                  </div>
-                  <br />
-                </form>
-              </CardBody>
-            </Card>
-            </Col>
-            <Col></Col>
-          </Row>
-        </Container>
+          <form>
+            <label htmlFor="courseCode" className="grey-text">Course Code</label>
+            <input type="text" name="courseCode" className="form-control" value={this.state.courseCode}
+              onChange={this.handleChange('courseCode')}/>
+            <p className="font-small grey-text d-flex justify-content-end">Forgot <a href="/" className="dark-grey-text font-weight-bold ml-1"> Course Code?</a></p>
+            <div className="text-center">
+              <Button onClick={this.addCourse}>Enroll</Button>
+              <Button onClick={this.addStudent}>Add Student</Button>
+            </div>
+            <br />
+          </form>      
       );
     }
   }

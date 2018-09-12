@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Button, Fa } from 'mdbreact';
+import { Container, Row, Col, Button, Fa, Card } from 'mdbreact';
 // import PropTypes from 'prop-types'
 import auth from '../auth/auth-helper'
 import Newsfeed from '../post/Newsfeed.jsx'
-
+import CourseGrid from '../courses/CourseGrid'
 
 const styles = {
   heading: {
-    fontWeight: 300
+    fontWeight: 400,
+    color: "white",
+    paddingTop: 16
   },
   logo: {
     maxWidth: 250
@@ -64,10 +66,17 @@ class Home extends Component {
           }
           {!this.state.defaultPage &&
             <Row>
-            <Col className="col-8">
+            <Col className="col-12 col-lg-8 col-sm-10">
               <Newsfeed/>
             </Col>
-            <Col className="col-4">
+            <Col className="clo-12 col-lg-4">
+              <div>
+                <h5 style={styles.heading}>My Courses</h5>
+                <hr />
+              </div>
+              <Card style={{padding:20}}>
+                <CourseGrid/>
+              </Card>
             </Col>
             </Row>
           }

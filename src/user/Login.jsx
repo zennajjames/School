@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Button, Card, CardBody, Container, Row, Col } from "mdbreact";
+import { Badge, Button, Card, CardBody, Container, Row, Col } from "mdbreact";
 import {signin} from '../auth/api-auth.js'
 import auth from '../auth/auth-helper.js'
 
@@ -22,7 +22,6 @@ class LoginPage extends Component {
       email: this.state.email || undefined,
       password: this.state.password || undefined
     }
-
     signin(user).then((data) => {
       console.log(data)
       if (data.error) {
@@ -41,6 +40,8 @@ class LoginPage extends Component {
   }
 
   render() {
+    let errorMessage = this.state.error
+
     const {from} = this.props.location.state || {
       from: {
         pathname: '/'
@@ -67,6 +68,11 @@ class LoginPage extends Component {
                   <label htmlFor="defaultFormLoginPasswordEx" className="grey-text">Password</label>
                   <input type="password" name="password" value={this.state.password} onChange={this.handleChange('password')} id="defaultFormLoginPasswordEx" className="form-control"/>
                   <p className="font-small grey-text d-flex justify-content-end">Forgot <a href="/" className="dark-grey-text font-weight-bold ml-1"> Password?</a></p>
+                  <br/> 
+                  {
+                    this.state.error && (<h4 className="text-center">
+                    <Badge tag="a" href="#!" color="danger">{errorMessage}</Badge></h4>)
+                  }
                   <div className="text-center">
                     <Button onClick={this.handleSubmit}>Login</Button>
                   </div>

@@ -55,6 +55,7 @@ class FindPeople extends Component {
     }, {
       t: jwt.token
     }, user._id).then((data) => {
+      console.log(data)
       if (data.error) {
         this.setState({error: data.error})
       } else {

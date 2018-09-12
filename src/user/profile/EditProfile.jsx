@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import { Container, Button, Card, CardTitle, Fa, CardBody, Input } from 'mdbreact';
-
+import Modal from '../../core/Modal'
 import auth from '../../auth/auth-helper'
-import {read, update} from '../api-user'
+import {read, update, remove} from '../api-user'
 import {Redirect} from 'react-router-dom'
 
 const styles = {
@@ -47,6 +47,8 @@ class EditProfile extends Component {
       email: '',
       password: '',
       redirectToProfile: false,
+      redirectHome: false,
+      id: '',
       error: ''
     }
     this.match = match
@@ -96,12 +98,32 @@ class EditProfile extends Component {
     this.setState({ [name]: value })
   }
 
+
+  deleteAccount = () => {
+    const jwt = auth.isAuthenticated()
+    remove({
+      userId: this.state.id
+    }, {t: jwt.token}).then((data) => {
+      if (data.error) {
+        console.log(data.error)
+      } else {
+        auth.signout(() => console.log('Account Deleted.'))
+        this.setState({redirectHome: true})
+      }
+    })
+  }
+
+
   render() {
+    console.log(this.props)
     const photoUrl = this.state.id
                  ? `/api/users/photo/${this.state.id}?${new Date().getTime()}`
                  : '/api/users/defaultphoto'
     if (this.state.redirectToProfile) {
       return (<Redirect to={'/user/' + this.state.id}/>)
+    }
+    if (this.state.redirectHome) {
+      return (<Redirect to={'/'}/>)
     }
     return (
       <Container>
@@ -116,7 +138,7 @@ class EditProfile extends Component {
           <Input size="sm" id="name" label="Name" value={this.state.name} onChange={this.handleChange('name')} margin="normal"/>
           <Input size="sm" id="email" label="Email"  value={this.state.email} onChange={this.handleChange('email')} margin="normal"/>
           <Input size="sm" id="password" label="Password" value={this.state.password} onChange={this.handleChange('password')} margin="normal"/>
-          <Input type="textarea" label="About" icon="pencil" value={this.state.about} onChange={this.handleChange('about')} margin="normal"/>
+          <Input type="textarea" hint="Add a short bio..." label="About" icon="pencil" value={this.state.about} onChange={this.handleChange('about')} margin="normal"/>
           <br/>
            {
             this.state.error && (<h5 component="p" color="error">
@@ -124,7 +146,9 @@ class EditProfile extends Component {
               {this.state.error}
             </h5>)
           }
-          <Button color="primary" onClick={this.clickSubmit}>Submit</Button>
+          <Button size="sm" color="primary" onClick={this.clickSubmit}>Submit</Button>
+          <Button size="sm" color="primary" href={'/user/' + this.state.id}>Cancel</Button>
+          <Modal className="float-right" header={"Confirm to delete your account."} closeButton={"Cancel"} openButton={<div><Fa icon="trash" aria-label="Delete"/>Delete Account</div>} body={<Button className="mx-auto" onClick={this.deleteAccount} color="danger" autoFocus="autoFocus">Confirm.</Button>}></Modal>         
         </CardBody>
       </Card>
     </Container>

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import auth from '../auth/auth-helper'
-import {Fa, Container, Row, Collapse } from 'mdbreact';
+import {Fa, Collapse } from 'mdbreact';
+import moment from 'moment'
 
 import {remove, like, unlike} from './api-post'
 import Comments from './Comments'
@@ -90,8 +91,7 @@ class Post extends Component {
 
   render() {
     return (
-      <Container style={styles.container}>
-        <Row>
+
           <div className="mdb-feed">
             <div style={styles.card} className="news">
               <div className="label">
@@ -100,7 +100,7 @@ class Post extends Component {
               <div className="excerpt">
                 <div className="brief">
                   <a className="name" to={"/user/" + this.props.post.postedBy._id}>{this.props.post.postedBy.name}</a>
-                  <div className="date">{(new Date(this.props.post.created)).toDateString()}</div>
+                  <div className="date">{moment(new Date(this.props.post.created)).calendar()}</div>
                 </div>
                 <div className="added-text">{this.props.post.text}</div>
                 <div className="added-images">
@@ -143,8 +143,6 @@ class Post extends Component {
               </div>
             </div>
         </div>
-      </Row>
-    </Container>
   )
   }
 }

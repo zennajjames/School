@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Button, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
+import { Button, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
 
 
 class ModalPage extends React.Component {
@@ -15,18 +15,18 @@ class ModalPage extends React.Component {
 
   render() {
     return (
-      <Container>
-        <Button color="success" onClick={this.toggle}>{this.props.openButton}</Button>
+      <div>
+        <Button className="p-2" size="sm" onClick={this.toggle}>{this.props.openButton}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>{this.props.header}</ModalHeader>
+          <ModalHeader>{this.props.header}</ModalHeader>
           <ModalBody>
             {this.props.body}
           </ModalBody>
           <ModalFooter>
-            <Button href="/login" color="primary">{this.props.closeButton}</Button>
+            <Button onClick={this.toggle} size="sm">{this.props.closeButton}</Button>
           </ModalFooter>
         </Modal>
-      </Container>
+      </div>
     );
   }
 }

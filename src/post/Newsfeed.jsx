@@ -4,6 +4,8 @@ import auth from '../auth/auth-helper'
 import {listNewsFeed} from './api-post'
 import NewPost from './NewPost.jsx'
 import PostList from './PostList'
+import Modal from '../core/Modal'
+
 import { Card } from 'mdbreact';
 
 
@@ -38,6 +40,7 @@ class Newsfeed extends Component {
   }
 
   componentDidMount = () => {
+    console.log(this.props)
     this.loadPosts()
   }
 
@@ -57,10 +60,12 @@ class Newsfeed extends Component {
   render() {
     return (
       <div>
-        <span>
+        <div className="d-inline-block">
           <h3 style={styles.heading} type="title">Newfeed</h3>
-          <NewPost addUpdate={this.addPost}/>
-        </span>
+        </div>
+        <div className="d-inline-block float-right">
+          <Modal header={"Post"} closeButton={"Cancel"} openButton={"Post"} body={<NewPost addUpdate={this.addPost}/>}/>
+        </div>
         <hr />
         <Card>
           <PostList removeUpdate={this.removePost} posts={this.state.posts}/>

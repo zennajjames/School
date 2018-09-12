@@ -15,8 +15,8 @@ class FollowProfileButton extends Component {
   render() {
     return (<div>
       { this.props.following
-        ? (<Button variant="raised" color="secondary" onClick={this.unfollowClick}>Unfollow</Button>)
-        : (<Button variant="raised" color="primary" onClick={this.followClick}>Follow</Button>)
+        ? (<Button size="sm" color="secondary" onClick={this.unfollowClick}>Unfollow</Button>)
+        : (<Button size="sm" color="primary" onClick={this.followClick}>Follow</Button>)
       }
     </div>)
   }

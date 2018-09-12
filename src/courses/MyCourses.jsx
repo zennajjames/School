@@ -1,30 +1,32 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Container, Row, Badge, Col, Fa, TabPane, TabContent, Nav, NavItem, NavLink } from 'mdbreact';
+import { Container, Row, Col, Fa, CardText, TabPane, TabContent, Nav, NavItem, NavLink } from 'mdbreact';
 import auth from '../../auth/auth-helper.js'
 import {read} from '../api-user'
 import { Redirect } from 'react-router-dom'
 import classnames from 'classnames';
-import moment from 'moment'
 
 import FollowGrid from './FollowGrid'
 import CourseGrid from '../../courses/CourseGrid'
-
 import PostList from '../../post/PostList'
 import FindPeople from './FindPeople.jsx'   
+import DeleteUser from './DeleteUser'
 import FollowProfileButton from '../FollowProfileButton'
+import Enroll from './Enroll.jsx'   
 
 import {listByUser} from '../../post/api-post'
+import {listCoursesByUser} from '../../courses/api-course'
 
 const styles = {
   bigAvatar: {
-    width: 85,
-    height: 85,
+    width: 80,
+    height: 80,
     margin: 10,
     borderRadius: 50
   },
   heading: {
     fontWeight: 300,
+    color: "white"
   },
   followGrid: {
     borderWidth: .5,
@@ -32,13 +34,10 @@ const styles = {
     borderStyle: 'groove',
     padding: 10,
     margin:15
-  },
-  badge: {
-    padding:8,
-    margin: 5
   }
+
 }
-class Profile extends React.Component {
+class MyCourses extends React.Component {
   constructor({match}) {
     super();
 
@@ -134,11 +133,10 @@ class Profile extends React.Component {
   }
 
   render() {
-    const joined = moment(new Date(this.state.user.created)).format("LL")
+    const joined = (new Date(this.state.user.created)).toDateString();
     const photoUrl = this.state.user._id
               ? `/api/users/photo/${this.state.user._id}?${new Date().getTime()}`
               : '/api/users/defaultphoto'
-    const userId = this.state.user._id
     const redirectToSignin = this.state.redirectToSignin
     if (redirectToSignin) {
       return <Redirect to='/signin'/>
@@ -178,47 +176,32 @@ class Profile extends React.Component {
                 </Nav>
                 <TabContent className="card" activeItem={this.state.activeItemClassicTabs1}>
                   <TabPane tabId="1">
-                      <h3 className="d-inline">About</h3>
-                        {
-                        auth.isAuthenticated().user && auth.isAuthenticated().user._id === this.state.user._id
-                        ? (
-                          <div className="d-inline">
-                            <Badge style={styles.badge} tag="a" href={"/user/edit/" + this.state.user._id} className="d-inline float-right align-self-end">
-                                <Fa icon="edit"/>Edit Profile&nbsp;
-                            </Badge>&nbsp;
-                          </div>
-                        )
-                        : (<div className="d-inline float-right">
-                              <FollowProfileButton following={this.state.following} onButtonClick={this.clickFollowButton}/>
-                            </div>
-                        )}  
-                      <hr />
-                      <Row>
-                        <Col>
-                            <img className="z-depth-1-half" alt="profilePic" src={photoUrl} style={styles.bigAvatar}/>                   
-                        </Col>
-                        <Col className="col-9">
-                            <div className="float-left">
-                              <h4 style={styles.heading}>{this.state.user.name}</h4>
-                              <h5><Badge tag="a" href={"mailto:"+this.state.user.email} color="info">{this.state.user.email}</Badge></h5>
-                              <p className="grey-text">Joined: {joined}</p>   
-                            </div>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col>
-                            <h4 style={styles.heading}>{this.state.user.about}</h4>
-                        </Col>
-                      </Row>
+                      <h3>About</h3>
+                      <img alt="profilePic" src={photoUrl} style={styles.bigAvatar}/>
+                      <h4 style={styles.heading}>{this.state.user.name}</h4>
+                      <CardText>{this.state.user.email}</CardText>
+                      <CardText>Joined: {joined}</CardText>
+                      {
+                      auth.isAuthenticated().user && auth.isAuthenticated().user._id === this.state.user._id
+                      ? (
+                        <div>
+                          <a href={"/user/edit/" + this.state.user._id}>
+                          <Fa icon="edit"/>
+                          </a>
+                          <DeleteUser userId={this.state.user._id}/>             
+                        </div>    
+                      )
+                      : (<FollowProfileButton following={this.state.following} onButtonClick={this.clickFollowButton}/>)
+                        }         
+                      <h4 style={styles.heading}>{this.state.user.about}</h4>
                 </TabPane>
                 <TabPane tabId="2">
                   <h3>Courses</h3>
-                  <hr />
-                  <CourseGrid userId={userId} courses={this.state.courses}/>
+                  <CourseGrid userId={this.state.user._id} courses={this.state.courses}/>
+                  <Enroll userId={this.state.user._id}/>
                 </TabPane>
                 <TabPane tabId="3">
                 <h3>Posts</h3>
-                <hr />
                   <PostList removeUpdate={this.removePost} posts={this.state.posts}/> 
                 </TabPane>
                 <TabPane tabId="4">
@@ -242,9 +225,57 @@ class Profile extends React.Component {
           </Col>
         </Row>
       </Container>
+      <Container>
+        <section className="text-center my-5">
+          <h2 className="white-text h1-responsive font-weight-bold my-5">Our Most Popular Courses</h2>
+          <p className="white-text w-responsive mx-auto mb-5">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit est laborum.</p>
+          <Row className="text-center">
+            <Col lg="4" md="12" className="mb-lg-0 mb-4">
+              <View className="overlay rounded z-depth-1" waves>
+                <img src="https://mdbootstrap.com/img/Photos/Others/images/58.jpg" alt="course" className="img-fluid"/>
+                <a>
+                  <Mask overlay="white-slight"/>
+                </a>
+              </View>
+              <CardBody className="pb-0">
+                <h4 className="font-weight-bold my-3">Composition I</h4>
+                <Button href="/composition" color="indigo" size="sm"><Fa icon="clone" className="left"/> View Course</Button>
+              </CardBody>
+            </Col>
+            <Col lg="4" md="12" className="mb-lg-0 mb-4">
+              <View className="overlay rounded z-depth-1" waves>
+                <img src="https://mdbootstrap.com/img/Photos/Others/project4.jpg" alt="course" className="img-fluid"/>
+                <a>
+                  <Mask overlay="white-slight"/>
+                </a>
+              </View>
+              <CardBody className="pb-0">
+                <h4 className="font-weight-bold my-3">A New Approach To Color</h4>
+                <p className="grey-text">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae.</p>
+                <Button color="indigo" size="sm"><Fa icon="clone" className="left"/> View Course</Button>
+              </CardBody>
+            </Col>
+            <Col lg="4" md="12" className="mb-lg-0 mb-4">
+              <View className="overlay rounded z-depth-1" waves>
+                <img src="https://mdbootstrap.com/img/Photos/Others/images/88.jpg" alt="course" className="img-fluid"/>
+                <a>
+                  <Mask overlay="white-slight"/>
+                </a>
+              </View>
+              <CardBody className="pb-0">
+                <h4 className="font-weight-bold my-3">Design I: Your Visual Language</h4>
+                <p className="grey-text">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae.</p>
+                <Button color="indigo" size="sm"><Fa icon="clone" className="left"/> View Course</Button>
+              </CardBody>
+            </Col>
+          </Row>
+        </section>
+      </Container>
     </Router>
+
+    
     );
   }
 }
 
-export default Profile;
+export default MyCourses;

@@ -8,6 +8,7 @@ const create = (req, res, next) => {
   let form = new formidable.IncomingForm()
   form.keepExtensions = true
   form.parse(req, (err, fields, files) => {
+    console.log(fields.text+"   "+files.photos)
     if (err) {
       return res.status(400).json({
         error: "Image could not be uploaded."
@@ -15,9 +16,13 @@ const create = (req, res, next) => {
     }
     let post = new Post(fields)
     post.postedBy= req.profile
-    if(files.photos){
-      post.photos.data = fs.readFileSync(files.photos.path)
-      post.photos.contentType = files.photos.type
+    if(files.photos)
+    {
+      for (let i=0; i<post.photos.length; i++) {
+        post.photos[i].data = fs.readFileSync(files.photos[i].path)
+        post.photos[i].contentType = files.photos[i].type
+      }
+      console.log("photos exist.")
     }
     post.save((err, result) => {
       if (err) {

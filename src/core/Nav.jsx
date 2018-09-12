@@ -5,9 +5,9 @@ import {withRouter} from 'react-router-dom'
 
 const isActive = (history, path) => {
   if (history.location.pathname === path)
-    return {color: '#004d40'}
+    return {fontWeight: '600'}
   else
-    return {color: '#ffffff'}
+    return {fontWeight: '300'}
 }
 
 const styles = {
@@ -42,7 +42,10 @@ const Nav = withRouter(({history}) => (
         auth.isAuthenticated() && (
         <NavbarNav right>
          <NavItem>
-            <NavLink to={"/"}><Fa icon="home"/></NavLink>
+            <NavLink style={isActive(history, "/")} to={"/"}><Fa icon="dashboard"/>Dashboard</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to={"/students"}>Connect</NavLink>
           </NavItem>
           <NavItem>
             <NavLink to={"/user/" + auth.isAuthenticated().user._id} style={isActive(history, "/user/" + auth.isAuthenticated().user._id)}>Profile</NavLink>
@@ -52,10 +55,7 @@ const Nav = withRouter(({history}) => (
                  <DropdownToggle nav caret></DropdownToggle>
                    <DropdownMenu>
                        <DropdownItem href="/courses">My Courses</DropdownItem>
-                       <DropdownItem href="/createcourse">Create A Course</DropdownItem>
-                       <DropdownItem href="/users">Users</DropdownItem>
-                       <DropdownItem href="/user/edit/:userId">Edit Profile</DropdownItem>
-                      <DropdownItem onClick={() => {auth.signout(() => history.push('/'))}}>Sign Out</DropdownItem>
+                       <DropdownItem onClick={() => {auth.signout(() => history.push('/'))}}>Sign Out</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
             </NavItem>

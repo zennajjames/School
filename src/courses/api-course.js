@@ -119,6 +119,7 @@ const listCoursesByUser = (params, credentials) => {
       'Authorization': 'Bearer ' + credentials.t
     }
   }).then(response => {
+    console.log(response)
     return response.json()
   }).catch((err) => console.log(err))
 }

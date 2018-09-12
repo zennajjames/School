@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Badge, Button, Collapse,Card, CardBody, CardHeader, CardFooter, Input, InputFile } from 'mdbreact';
+import { Button, Input, InputFile } from 'mdbreact';
 import PropTypes from 'prop-types'
 import {create} from './api-post.js'
 import auth from '../auth/auth-helper.js'
@@ -16,7 +16,7 @@ const styles = {
     marginRight: 15
   },
   input: {
-    margin: 0
+    display: 'none'
   }
 }
 
@@ -24,14 +24,9 @@ class NewPost extends Component {
   
   state = {
     text: '',
-    photos: [],
+    photos: '',
     error: '',
-    user: {},
-    collapse: false,
-  }
-
-  toggle = () => {
-    this.setState({ collapse: !this.state.collapse });
+    user: {}
   }
 
   componentDidMount = () => {
@@ -39,14 +34,25 @@ class NewPost extends Component {
     this.setState({user: auth.isAuthenticated().user})
   }
 
+  handleChange = (name) => event => {
+    
+    const value = name === 'photos'
+      ? event.target.files
+      : event.target.value
+    
+    this.postData.set(name, value)
+    this.setState({ [name]: value })
+  }
+
   clickPost = () => {
-    console.log("made it")
+    console.log("Posting...")
     const jwt = auth.isAuthenticated()
     create({
       userId: jwt.user._id
     }, {
       t: jwt.token
     }, this.postData).then((data) => {
+      console.log(this.postData)
       if (data.error) {
         this.setState({error: data.error})
       } else {
@@ -57,45 +63,61 @@ class NewPost extends Component {
     })
   }
 
-  handleChange = name => event => {
-    const value = name === 'photos'
-      ? event.target.files[0]
-      : event.target.value
-    this.postData.set(name, value)
-    this.setState({ [name]: value })
-    console.log(event.target.files)
+  fileInputHandler = (files) => {
+     console.log(files) // returns FileList object
+     //Check File API support
+     if (window.File && window.FileList && window.FileReader) {
+  
+      var output = document.getElementById("result");
+
+      for (var i = 0; i < files.length; i++) {
+          var file = files[i];
+          //Only pics
+          if (!file.type.match('image')) continue;
+
+          var picReader = new FileReader();
+          picReader.addEventListener("load", function (event) {
+              var picFile = event.target;
+              var div = document.createElement("div");
+              div.innerHTML = "<img style='max-width:90px; max-height:90px; float:left; margin:10px; display: inline'src='" + picFile.result + "'" + "title='" + picFile.name + "'/>";
+              output.insertBefore(div, null);
+          });
+          //Read the image
+          picReader.readAsDataURL(file);
+      }
+
+      // for (var j = 0; j < files.length; j++) {
+          //var eachFile = files[j];
+         // fileArray.push(eachFile)
+      //}
+
+      } else {
+          console.log("Your browser does not support File API");
+      }
   }
+  
   render() {
     return (
-    <div>
-      <h3><Badge color="amber darken-3" onClick={this.toggle} style={{ marginBottom: "1rem" }}>Post</Badge></h3>
-      <Collapse isOpen={this.state.collapse}>
-          <Card>
-            <CardHeader className="d-flex flex-row">
-              <img className="rounded-circle z-depth-1-half" style={styles.avatar} alt="profilePic" src={'/api/users/photo/'+this.state.user._id}/>
-              <Input style={styles.input} hint="Share your thoughts ..." value={this.state.text}
-                  onChange={this.handleChange('text')}/>  
-            </CardHeader>
-            <CardBody>
-              <input multiple accept="image/*" onChange={this.handleChange('photos')} id="icon-button-file" type="file"/>
-            <span>
-              {this.state.photos ? this.state.photos.name : ''}
-            </span>
+        <div>
+            <div className="d-flex flex-row">
+              <Input onChange={this.handleChange('text')} hint="Share your thoughts ..." value={this.state.text}/>  
+            </div>
+              {/* <input style={styles.input}  onChange={this.handleFileSelect}  multiple="multiple"/> */}
+        
+                <InputFile hint="upload" multiple getValue={ this.fileInputHandler} btnColor="info" type="file" id="files"></InputFile>
+
+              <br/>
+              <output id="result" />
 
             { this.state.error && (<h5 component="p" color="error">
                   {this.state.error}
                 </h5>)
             }
-          </CardBody>
-          <CardFooter>
+    
               <div className='float-right'>
                   <Button size="sm" disabled={this.state.text === ''} onClick={this.clickPost}>Post</Button>
-                  <Button size="sm" onClick={this.toggle}>Cancel</Button>
               </div>
-          </CardFooter>
-        </Card>
-      </Collapse>
-  </div>)
+        </div>)
   }
 }
 

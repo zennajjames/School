@@ -110,11 +110,11 @@ class Register extends Component {
 									/>
 									<br/> 
 									{
-										this.state.error && (<h4>
-											<Badge className="mx-auto" tag="a" href="#!" color="danger">{this.state.error}</Badge></h4>)
+										this.state.error && (<h4 className="text-center">
+											<Badge tag="a" href="#!" color="danger">{this.state.error}</Badge></h4>)
 									} 
 										{
-										this.state.success && (<h4>
+										this.state.success && (<h4 className="text-center">
 											<Badge tag="a" href="/login" color="success">{this.state.success}</Badge></h4>)
 									}
 									<div className="text-center">

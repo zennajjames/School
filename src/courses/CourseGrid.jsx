@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
-import { Button, Badge, Chip, ListGroup } from 'mdbreact';
+import { Row, Col, Button, Chip } from 'mdbreact';
 
 import Enroll from '../user/profile/Enroll'
 import Modal from '../core/Modal'
-
-// import {Link} from 'react-router-dom'
+import CreateCourse from './CreateCourse'
 import { listCoursesByUser} from './api-course'
 import auth from '../auth/auth-helper.js'
 
@@ -44,36 +43,42 @@ class CourseGrid extends Component {
       if (data.error) {
         console.log(data.error)
       } else {
+        console.log(data)
         this.setState({courses: data})
-        console.log("Success")
+        console.log("Success!")
       }
     })
   }
 
-  render() {
-    console.log(this.props.courses)
-    const photoUrl = this.state.courses._id
-    ? `/api/courses/photo/${this.state.user._id}?${new Date().getTime()}`
-    : '/api/courses/defaultphoto'
-    return (
-    <div>     
-     <Button onClick={this.getCourses}>Get Courses</Button>
-     <Modal header={"Add A Course"} body={<Enroll/>}/>
-    <h4 style={styles.heading}>Courses</h4>
-     <hr />
-     <ListGroup>
-     {this.state.courses.map((course, i) => { 
-       return <span className="d-flex flex-row" key={i}>
-       <Chip className="z-depth-1-half" bgColor="amber" text="white" size="lg" src={photoUrl} alt="Classmates" waves>{course.title}</Chip>
-       <h6 className="p-2"><Badge color="cyan">Go To Course</Badge></h6>
-       </span>
-     })
-     }
-     </ListGroup>
-    </div>
-      )
+  componentDidMount = () => {
+    console.log(this.props)
+    this.getCourses()
   }
-}
+
+  render() {
+    return (
+      <div>
+      <Row>      
+        <Col>
+          {this.state.courses.map((course, i) => { 
+            const photoUrl = course.photo
+            ? `/api/courses/photo/${this.state.user._id}?${new Date().getTime()}`
+            : '/api/courses/defaultphoto'
+            return <div className="d-flex-column d-wrap" key={i}>
+                      <a href={'course/'+ course._id}><Chip className="justify-content-center z-depth-1-half" bgColor="cyan darken-2" text="white" size="lg" src={photoUrl} alt="Courses" waves>{course.title}</Chip></a>
+                   </div>
+          })}
+        </Col>
+      </Row>  
+      <Row>
+        <div className="d-inline-flex p-2 float-right">
+            <Modal header={"Add A Course"} closeButton={"Cancel"} openButton={"Add A Course"} body={<Enroll userId={this.props.userId}/>}/>
+            <Modal header={"Create A Course"} closeButton={"Cancel"} openButton={"Create A Course"} body={<CreateCourse userId={this.props.userId}/>}/>
+        </div>
+      </Row>
+    </div>
+    )}
+  }
 
 
 export default CourseGrid;

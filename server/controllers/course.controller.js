@@ -31,7 +31,9 @@ const courseById = (req, res, next, id) => {
 }
 
 const listCoursesByUser = (req, res) => {
-  Course.find({courseCode: "123"})
+  console.log(req)
+  // for (let i=0; i<courses.length)
+  Course.find({courseCode: "111"})
   .exec((err, courses) => {
     if (err) {
       return res.status(400).json({
@@ -95,7 +97,7 @@ const photo = (req, res, next) => {
 }
 
 const defaultPhoto = (req, res) => {
-  return res.sendFile(process.cwd()+'/public/assets/images/fish.png')
+  return res.sendFile(process.cwd()+'/public/assets/images/chair.png')
 }
 
 const addStudent = (req, res) => {

@@ -1,31 +1,20 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Badge, Button, Card, CardBody } from 'mdbreact';
-
+import { Container, Badge, Button } from 'mdbreact';
 
 import {create} from './api-course'
 
-const styles = {
-  heading: {
-    fontWeight: 300
-  }
-}
-
 class CreateCourse extends Component {
-  
-  state = {
-		title: '',
-		description: '',
-		instructor: '',
-		coursePhoto: '',
-		courseCode: '',
-		modal: false,
-		error: '', 
-		success: ''
-  };
 
-	componentDidMount = () => {
-		console.log(this.props)
-	}
+		state = {
+			title: '',
+			description: '',
+			instructor: '',
+			coursePhoto: '',
+			courseCode: '',
+			error: '', 
+			success: ''
+		};
+	
   handleChange = name => event => {
     this.setState({[name]: event.target.value})
 	}
@@ -34,7 +23,7 @@ class CreateCourse extends Component {
     const course = {
 			title: this.state.title || undefined,
 			description: this.state.description || undefined,
-			instructor: this.state.instructor || undefined,
+			instructor: this.props.userId || undefined,
       coursePhoto: this.state.coursePhoto || undefined,
 			courseCode: this.state.courseCode || undefined
 		}
@@ -50,14 +39,8 @@ class CreateCourse extends Component {
 
   render() {
 		return (
-			<Container className="SignupForm">
-				<Row>
-					<Col></Col>
-						<Col className="col-8">
-						<Card>
-							<CardBody>
-								<h2 className="text-center mb-4" style={styles.heading}>Create A Course</h2>
-									<hr />
+				
+							<Container>
 									<label className="grey-text" htmlFor="name">Course Title: </label>
 									<input
 										type="text"
@@ -96,12 +79,8 @@ class CreateCourse extends Component {
 									<div className="text-center">
 										<Button onClick={this.handleSubmit}>Create</Button>
 									</div>
-									</CardBody>
-								</Card>
-							</Col>
-						<Col></Col>
-					</Row>
-				</Container>
+									</Container>
+			
 		)
 	}
 }
