@@ -5,7 +5,7 @@ const compress = require('compression')
 const cors = require('cors')
 const helmet = require('helmet')
 const morgan = require('morgan')
-
+const path = require('path')
 const userRoutes = require('./routes/user.routes')
 const authRoutes = require('./routes/auth.routes')
 const postRoutes = require('./routes/post.routes')
@@ -40,6 +40,9 @@ app.use('/', authRoutes)
 app.use('/', postRoutes)
 app.use('/', courseRoutes)
 
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname,'../public/index.html'))
+});
 
 // Catch unauthorised errors
 app.use((err, req, res, next) => {
