@@ -96,7 +96,7 @@ class NewPost extends Component {
     if(name === "photo"){
       for(let i = 0; i < event.target.files.length; i++){
         let file = event.target.files[i];
-        this.postData.append('File: '+i, file);
+        this.postData.append('File', file);
     }
   }
     this.postData.append(name, value)

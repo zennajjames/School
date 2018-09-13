@@ -12,8 +12,8 @@ const create = (req, res, next) => {
   form.parse(req, (err, fields, files) => {
 
     for(let i in files){
-      console.log(i);
-      console.log("logging files")
+      console.log("Logging files..")
+      console.log(files.File);
     }
 
     if (err) {
@@ -25,23 +25,27 @@ const create = (req, res, next) => {
     let post = new Post(fields)
 
     if(files){
+      
+      // var fileArray = files.map(a => a.File);
+      // console(fileArray)
+
       console.log("Files exist!")
       let photoArray = []
-      for (let i=0; i<files.length; i++) {
-        console.log(file[i])
-        let photo = {
-          data: fs.readFileSync(files[i].photo.path),
-          contentType: files[i].photo.type
-        }
-        photoArray.push(photo)
+      let length = files.File.length
+      console.log(length)
+
+      for (let i=0; i<length; i++) {
+        photoArray.push({
+          data: fs.readFileSync(files.File[i].path),
+          contentType: files.File[i].type
+        })
       }
       console.log(photoArray)
- 
+      post.photos = photoArray
       post.postedBy = req.profile._id
       console.log(post)
     } 
      
-
     post.save((err, result) => {
       if (err) {
         return res.status(400).json({

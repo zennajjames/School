@@ -111,7 +111,7 @@ class Post extends Component {
                 <div className="added-text">{this.props.post.text}</div>
                 <div className="added-images">
                 {this.props.post.photos.map((photo, i) => { 
-                  return <div>
+                  return <div key={i}>
                         <img
                           className="z-depth-1 rounded mb-md-0 mb-2" alt="post-photos" src={'/api/posts/photo/'+photo[i]}
                           />
