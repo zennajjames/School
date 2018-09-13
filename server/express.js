@@ -13,16 +13,6 @@ const courseRoutes = require('./routes/course.routes')
 
 const app = express()
 
-// ==== if its production environment!
-if (process.env.NODE_ENV === 'production') {
-	const path = require('path')
-	console.log('YOU ARE IN THE PRODUCTION ENV')
-	app.use(express.static(path.join(__dirname, '../build')))
-	app.get('/', (req, res) => {
-		res.sendFile(path.join(__dirname, '../build/index.html'))
-	})
-}
-
 // parse body params and attache them to req.body
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -40,9 +30,16 @@ app.use('/', authRoutes)
 app.use('/', postRoutes)
 app.use('/', courseRoutes)
 
-// app.get('*', (req, res) => {
-// 	res.sendFile(path.join(__dirname,'../build/index.html'))
-// });
+
+// ==== if its production environment!
+if (process.env.NODE_ENV === 'production') {
+	const path = require('path')
+	console.log('YOU ARE IN THE PRODUCTION ENV')
+	app.use(express.static(path.join(__dirname, '/build')))
+	app.get('*', (req, res) => {
+		res.sendFile(path.join(__dirname, '/build', 'index.html'))
+	})
+}
 
 // Catch unauthorised errors
 app.use((err, req, res, next) => {
