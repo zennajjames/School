@@ -40,9 +40,9 @@ app.use('/', authRoutes)
 app.use('/', postRoutes)
 app.use('/', courseRoutes)
 
-app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname,'../build/index.html'))
-});
+// app.get('*', (req, res) => {
+// 	res.sendFile(path.join(__dirname,'../build/index.html'))
+// });
 
 // Catch unauthorised errors
 app.use((err, req, res, next) => {
