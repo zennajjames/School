@@ -11,6 +11,8 @@ const authRoutes = require('./routes/auth.routes')
 const postRoutes = require('./routes/post.routes')
 const courseRoutes = require('./routes/course.routes')
 
+const app = express()
+
 // ==== if its production environment!
 if (process.env.NODE_ENV === 'production') {
 	const path = require('path')
@@ -20,8 +22,6 @@ if (process.env.NODE_ENV === 'production') {
 		res.sendFile(path.join(__dirname, '../build/'))
 	})
 }
-
-const app = express()
 
 // parse body params and attache them to req.body
 app.use(bodyParser.json())
