@@ -24,7 +24,7 @@ class NewPost extends Component {
   
   state = {
     text: '',
-    photos: '',
+    photos: [],
     error: '',
     user: {}
   }
@@ -32,16 +32,6 @@ class NewPost extends Component {
   componentDidMount = () => {
     this.postData = new FormData()
     this.setState({user: auth.isAuthenticated().user})
-  }
-
-  handleChange = (name) => event => {
-    
-    const value = name === 'photos'
-      ? event.target.files
-      : event.target.value
-    
-    this.postData.set(name, value)
-    this.setState({ [name]: value })
   }
 
   clickPost = () => {
@@ -53,11 +43,10 @@ class NewPost extends Component {
       t: jwt.token
     }, this.postData).then((data) => {
       console.log(this.postData)
-      if (data.error) {
-        this.setState({error: data.error})
+      if (!data) {
+        this.setState({error: "There was an error. Try again."})
       } else {
         this.setState({text:'', photos: []})
-        console.log(this.state.photos)
         this.props.addUpdate(data)
       }
     })
@@ -86,16 +75,34 @@ class NewPost extends Component {
           picReader.readAsDataURL(file);
       }
 
-      // for (var j = 0; j < files.length; j++) {
-          //var eachFile = files[j];
-         // fileArray.push(eachFile)
-      //}
-
       } else {
           console.log("Your browser does not support File API");
       }
   }
   
+  // handleChange = name => event => {
+  //   const value = name === 'photo'
+  //     ? event.target.files[0]
+  //     : event.target.value
+  //   this.postData.set(name, value)
+  //   this.setState({ [name]: value })
+  // }
+
+  handleChange = name => event => {
+    const value = name === 'photo'
+      ? event.target.files
+      : event.target.value
+    
+    if(name === "photo"){
+      for(let i = 0; i < event.target.files.length; i++){
+        let file = event.target.files[i];
+        this.postData.append('File: '+i, file);
+    }
+  }
+    this.postData.append(name, value)
+    this.setState({ [name]: value })
+  }
+
   render() {
     return (
         <div>
@@ -104,7 +111,8 @@ class NewPost extends Component {
             </div>
               {/* <input style={styles.input}  onChange={this.handleFileSelect}  multiple="multiple"/> */}
         
-                <InputFile hint="upload" multiple getValue={ this.fileInputHandler} btnColor="info" type="file" id="files"></InputFile>
+                {/* <InputFile hint="upload" multiple  onChange={this.handleChange('photo')} btnColor="info" type="file" id="files"></InputFile> */}
+                <input accept="image/*" multiple onChange={this.handleChange('photo')} id="icon-button-file" type="file" />
 
               <br/>
               <output id="result" />
@@ -128,3 +136,4 @@ NewPost.propTypes = {
 export default NewPost;
 
 
+//getValue={this.fileInputHandler}

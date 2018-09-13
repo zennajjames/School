@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button } from "mdbreact";
-import {enroll, addToRoster} from '../api-user'
-import auth from '../../auth/auth-helper.js'
+import {enroll, addToRoster} from '../user/api-user'
+import auth from '../auth/auth-helper.js'
 
 class Enroll extends Component {
   state = {
@@ -12,11 +12,15 @@ class Enroll extends Component {
     courses: [],
   };
 
+  componentDidMount = () => {
+    console.log(this.props)
+  }
+
   handleChange = name => event => {
     this.setState({[name]: event.target.value})
   }
 
-  addCourse = () => {
+  signUpForCourse = () => {
     console.log(this.state.courseCode)
     const jwt = auth.isAuthenticated()
     enroll({userId: jwt.user._id}, {t: jwt.token}, 
@@ -27,10 +31,11 @@ class Enroll extends Component {
         this.setState({courseCode: ''})
       }
     })
+    this.addStudentToRoster()
   }
 
 
-  addStudent = () => {
+  addStudentToRoster = () => {
     console.log(this.state.courseCode)
     const jwt = auth.isAuthenticated()
     addToRoster({ userId: jwt.user._id}, {t: jwt.token}, 
@@ -52,8 +57,7 @@ class Enroll extends Component {
               onChange={this.handleChange('courseCode')}/>
             <p className="font-small grey-text d-flex justify-content-end">Forgot <a href="/" className="dark-grey-text font-weight-bold ml-1"> Course Code?</a></p>
             <div className="text-center">
-              <Button onClick={this.addCourse}>Enroll</Button>
-              <Button onClick={this.addStudent}>Add Student</Button>
+              <Button onClick={this.signUpForCourse}>Enroll</Button>
             </div>
             <br />
           </form>      

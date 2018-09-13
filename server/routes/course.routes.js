@@ -9,7 +9,7 @@ router.route('/api/courses/by/:userId')
   .get(authCtrl.requireSignin, courseCtrl.listCoursesByUser)
 
 router.route('/api/courses')
-  .get(courseCtrl.courseById)
+  .get(courseCtrl.list)
   .post(courseCtrl.create)
 
 router.route('/api/courses/photo/:courseId')

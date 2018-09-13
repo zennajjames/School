@@ -30,10 +30,20 @@ const courseById = (req, res, next, id) => {
   })
 }
 
+const list = (req, res) => {
+  Course.find((err, courses) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler.getErrorMessage(err)
+      })
+    }
+    res.json(courses)
+  }).select('title description courseCode students')
+}
+
 const listCoursesByUser = (req, res) => {
-  console.log(req)
-  // for (let i=0; i<courses.length)
-  Course.find({courseCode: "111"})
+  console.log("Requesting courses...")
+    Course.find({courseCode: "111"})
   .exec((err, courses) => {
     if (err) {
       return res.status(400).json({
@@ -162,5 +172,6 @@ module.exports = {
   addStudent,
   removeFollowing,
   removeFollower,
-  findCourses
+  findCourses,
+  list
 }

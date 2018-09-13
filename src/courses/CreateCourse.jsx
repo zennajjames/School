@@ -8,7 +8,7 @@ class CreateCourse extends Component {
 		state = {
 			title: '',
 			description: '',
-			instructor: '',
+			instructor: this.props.userId,
 			coursePhoto: '',
 			courseCode: '',
 			error: '', 
@@ -23,10 +23,11 @@ class CreateCourse extends Component {
     const course = {
 			title: this.state.title || undefined,
 			description: this.state.description || undefined,
-			instructor: this.props.userId || undefined,
+			instructor: this.state.instructor || undefined,
       coursePhoto: this.state.coursePhoto || undefined,
 			courseCode: this.state.courseCode || undefined
 		}
+		console.log(course.instructor)
     create(course).then((data) => {
 			console.log(data)
       if (data.error) {

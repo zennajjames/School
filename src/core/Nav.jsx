@@ -23,7 +23,7 @@ const Nav = withRouter(({history}) => (
       {/* <span>
       <h3 style={styles.logo}><strong>School</strong></h3><img style={styles.logo} src="" alt="logo"/>
       </span> */}
-      <img style={styles.logo} src="/assets/images/schoolLogo.png" alt="logo"/>
+        <img style={styles.logo} src="/assets/images/schoolLogo.png" alt="logo"/>
       </NavbarBrand>
       {/* { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
                     <Collapse isOpen = { this.state.collapse } navbar> */}
@@ -41,6 +41,9 @@ const Nav = withRouter(({history}) => (
       {
         auth.isAuthenticated() && (
         <NavbarNav right>
+        <NavItem>
+          <NavLink to={"/"}>Hi, {auth.isAuthenticated().user.name}!</NavLink>
+        </NavItem>
          <NavItem>
             <NavLink style={isActive(history, "/")} to={"/"}><Fa icon="dashboard"/>Dashboard</NavLink>
           </NavItem>

@@ -4,26 +4,44 @@ const errorHandler = require('./../helpers/dbErrorHandler')
 const formidable = require('formidable')
 const fs = require('fs')
 
+
 const create = (req, res, next) => {
   let form = new formidable.IncomingForm()
   form.keepExtensions = true
+  form.multiples = true;
   form.parse(req, (err, fields, files) => {
-    console.log(fields.text+"   "+files.photos)
+
+    for(let i in files){
+      console.log(i);
+      console.log("logging files")
+    }
+
     if (err) {
       return res.status(400).json({
-        error: "Image could not be uploaded."
+        error: "Image could not be uploaded"
       })
     }
+
     let post = new Post(fields)
-    post.postedBy= req.profile
-    if(files.photos)
-    {
-      for (let i=0; i<post.photos.length; i++) {
-        post.photos[i].data = fs.readFileSync(files.photos[i].path)
-        post.photos[i].contentType = files.photos[i].type
+
+    if(files){
+      console.log("Files exist!")
+      let photoArray = []
+      for (let i=0; i<files.length; i++) {
+        console.log(file[i])
+        let photo = {
+          data: fs.readFileSync(files[i].photo.path),
+          contentType: files[i].photo.type
+        }
+        photoArray.push(photo)
       }
-      console.log("photos exist.")
-    }
+      console.log(photoArray)
+ 
+      post.postedBy = req.profile._id
+      console.log(post)
+    } 
+     
+
     post.save((err, result) => {
       if (err) {
         return res.status(400).json({

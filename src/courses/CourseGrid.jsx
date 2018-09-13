@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import { Row, Col, Button, Chip } from 'mdbreact';
 
-import Enroll from '../user/profile/Enroll'
+import Enroll from '../courses/Enroll'
 import Modal from '../core/Modal'
 import CreateCourse from './CreateCourse'
-import { listCoursesByUser} from './api-course'
+import { list } from './api-course'
 import auth from '../auth/auth-helper.js'
 
 
@@ -34,28 +34,36 @@ class CourseGrid extends Component {
   state = {
     courses: [],
     open: false,
-  }
-  getCourses = () => {
-    console.log("Mounted!")
+    userId: ''
+  }  
+
+  componentDidMount = () => {
     const jwt = auth.isAuthenticated()
-    listCoursesByUser({userId: jwt.user._id}, {t: jwt.token})
-    .then((data) => {
-      if (data.error) {
-        console.log(data.error)
-      } else {
-        console.log(data)
+    this.setState({userId: jwt.user._id})
+    list().then((data) => {
+      console.log(data)
+      if (!data) {
+        console.log("No data!")
+      }
+      else {
         this.setState({courses: data})
-        console.log("Success!")
+        console.log(data)
+        console.log(this.state.userId)
       }
     })
   }
 
-  componentDidMount = () => {
-    console.log(this.props)
-    this.getCourses()
-  }
-
   render() {
+    let userId = this.state.userId
+    let courses = this.state.courses
+    let userCourses = []
+      for (let i = 0; i<courses.length; i++) {
+        if (courses[i].students.includes(userId)) {
+            userCourses.push(courses[i])
+        }
+      }
+      console.log(userCourses)
+
     return (
       <div>
       <Row>      
@@ -72,8 +80,8 @@ class CourseGrid extends Component {
       </Row>  
       <Row>
         <div className="d-inline-flex p-2 float-right">
-            <Modal header={"Add A Course"} closeButton={"Cancel"} openButton={"Add A Course"} body={<Enroll userId={this.props.userId}/>}/>
-            <Modal header={"Create A Course"} closeButton={"Cancel"} openButton={"Create A Course"} body={<CreateCourse userId={this.props.userId}/>}/>
+            <Modal header={"Add A Course"} closeButton={"Cancel"} openButton={"Add A Course"} body={<Enroll userId={this.state.userId}/>}/>
+            <Modal header={"Create A Course"} closeButton={"Cancel"} openButton={"Create A Course"} body={<CreateCourse userId={this.state.userId}/>}/>
         </div>
       </Row>
     </div>

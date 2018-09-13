@@ -31,8 +31,8 @@ class Newsfeed extends Component {
     }, {
       t: jwt.token
     }).then((data) => {
-      if (data.error) {
-        console.log(data.error)
+      if (!data) {
+        console.log("No response!")
       } else {
         this.setState({posts: data})
       }

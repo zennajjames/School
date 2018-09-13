@@ -90,6 +90,12 @@ class Post extends Component {
   }
 
   render() {
+    if (this.props.post.photos.length > 0) {
+      console.log("There are photos!")
+    }
+    else {
+      console.log("No photos.")
+    }
     return (
 
           <div className="mdb-feed">
@@ -104,12 +110,13 @@ class Post extends Component {
                 </div>
                 <div className="added-text">{this.props.post.text}</div>
                 <div className="added-images">
-                  {this.props.post.photo &&
-                    (<div>
+                {this.props.post.photos.map((photo, i) => { 
+                  return <div>
                         <img
-                          className="z-depth-1 rounded mb-md-0 mb-2" alt="profilePic" src={'/api/posts/photo/'+this.props.post._id}
+                          className="z-depth-1 rounded mb-md-0 mb-2" alt="post-photos" src={'/api/posts/photo/'+photo[i]}
                           />
-                    </div>)}
+                    </div>
+                    })}
                 </div>
 
                 <div className="feed-footer">
