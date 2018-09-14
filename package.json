@@ -41,7 +41,7 @@
     "if-env": "^1.0.4",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.10",
-    "mdbreact": "git+https://oauth2:L784vkqaXc1PkBiREZaW@git.mdbootstrap.com/mdb/react/re-pro.git",
+    "mdbreact": "git+https://oauth2:L784vkqaXc1PkBiREZaW@git.mdbootstrap.com/mdb/react/re-pro.git#dev",
     "moment": "^2.22.2",
     "mongodb": "^3.1.5",
     "mongoose": "^5.2.10",
