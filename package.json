@@ -46,5 +46,5 @@
 				"dev": "concurrently \"react-scripts start\" \"nodemon server/server.js\"",
 				"prod": "export NODE_ENV=\"production\" && nodemon server/server.js"
 		},
-		"proxy": "http://localhost:3003"
+		"proxy": "http://localhost:3004"
 }
