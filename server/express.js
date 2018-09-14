@@ -11,8 +11,6 @@ const authRoutes = require('./routes/auth.routes')
 const postRoutes = require('./routes/post.routes')
 const courseRoutes = require('./routes/course.routes')
 
-const CURRENT_WORKING_DIR = process.cwd()
-
 const app = express()
 
 // parse body params and attache them to req.body
