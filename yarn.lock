@@ -5155,9 +5155,9 @@ md5@^2.2.1:
     crypt "~0.0.1"
     is-buffer "~1.1.1"
 
-"mdbreact@git+https://oauth2:L784vkqaXc1PkBiREZaW@git.mdbootstrap.com/mdb/react/re-pro.git":
+"mdbreact@git+https://oauth2:L784vkqaXc1PkBiREZaW@git.mdbootstrap.com/mdb/react/re-pro.git#dev":
   version "4.7.1"
-  resolved "git+https://oauth2:L784vkqaXc1PkBiREZaW@git.mdbootstrap.com/mdb/react/re-pro.git#6c3f345acf572a372f1cf8a09c6ec92a248cead1"
+  resolved "git+https://oauth2:L784vkqaXc1PkBiREZaW@git.mdbootstrap.com/mdb/react/re-pro.git#9c0ee39d5a833d975c85cde631fd9ad81c2996de"
   dependencies:
     "@material-ui/core" "^1.4.2"
     bootstrap "4.1.3"

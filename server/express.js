@@ -11,6 +11,8 @@ const authRoutes = require('./routes/auth.routes')
 const postRoutes = require('./routes/post.routes')
 const courseRoutes = require('./routes/course.routes')
 
+const CURRENT_WORKING_DIR = process.cwd()
+
 const app = express()
 
 // parse body params and attache them to req.body
@@ -35,9 +37,9 @@ app.use('/', courseRoutes)
 if (process.env.NODE_ENV === 'production') {
 	const path = require('path')
 	console.log('YOU ARE IN THE PRODUCTION ENV')
-	app.use(express.static(path.join(__dirname, 'client/build')))
+	app.use(express.static(path.join(__dirname, 'build')))
 	app.get('*', (req, res) => {
-		res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
+		res.sendFile(path.join(__dirname, 'build', 'index.html'))
 	})
 }
 
