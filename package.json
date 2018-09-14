@@ -44,7 +44,9 @@
 				"test": "react-scripts test --env=jsdom",
 				"eject": "react-scripts eject",
 				"dev": "concurrently \"react-scripts start\" \"nodemon server/server.js\"",
-				"prod": "export NODE_ENV=\"production\" && nodemon server/server.js"
+				"prod": "export NODE_ENV=\"production\" && nodemon server/server.js",
+				"heroku-postbuild": "npm run build"
+
 		},
 		"proxy": "http://localhost:3001"
 }
