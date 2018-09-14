@@ -107,7 +107,7 @@ const photo = (req, res, next) => {
 }
 
 const defaultPhoto = (req, res) => {
-  return res.sendFile(process.cwd()+'/client/public/assets/images/chair.png')
+  return res.sendFile(process.cwd()+'/public/assets/images/chair.png')
 }
 
 const addStudent = (req, res) => {

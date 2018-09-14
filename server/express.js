@@ -10,6 +10,7 @@ const userRoutes = require('./routes/user.routes')
 const authRoutes = require('./routes/auth.routes')
 const postRoutes = require('./routes/post.routes')
 const courseRoutes = require('./routes/course.routes')
+const MONGODB_URI = require('../config/keys')
 
 const app = express()
 
