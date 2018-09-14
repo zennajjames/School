@@ -20,15 +20,10 @@ const styles = {
 const Nav = withRouter(({history}) => (
   <Navbar color="amber darken-2" dark expand="md" fixed="top" scrolling>
     <NavbarBrand href="/" style={isActive(history, "/")}>
-      {/* <span>
-      <h3 style={styles.logo}><strong>School</strong></h3><img style={styles.logo} src="" alt="logo"/>
-      </span> */}
         <img style={styles.logo} src="/assets/images/schoolLogo.png" alt="logo"/>
       </NavbarBrand>
-      {/* { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
-                    <Collapse isOpen = { this.state.collapse } navbar> */}
-      {
-        !auth.isAuthenticated() && (
+      {/* {
+        !auth.isAuthenticated() && ( */}
         <NavbarNav right>
           <NavItem>
             <NavLink to="/register" style={isActive(history, "/register")}>Register</NavLink>
@@ -38,8 +33,8 @@ const Nav = withRouter(({history}) => (
           </NavItem>
         </NavbarNav>)
       }
-      {
-        auth.isAuthenticated() && (
+      {/* {
+        auth.isAuthenticated() && ( */}
         <NavbarNav right>
         <NavItem>
           <NavLink to={"/"}>Hi, {auth.isAuthenticated().user.name}!</NavLink>
@@ -62,87 +57,12 @@ const Nav = withRouter(({history}) => (
                   </DropdownMenu>
                 </Dropdown>
             </NavItem>
-        </NavbarNav>)
-      }
-    {/* </Collapse> */}
+        </NavbarNav>
+        {/* )
+      } */}
   </Navbar>
 ))
 
 
 
 export default Nav;
-
-// class Nav extends Component {
-
-//   state = {
-//     collapse: false,
-//     isWideEnough: false,
-//   };
-
-//   onClick = () => {
-//     this.setState({
-//         collapse: !this.state.collapse,
-//     });
-//   };
-
-//   render() {
-//     console.log(this.props)
-//     const collapsed = this.state.collapsed;
-//     const overlay = <div id="sidenav-overlay" style={{backgroundColor: 'transparent'}}/>
-//     return (
-//       <div>
-//         <Navbar color="blue" dark expand="md" fixed="top" scrolling>
-//           <NavbarBrand href="/">
-//             <strong>School</strong>
-//           </NavbarBrand>
-//           {!this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
-//           <Collapse isOpen = {this.state.collapse} navbar>
-//           {
-//         !auth.isAuthenticated() && (
-//           <NavbarNav right>
-//             <NavItem>
-//               <NavLink to="/dashboard">Dashboard</NavLink>
-//             </NavItem>
-//             <NavItem>
-//             <Dropdown>
-//                 <DropdownToggle nav caret>More</DropdownToggle>
-//                   <DropdownMenu>
-//                       <DropdownItem href="/feed">Newsfeed</DropdownItem>
-//                       <DropdownItem href="/galleries">Galleries</DropdownItem>
-//                       <DropdownItem href="/mywork">My Work</DropdownItem>
-//                       <DropdownItem onClick={ () => {
-//                         auth.signout()} }>Sign Out</DropdownItem>
-//                   </DropdownMenu>
-//                 </Dropdown>
-//             </NavItem>
-//           </NavbarNav>)
-//         }
-//         {
-//           auth.isAuthenticated() && (
-//           <NavbarNav right>
-//             <NavItem>
-//               <NavLink to="/signup">Sign Up</NavLink>
-//             </NavItem>
-//             <NavItem>
-//               <NavLink to="/login">Login</NavLink>
-//             </NavItem>  
-//             <NavItem>
-//             <Dropdown>
-//                 <DropdownToggle nav caret>More</DropdownToggle>
-//                   <DropdownMenu>
-//                       <DropdownItem href="/feed">Newsfeed</DropdownItem>
-//                       <DropdownItem href="/galleries">Galleries</DropdownItem>
-//                       <DropdownItem href="/mywork">My Work</DropdownItem>
-//                       <DropdownItem onClick={() => {auth.signout(() => history.push('/'))}}>Sign Out</DropdownItem>
-//                   </DropdownMenu>
-//                 </Dropdown>
-//             </NavItem>
-//           </NavbarNav>)
-//         } 
-//           </Collapse>
-//         </Navbar>
-//         {collapsed && overlay}
-//       </div>
-//     )}
-// }
-
