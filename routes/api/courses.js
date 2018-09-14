@@ -1,33 +1,33 @@
 const express = require('express')
-const courseCtrl = require('../controllers/course.controller')
-const userCtrl = require('../controllers/user.controller')
-const authCtrl = require('../controllers/auth.controller')
+const courseCtrl = require('../../controllers/course.controller')
+const userCtrl = require('../../controllers/user.controller')
+const authCtrl = require('../../controllers/auth.controller')
 
 const router = express.Router()
 
-router.route('/api/courses/by/:userId')
+router.route('/by/:userId')
   .get(authCtrl.requireSignin, courseCtrl.listCoursesByUser)
 
-router.route('/api/courses')
+router.route('/')
   .get(courseCtrl.list)
   .post(courseCtrl.create)
 
-router.route('/api/courses/photo/:courseId')
+router.route('/photo/:courseId')
   .get(courseCtrl.photo, courseCtrl.defaultPhoto)
-router.route('/api/courses/defaultphoto')
+router.route('/defaultphoto')
   .get(courseCtrl.defaultPhoto)
 
-router.route('/api/courses/enroll')
+router.route('/enroll')
   .put(authCtrl.requireSignin, courseCtrl.addStudent)
-router.route('/api/courses/unfollow')
+router.route('/unfollow')
   .put(authCtrl.requireSignin, courseCtrl.removeFollowing, courseCtrl.removeFollower)
 
-router.route('/api/courses/:courseId')
+router.route('/:courseId')
   .get(authCtrl.requireSignin, userCtrl.read)
   .put(authCtrl.requireSignin, authCtrl.hasAuthorization, courseCtrl.update)
   .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, courseCtrl.remove)
 
-router.route('/api/courses/:userId')
+router.route('/:userId')
   .get(authCtrl.requireSignin, courseCtrl.findCourses)
 
 

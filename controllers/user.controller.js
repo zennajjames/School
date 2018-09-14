@@ -5,10 +5,9 @@ const errorHandler = require('./../helpers/dbErrorHandler')
 const formidable = require('formidable')
 const fs = require('fs')
 
-const create = (req, res) => {
+const create = (req, res, next) => {
   const user = new User(req.body)
-  user.save((err, res) => {
-    console.warn(xhr.responseText)
+  user.save((err, result) => {
     if (err) {
       return res.status(400).json({
         error: errorHandler.getErrorMessage(err)
@@ -52,7 +51,7 @@ const list = (req, res) => {
   }).select('name email updated created')
 }
 
-const update = (req, res) => {
+const update = (req, res, next) => {
   let form = new formidable.IncomingForm()
   form.keepExtensions = true
   form.parse(req, (err, fields, files) => {
@@ -68,7 +67,7 @@ const update = (req, res) => {
       user.photo.data = fs.readFileSync(files.photo.path)
       user.photo.contentType = files.photo.type
     }
-    user.save((err, res) => {
+    user.save((err, result) => {
       if (err) {
         return res.status(400).json({
           error: errorHandler.getErrorMessage(err)
@@ -110,7 +109,7 @@ const defaultPhoto = (req, res) => {
 }
 
 const addFollowing = (req, res, next) => {
-  User.findByIdAndUpdate(req.body.userId, {$push: {following: req.body.followId}}, (err, res) => {
+  User.findByIdAndUpdate(req.body.userId, {$push: {following: req.body.followId}}, (err, result) => {
     if (err) {
       return res.status(400).json({
         error: errorHandler.getErrorMessage(err)

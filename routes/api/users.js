@@ -1,31 +1,30 @@
 const express = require('express')
-const userCtrl = require('../controllers/user.controller')
-const authCtrl = require('../controllers/auth.controller')
-const courseCtrl = require('../controllers/course.controller')
+const userCtrl = require('../../controllers/user.controller')
+const authCtrl = require('../../controllers/auth.controller')
 
 const router = express.Router()
 
-router.route('/api/users')
+router.route('/')
   .get(userCtrl.list)
   .post(userCtrl.create)
 
-router.route('/api/users/photo/:userId')
+router.route('/photo/:userId')
   .get(userCtrl.photo, userCtrl.defaultPhoto)
-router.route('/api/users/defaultphoto')
+router.route('/defaultphoto')
   .get(userCtrl.defaultPhoto)
 
-router.route('/api/users/follow')
+router.route('/follow')
     .put(authCtrl.requireSignin, userCtrl.addFollowing, userCtrl.addFollower)
-router.route('/api/users/unfollow')
+router.route('/unfollow')
     .put(authCtrl.requireSignin, userCtrl.removeFollowing, userCtrl.removeFollower)
 
-router.route('/api/users/enroll')
+router.route('/enroll')
 .put(authCtrl.requireSignin, userCtrl.addCourse, userCtrl.addStudent) 
 
-router.route('/api/users/findpeople/:userId')
+router.route('/findpeople/:userId')
    .get(authCtrl.requireSignin, userCtrl.findPeople)
 
-router.route('/api/users/:userId')
+router.route('/:userId')
   .get(authCtrl.requireSignin, userCtrl.read)
   .put(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.update)
   .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.remove)

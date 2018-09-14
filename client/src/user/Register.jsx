@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Badge, Button, Card, CardBody } from 'mdbreact';
 
-import "../styles/Input.css";
-
-
 import {create} from './api-user'
 
 const styles = {

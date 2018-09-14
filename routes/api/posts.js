@@ -1,33 +1,33 @@
 const express = require('express')
-const userCtrl = require('../controllers/user.controller')
-const authCtrl = require('../controllers/auth.controller')
-const postCtrl = require('../controllers/post.controller')
+const userCtrl = require('../../controllers/user.controller')
+const authCtrl = require('../../controllers/auth.controller')
+const postCtrl = require('../../controllers/post.controller')
 
 const router = express.Router()
 
-router.route('/api/posts/new/:userId')
+router.route('/new/:userId')
   .post(authCtrl.requireSignin, postCtrl.create)
 
-router.route('/api/posts/photo/:postId')
+router.route('/photo/:postId')
   .get(postCtrl.photos)
 
-router.route('/api/posts/by/:userId')
+router.route('/by/:userId')
   .get(authCtrl.requireSignin, postCtrl.listByUser)
 
-router.route('/api/posts/feed/:userId')
+router.route('/feed/:userId')
   .get(authCtrl.requireSignin, postCtrl.listNewsFeed)
 
-router.route('/api/posts/like')
+router.route('/like')
   .put(authCtrl.requireSignin, postCtrl.like)
-router.route('/api/posts/unlike')
+router.route('/unlike')
   .put(authCtrl.requireSignin, postCtrl.unlike)
 
-router.route('/api/posts/comment')
+router.route('/comment')
   .put(authCtrl.requireSignin, postCtrl.comment)
-router.route('/api/posts/uncomment')
+router.route('/uncomment')
   .put(authCtrl.requireSignin, postCtrl.uncomment)
 
-router.route('/api/posts/:postId')
+router.route('/:postId')
   .delete(authCtrl.requireSignin, postCtrl.isPoster, postCtrl.remove)
 
 router.param('userId', userCtrl.userByID)
