@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Badge, Button, Card, CardBody } from 'mdbreact';
 
-import {saveUser} from './api-user'
+import {create} from './api-user'
 
 const styles = {
   heading: {
@@ -39,7 +39,7 @@ class Register extends Component {
 			password: this.state.password || undefined,
 			courseCode: this.state.courseCode || undefined,
 		}
-    saveUser(user).then((data) => {
+    create(user).then((data) => {
 			console.log(data)
       if (data.error) {
 				this.setState({error: data.error})

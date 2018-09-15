@@ -1,40 +1,68 @@
-import axios from "axios";
-
-
-const saveUser = (user) => {
+const create = (user) => {
   console.log(user)
-  console.log("Sending new registration to server...")
-  return axios.post("/api/users", user);
+  console.log("New registration!")
+  return fetch('/api/users/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+    .then((response) => {
+      return response.json()
+    }).catch((err) => console.log(err))
 }
 
 const list = () => {
-  return axios.get('/api/users');
+  return fetch('/api/users/', {
+    method: 'GET',
+  }).then(response => {
+    return response.json()
+  }).catch((err) => console.log(err))
 }
 
 const read = (params, credentials) => {
-  return axios.get('/api/users/' + params.userId, {
+  return fetch('/api/users/' + params.userId, {
+    method: 'GET',
     headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + credentials.t
     }
-  })
+  }).then((response) => {
+    return response.json()
+  }).catch((err) => console.log(err))
 }
 
 const update = (params, credentials, user) => {
   console.log(user)
-  return axios.put('/api/users/' + params.userId, {
+  return fetch('/api/users/' + params.userId, {
+    method: 'PUT',
     headers: {
+      'Accept': 'application/json',
       'Authorization': 'Bearer ' + credentials.t
-    }}, user)
-}
-
-const remove = (params, credentials) => {
-  return axios.delete('/api/users/' + params.userId, {
-    headers: {
-      'Authorization': 'Bearer ' + credentials.t
-    }
+    },
+    body: user
+  }).then((response) => {
+    return response.json()
+  }).catch((err) => {
+    console.log(err)
   })
 }
 
+const remove = (params, credentials) => {
+  return fetch('/api/users/' + params.userId, {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + credentials.t
+    }
+  }).then((response) => {
+    return response.json()
+  }).catch((err) => console.log(err))
+}
 const follow = (params, credentials, followId) => {
   return fetch('/api/users/follow/', {
     method: 'PUT',
@@ -118,7 +146,7 @@ const addToRoster = (params, credentials, userData) => {
 
 
 export {
-  saveUser,
+  create,
   list,
   read,
   update,
