@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Badge, Button, Card, CardBody, Container, Row, Col } from "mdbreact";
-import {signin} from '../auth/api-auth.js'
+import { signin } from '../auth/api-auth.js'
 import auth from '../auth/auth-helper.js'
 
 const styles = {
