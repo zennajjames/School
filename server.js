@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
-const MONGODB_URI = require('./config/keys');
 
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,7 +20,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Connect to the Mongo DB
-mongoose.connect(MONGODB_URI || "mongodb://localhost/schoolTestDB");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/schoolDB");
 
 // Catch unauthorised errors
 app.use((err, req, res, next) => {
