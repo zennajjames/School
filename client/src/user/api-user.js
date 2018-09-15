@@ -8,53 +8,31 @@ const saveUser = (user) => {
 }
 
 const list = () => {
-  return fetch('/api/users/', {
-    method: 'GET',
-  }).then(response => {
-    return response.json()
-  }).catch((err) => console.log(err))
-}
+  return axios.get('/api/users');
+},
 
 const read = (params, credentials) => {
-  return fetch('/api/users/' + params.userId, {
-    method: 'GET',
+  return axios.get('/api/users/' + params.userId, {
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + credentials.t
     }
-  }).then((response) => {
-    return response.json()
-  }).catch((err) => console.log(err))
-}
+  })
+},
 
 const update = (params, credentials, user) => {
   console.log(user)
-  return fetch('/api/users/' + params.userId, {
-    method: 'PUT',
+  return axios.put('/api/users/' + params.userId, {
     headers: {
-      'Accept': 'application/json',
       'Authorization': 'Bearer ' + credentials.t
-    },
-    body: user
-  }).then((response) => {
-    return response.json()
-  }).catch((err) => {
-    console.log(err)
-  })
+    }}, user)
 }
 
 const remove = (params, credentials) => {
-  return fetch('/api/users/' + params.userId, {
-    method: 'DELETE',
+  return axios.delete('/api/users/' + params.userId, {
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + credentials.t
     }
-  }).then((response) => {
-    return response.json()
-  }).catch((err) => console.log(err))
+  })
 }
 
 const follow = (params, credentials, followId) => {
