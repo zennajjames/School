@@ -1,11 +1,11 @@
 import axios from "axios";
 
 
-  saveUser = (user) => {
-    console.log(user)
-    console.log("Sending new registration to server...")
-    return axios.post("/api/users", user);
-  }
+const saveUser = (user) => {
+  console.log(user)
+  console.log("Sending new registration to server...")
+  return axios.post("/api/users", user);
+}
 
 const list = () => {
   return fetch('/api/users/', {
