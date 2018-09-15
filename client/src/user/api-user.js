@@ -1,20 +1,11 @@
-const create = (user) => {
-  console.log(user)
-  console.log("New registration!")
-  return fetch('/api/users/', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        credentials: 'same-origin'
-      },
-      body: JSON.stringify(user)
-    })
-    .then(response => 
-      response.text())
-    .then(text => console.log(text))
-    .catch((err) => console.log(err))
-}
+import axios from "axios";
+
+
+  saveUser = (user) => {
+    console.log(user)
+    console.log("Sending new registration to server...")
+    return axios.post("/api/users", user);
+  }
 
 const list = () => {
   return fetch('/api/users/', {
@@ -149,7 +140,7 @@ const addToRoster = (params, credentials, userData) => {
 
 
 export {
-  create,
+  saveUser,
   list,
   read,
   update,
@@ -160,3 +151,22 @@ export {
   enroll,
   addToRoster
 }
+
+
+// const create = (user) => {
+//   console.log(user)
+//   console.log("New registration!")
+//   return fetch('/api/users/', {
+//       method: 'POST',
+//       headers: {
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json',
+//         credentials: 'same-origin'
+//       },
+//       body: JSON.stringify(user)
+//     })
+//     .then(response => 
+//       response.text())
+//     .then(text => console.log(text))
+//     .catch((err) => console.log(err))
+// }

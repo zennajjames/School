@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Badge, Button, Card, CardBody } from 'mdbreact';
 
-import {create} from './api-user'
+import {saveUser} from './api-user'
 
 const styles = {
   heading: {
@@ -28,7 +28,8 @@ class Register extends Component {
     this.setState({[name]: event.target.value})
 	}
 
-  handleSubmit = () => {
+  handleSubmit = (event) => {
+		event.preventDefault();
 		const fullname = this.state.firstname + ' ' + this.state.lastname;
     const user = {
 			firstname: this.state.firstname || undefined,
@@ -38,7 +39,7 @@ class Register extends Component {
 			password: this.state.password || undefined,
 			courseCode: this.state.courseCode || undefined,
 		}
-    create(user).then((data) => {
+    saveUser(user).then((data) => {
 			console.log(data)
       if (data.error) {
 				this.setState({error: data.error})
