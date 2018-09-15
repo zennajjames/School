@@ -5,12 +5,12 @@ const create = (user) => {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        credentials: 'same-origin'
       },
       body: JSON.stringify(user)
     })
     .then((response) => {
-      console.log(response.json())
       return response.json()
     }).catch((err) => console.log(err))
 }
