@@ -9,7 +9,7 @@ const saveUser = (user) => {
 
 const list = () => {
   return axios.get('/api/users');
-},
+}
 
 const read = (params, credentials) => {
   return axios.get('/api/users/' + params.userId, {
@@ -17,7 +17,7 @@ const read = (params, credentials) => {
       'Authorization': 'Bearer ' + credentials.t
     }
   })
-},
+}
 
 const update = (params, credentials, user) => {
   console.log(user)
