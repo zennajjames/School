@@ -13,6 +13,7 @@ const create = (req, res, next) => {
         error: errorHandler.getErrorMessage(err)
       })
     }
+    console.log(res)
     res.status(200).json({
     })
   })
@@ -104,8 +105,8 @@ const photo = (req, res, next) => {
 }
 
 const defaultPhoto = (req, res) => {
-  console.log(process.cwd()+'/public/assets/images/profile-pic.png')
-  return res.sendFile(process.cwd()+'/public/assets/images/profile-pic.png')
+  console.log(process.cwd()+'/client/public/assets/images/profile-pic.png')
+  return res.sendFile(process.cwd()+'/client/public/assets/images/profile-pic.png')
 }
 
 const addFollowing = (req, res, next) => {

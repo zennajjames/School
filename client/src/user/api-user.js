@@ -10,6 +10,7 @@ const create = (user) => {
       body: JSON.stringify(user)
     })
     .then((response) => {
+      console.log(response.json())
       return response.json()
     }).catch((err) => console.log(err))
 }

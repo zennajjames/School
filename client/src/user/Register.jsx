@@ -42,7 +42,7 @@ class Register extends Component {
 			console.log(data)
       if (data.error) {
 				this.setState({error: data.error})
-			if (data.error === "11000 duplicate key error collection: SchoolDB.users index: email already exists") {
+			if (data.error === "11000 duplicate key error collection: SchoolDB.users index: email already exists...") {
 				this.setState({error: "User already exists. Need to reset your password?"})
 			}
       } else {
