@@ -10,9 +10,10 @@ const create = (user) => {
       },
       body: JSON.stringify(user)
     })
-    .then((response) => {
-      return response.json()
-    }).catch((err) => console.log(err))
+    .then(response => 
+      response.text())
+    .then(text => console.log(text))
+    .catch((err) => console.log(err))
 }
 
 const list = () => {
