@@ -47,7 +47,7 @@ class Home extends Component {
   render() {
     console.log(this.props)
     return(
-      <Container>
+      <Container style={{paddingTop: '4rem', paddingBottom: '0'}}>
         {this.state.defaultPage &&
         <section className="text-center my-5">
           <img style={styles.logo} src="/assets/images/schoolTitle.png" alt="logo"/><br/>

@@ -1,0 +1,16 @@
+.body {
+  height: 100%;
+}
+
+.html{
+  height: 100vh;
+  background: url(/assets/images/blue.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.main-wrapper { 
+ height: 95vh;
+}

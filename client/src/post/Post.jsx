@@ -12,8 +12,8 @@ const styles = {
     maxWidth: 200
   },
   avatar: {
-    width: 60,
-    height: 60,
+    maxWidth: 70,
+    maxHeight: 90,
     borderRadius: 50,
   },
   card: {

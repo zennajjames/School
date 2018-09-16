@@ -16,14 +16,14 @@ import PrivateRoute from './auth/PrivateRoute'
 
 import Foot from './core/Footer'
 
-
+import "./styles/MainRouter.css";
 class MainRouter extends Component {
 
   render() {
 		return (
-			<div style={{backgroundImage: 'url(/assets/images/blue.jpg)', height: '900'}}>
+			<div>
 				<Nav/>
-				<div className="main-wrapper" style={{paddingTop: '7rem', paddingBottom: '4rem'}}>
+				<div className="main-wrapper" style={{paddingTop: '6rem', paddingBottom: '0'}}>
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route exact path="/login" component={LogIn}/>
@@ -34,7 +34,7 @@ class MainRouter extends Component {
 						<PrivateRoute path="/user/edit/:userId" component={EditProfile}/>
 					</Switch>
 				</div>
-				<Foot/>
+				<Foot style={{paddingTop: '0', marginTop: '0'}}/>
 			</div>
 		);
 	}

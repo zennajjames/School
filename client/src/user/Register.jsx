@@ -47,7 +47,7 @@ class Register extends Component {
 				this.setState({error: "User already exists. Need to reset your password?"})
 			}
       } else {
-				this.setState({error: '', success: 'Welcome to School! Log in here.'})
+				this.setState({error: '', success: 'Registration successful! Log in here.'})
       }
     })
 	}
