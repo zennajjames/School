@@ -7,7 +7,7 @@ import {Row, Col, Button} from 'mdbreact'
 class PostList extends Component {
   render() {
     let posts = this.props.posts
-    console.log(posts)
+    console.log(this.props.posts)
 
     if (posts.length === 0)
       return (

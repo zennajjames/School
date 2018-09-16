@@ -8,44 +8,18 @@ const fs = require('fs')
 const create = (req, res, next) => {
   let form = new formidable.IncomingForm()
   form.keepExtensions = true
-  form.multiples = true;
   form.parse(req, (err, fields, files) => {
-
-    for(let i in files){
-      console.log("Logging files..")
-      console.log(files.File);
-    }
-
     if (err) {
       return res.status(400).json({
-        error: "Image could not be uploaded."
+        error: "Image could not be uploaded"
       })
     }
-
     let post = new Post(fields)
-
-    if(files){
-      
-      // var fileArray = files.map(a => a.File);
-      // console(fileArray)
-
-      console.log("Files exist!")
-      let photoArray = []
-      let length = files.File.length
-      console.log(length)
-
-      for (let i=0; i<length; i++) {
-        photoArray.push({
-          data: fs.readFileSync(files.File[i].path),
-          contentType: files.File[i].type
-        })
-      }
-      console.log(photoArray)
-      post.photos = photoArray
-      post.postedBy = req.profile._id
-      console.log(post)
-    } 
-     
+    post.postedBy= req.profile
+    if(files.photo){
+      post.photo.data = fs.readFileSync(files.photo.path)
+      post.photo.contentType = files.photo.type
+    }
     post.save((err, result) => {
       if (err) {
         return res.status(400).json({
@@ -56,6 +30,7 @@ const create = (req, res, next) => {
     })
   })
 }
+
 
 const postByID = (req, res, next, id) => {
   Post.findById(id).populate('postedBy', '_id name').exec((err, post) => {
@@ -115,9 +90,13 @@ const remove = (req, res) => {
     })
 }
 
-const photos = (req, res, next) => {
-    res.set("Content-Type", req.post.photos.contentType)
-    return res.send(req.post.photos.data)
+const photo = (req, res, next) => {
+  console.log("Photo Request:")
+  console.log(req.post.photo.data)
+  res.set("Content-Type", req.post.photo.contentType)
+  console.log("Photo Response:")
+  console.log(req.post.photo.data)
+  return res.send(req.post.photo.data)
 }
 
 const like = (req, res) => {
@@ -191,10 +170,64 @@ module.exports = {
   create,
   postByID,
   remove,
-  photos,
+  photo,
   like,
   unlike,
   comment,
   uncomment,
   isPoster
 }
+
+
+// const create = (req, res, next) => {
+//   console.log(req.body)
+//   let form = new formidable.IncomingForm()
+//   form.keepExtensions = true
+//   form.multiples = true;
+//   form.parse(req, (err, fields, files) => {
+
+//     for(let i in files){
+//       console.log("Logging files..")
+//       console.log(files.File);
+//     }
+
+//     if (err) {
+//       return res.status(400).json({
+//         error: "Image could not be uploaded."
+//       })
+//     }
+
+//     let post = new Post(fields)
+
+//     if(files){
+      
+//       // var fileArray = files.map(a => a.File);
+//       // console(fileArray)
+
+//       console.log("Files exist!")
+//       let photoArray = []
+//       let length = files.File.length
+//       console.log(length)
+
+//       for (let i=0; i<length; i++) {
+//         photoArray.push({
+//           data: fs.readFileSync(files.File[i].path),
+//           contentType: files.File[i].type,
+//           index: [i]
+//         })
+//       }
+//       console.log(photoArray)
+//       post.photos = photoArray
+//       post.postedBy = req.profile._id
+//       console.log(post)
+//     } 
+     
+//     post.save((err, result) => {
+//       if (err) {
+//         return res.status(400).json({
+//           error: errorHandler.getErrorMessage(err)
+//         })
+//       }
+//       res.json(result)
+//     })
+//   })

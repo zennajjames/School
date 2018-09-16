@@ -1,4 +1,5 @@
 const create = (params, credentials, post) => {
+  console.log(post)
   return fetch('/api/posts/new/'+ params.userId, {
     method: 'POST',
     headers: {

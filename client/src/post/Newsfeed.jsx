@@ -8,16 +8,11 @@ import Modal from '../core/Modal'
 
 import { Card } from 'mdbreact';
 
-
 const styles = {
   heading: {
     fontWeight: 400,
     color: "white"
-  },
-  // postList: {
-  //   backgroundColor: 'rgba(214, 214, 214, 0.4)',
-  //   padding: 20
-  // }
+  }
 }
 
 class Newsfeed extends Component {

@@ -8,8 +8,8 @@ const router = express.Router()
 router.route('/new/:userId')
   .post(authCtrl.requireSignin, postCtrl.create)
 
-router.route('/photo/:postId')
-  .get(postCtrl.photos)
+  router.route('/photo/:postId')
+  .get(postCtrl.photo)
 
 router.route('/by/:userId')
   .get(authCtrl.requireSignin, postCtrl.listByUser)

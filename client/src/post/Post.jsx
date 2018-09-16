@@ -90,8 +90,10 @@ class Post extends Component {
   }
 
   render() {
-    if (this.props.post.photos.length > 0) {
-      console.log("There are photos!")
+    console.log("Post: "+this.props.post._id)
+    if (this.props.post.photo) {
+      console.log("There is a photo!")
+      console.log(this.props.post.photo)
     }
     else {
       console.log("No photos.")
@@ -110,13 +112,13 @@ class Post extends Component {
                 </div>
                 <div className="added-text">{this.props.post.text}</div>
                 <div className="added-images">
-                {this.props.post.photos.map((photo, i) => { 
-                  return <div key={i}>
+                {this.props.post.photo &&
+                    (<div>
                         <img
-                          className="z-depth-1 rounded mb-md-0 mb-2" alt="post-photos" src={'/api/posts/photo/'+photo[i]}
+                          className="z-depth-1 rounded mb-md-0 mb-2" alt="post-photos" src={'/api/posts/photo/'+this.props.post._id}
                           />
                     </div>
-                    })}
+                    )}
                 </div>
 
                 <div className="feed-footer">
@@ -157,3 +159,4 @@ class Post extends Component {
 export default Post;
 
 
+// {this.props.post.photos.map((photo, i) => { 

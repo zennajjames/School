@@ -4,12 +4,12 @@ const crypto = require('crypto')
 const PostSchema = new mongoose.Schema({
   text: {
     type: String,
-    required: 'Name is required'
+    required: 'Text is required.'
   },
-  photos: [{
+  photo: {
     data: Buffer,
     contentType: String
-  }],
+  },
   likes: [{type: mongoose.Schema.ObjectId, ref: 'User'}],
   comments: [{
     text: String,

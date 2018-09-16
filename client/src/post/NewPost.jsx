@@ -24,7 +24,7 @@ class NewPost extends Component {
   
   state = {
     text: '',
-    photos: [],
+    photo: '',
     error: '',
     user: {}
   }
@@ -46,7 +46,7 @@ class NewPost extends Component {
       if (!data) {
         this.setState({error: "There was an error. Try again."})
       } else {
-        this.setState({text:'', photos: []})
+        this.setState({text:'', photo: ''})
         this.props.addUpdate(data)
       }
     })
@@ -79,27 +79,19 @@ class NewPost extends Component {
           console.log("Your browser does not support File API");
       }
   }
-  
-  // handleChange = name => event => {
-  //   const value = name === 'photo'
-  //     ? event.target.files[0]
-  //     : event.target.value
-  //   this.postData.set(name, value)
-  //   this.setState({ [name]: value })
-  // }
 
   handleChange = name => event => {
     const value = name === 'photo'
-      ? event.target.files
+      ? event.target.files[0]
       : event.target.value
     
-    if(name === "photo"){
-      for(let i = 0; i < event.target.files.length; i++){
-        let file = event.target.files[i];
-        this.postData.append('File', file);
-    }
-  }
-    this.postData.append(name, value)
+  //   if(name === "photo"){
+  //     for(let i = 0; i < event.target.files.length; i++){
+  //       let file = event.target.files[i];
+  //       this.postData.append('File', file);
+  //   }
+  // }
+    this.postData.set(name, value)
     this.setState({ [name]: value })
   }
 
@@ -112,7 +104,7 @@ class NewPost extends Component {
               {/* <input style={styles.input}  onChange={this.handleFileSelect}  multiple="multiple"/> */}
         
                 {/* <InputFile hint="upload" multiple  onChange={this.handleChange('photo')} btnColor="info" type="file" id="files"></InputFile> */}
-                <input accept="image/*" multiple onChange={this.handleChange('photo')} id="icon-button-file" type="file" />
+                <input accept="image/*" onChange={this.handleChange('photo')} id="icon-button-file" type="file" />
 
               <br/>
               <output id="result" />
