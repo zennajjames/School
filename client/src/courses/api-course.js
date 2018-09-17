@@ -63,38 +63,6 @@ const remove = (params, credentials) => {
   }).catch((err) => console.log(err))
 }
 
-const follow = (params, credentials, followId) => {
-  return fetch('/api/courses/follow/', {
-    method: 'PUT',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + credentials.t
-    },
-    body: JSON.stringify({courseId:params.courseId, followId: followId})
-  }).then((response) => {
-    return response.json()
-  }).catch((err) => {
-    console.log(err)
-  })
-}
-
-const unfollow = (params, credentials, unfollowId) => {
-  return fetch('/api/courses/unfollow/', {
-    method: 'PUT',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + credentials.t
-    },
-    body: JSON.stringify({courseId:params.courseId, unfollowId: unfollowId})
-  }).then((response) => {
-    return response.json()
-  }).catch((err) => {
-    console.log(err)
-  })
-}
-
 const findCourses = (params, credentials) => {
   console.log(params)
   return fetch('/api/courses/' + params.userId, {
@@ -110,7 +78,7 @@ const findCourses = (params, credentials) => {
 }
 
 
-const listCoursesByUser = (params, credentials) => {
+const listByUser = (params, credentials) => {
   return fetch('/api/courses/by/'+ params.userId, {
     method: 'GET',
     headers: {
@@ -119,7 +87,6 @@ const listCoursesByUser = (params, credentials) => {
       'Authorization': 'Bearer ' + credentials.t
     }
   }).then(response => {
-    console.log(response)
     return response.json()
   }).catch((err) => console.log(err))
 }
@@ -131,8 +98,6 @@ export {
   read,
   update,
   remove,
-  follow,
-  unfollow,
   findCourses,
-  listCoursesByUser
+  listByUser
 }

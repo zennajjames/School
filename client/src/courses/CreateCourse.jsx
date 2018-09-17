@@ -70,12 +70,12 @@ class CreateCourse extends Component {
 									/>
 									<br/> 
 									{
-										this.state.error && (<h4>
-											<Badge className="mx-auto" tag="a" href="#!" color="danger">{this.state.error}</Badge></h4>)
+										this.state.error && (<div className="text-center"><h4>
+											<Badge className="mx-auto" tag="a" href="#!" color="danger">{this.state.error}</Badge></h4></div>)
 									} 
 										{
-										this.state.success && (<h4>
-											<Badge tag="a" href="/api/users/findcourses/" color="success">{this.state.success}</Badge></h4>)
+										this.state.success && (<div className="text-center"><h4>
+											<Badge tag="a" href="/courses" color="success">{this.state.success}</Badge></h4></div>)
 									}
 									<div className="text-center">
 										<Button onClick={this.handleSubmit}>Create</Button>

@@ -50,6 +50,7 @@ const listByUser = (req, res) => {
   .populate('postedBy', '_id name')
   .sort('-created')
   .exec((err, posts) => {
+    console.log(posts)
     if (err) {
       return res.status(400).json({
         error: errorHandler.getErrorMessage(err)

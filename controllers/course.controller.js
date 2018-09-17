@@ -30,6 +30,23 @@ const courseById = (req, res, next, id) => {
   })
 }
 
+const listByUser = (req, res) => {
+  Course.find({instructor: req.profile._id})
+  .populate('comments', 'text created')
+  .populate('comments.postedBy', '_id name')
+  .populate('postedBy', '_id name')
+  .sort('-created')
+  .exec((err, posts) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler.getErrorMessage(err)
+      })
+    }
+    res.json(posts)
+  })
+}
+
+
 const list = (req, res) => {
   Course.find((err, courses) => {
     if (err) {
@@ -164,6 +181,7 @@ const findCourses = (req, res) => {
 module.exports = {
   create,
   courseById,
+  listByUser,
   listCoursesByUser,
   remove,
   update,
