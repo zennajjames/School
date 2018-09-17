@@ -14,7 +14,7 @@ class Nav extends React.Component {
 
   state = {
       collapse: false,
-      isWideEnough: false,
+      isWideEnough: false
   };
 
   onClick = () => {
@@ -31,8 +31,7 @@ class Nav extends React.Component {
   }
   
   render() {
-    console.log(history)
-    return (
+     return (
       <Navbar color="amber darken-2" dark expand="md" fixed="top" scrolling>
         <NavbarBrand href="/" >
             <img style={styles.logo} src="/assets/images/schoolLogo.png" alt="logo"/>
@@ -54,21 +53,17 @@ class Nav extends React.Component {
             auth.isAuthenticated() && (
             <NavbarNav right>
             <NavItem>
-              <NavLink to={"/"}>Hi, {auth.isAuthenticated().user.name}!</NavLink>
+              <NavLink to={"/"}>Hi, {auth.isAuthenticated().user.name}!  </NavLink>
             </NavItem>
             <NavItem>
-                <NavLink style={this.isActive(history, "/")} to={"/"}><Fa icon="dashboard"/>Dashboard</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink to={"/students"}>Connect</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink to={"/user/" + auth.isAuthenticated().user._id} style={this.isActive(history, "/user/" + auth.isAuthenticated().user._id)}>Profile</NavLink>
+                <NavLink style={this.isActive(history, "/")} to={"/"}><Fa icon="dashboard"/>{auth.isAuthenticated().user.role.toUpperCase()} Dashboard</NavLink>
               </NavItem>
               <NavItem>
                 <Dropdown>
                     <DropdownToggle nav caret></DropdownToggle>
                       <DropdownMenu>
+                          <DropdownItem to={"/students"}>Connect</DropdownItem>
+                          <DropdownItem to={"/user/" + auth.isAuthenticated().user._id} style={this.isActive(history, "/user/" + auth.isAuthenticated().user._id)}>Profile</DropdownItem>
                           <DropdownItem href="/courses">My Courses</DropdownItem>
                           <DropdownItem onClick={() => {auth.signout(() => history.push('/'))}}>Sign Out</DropdownItem>
                       </DropdownMenu>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Badge, Button, Card, CardBody, Input } from 'mdbreact';
+import { Container, Row, Col, Badge, Button, Card, CardBody, Input, FormInline } from 'mdbreact';
 
 import {create} from './api-user'
 
@@ -17,22 +17,20 @@ class Register extends Component {
 		password: '',
 		email: '',
 		courseCode: '',
-		instructor: false,
+		role: '',
 		error: '', 
 		photo: '',
 		success: ''
   };
 
-  handleChange = name => event => {
-		this.setState({[name]: event.target.value})
-	}
+  handleChange = name => e => {
 
-	checkbox = (e) => {
-		this.setState({instructor: !e.target.checked});
-		console.log(this.state.instructor)
-	}
-
+		// const value = name === 'radio'
+		// ? e.currentTarget.value
+		// : e.target.value
 	
+		this.setState({[name]: e.target.value})
+	}
 
   handleSubmit = (event) => {
 		event.preventDefault();
@@ -44,7 +42,7 @@ class Register extends Component {
       email: this.state.email || undefined,
 			password: this.state.password || undefined,
 			courseCode: this.state.courseCode || undefined,
-			instructor: this.state.instructor || undefined
+			role: this.state.role|| undefined
 		}
     create(user).then((data) => {
 			console.log(data)
@@ -105,8 +103,34 @@ class Register extends Component {
 										onChange={this.handleChange('password')} 
 									/>
 									<br/> 
-									<label className="grey-text" htmlFor="instructor">Are you an instructor?</label>
-									<input type="checkbox" onClick={this.checkbox} value={!this.state.instructor}></input>
+									<label className="grey-text" htmlFor="role">Are you a teacher or a student?</label>
+									<input
+										type="role"
+										name="role"
+									  className="form-control"
+										value={this.state.role}
+										onChange={this.handleChange('role')} 
+									/>
+									<br/> 
+									{/* <FormInline>
+											<label className="grey-text" htmlFor="instructor">Are you a teacher or a student?</label>&nbsp;&nbsp;
+											<Input 
+													gap 
+													type="radio" 
+													onClick={this.setRole("teacher")} 
+													checked={this.state.role === "teacher" ? true : false}
+													label="Teacher" 
+													id="radio1" 
+												/>
+												<Input 
+													gap
+													type="radio" 
+													onClick={this.setRole("student")} 
+													checked={this.state.role === "student" ? true : false} 
+													label="Student" 
+													id="radio2" />
+								
+									</FormInline> */}
 									<label className="grey-text" htmlFor="courseCode">If you're enrolling in a course, enter the class code below.</label>
 									<input
 										type="courseCode"

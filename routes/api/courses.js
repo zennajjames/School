@@ -5,8 +5,11 @@ const authCtrl = require('../../controllers/auth.controller')
 
 const router = express.Router()
 
-router.route('/by/:userId')
-  .get(authCtrl.requireSignin, courseCtrl.listCoursesByUser)
+router.route('/student/:userId')
+  .get(authCtrl.requireSignin, courseCtrl.list)
+
+router.route('/teacher/:userId')
+  .get(authCtrl.requireSignin, courseCtrl.listCoursesByTeacher)
 
 router.route('/')
   .get(courseCtrl.list)

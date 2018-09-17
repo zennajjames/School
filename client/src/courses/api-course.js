@@ -14,12 +14,19 @@ const create = (course) => {
     }).catch((err) => console.log(err))
 }
 
-const list = () => {
-  return fetch('/api/courses/', {
-    method: 'GET',
-  }).then(response => {
+const update = (params, credentials, course) => {
+  return fetch('/api/courses/' + params.courseId, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ' + credentials.t
+    },
+    body: course
+  }).then((response) => {
     return response.json()
-  }).catch((err) => console.log(err))
+  }).catch((err) => {
+    console.log(err)
+  })
 }
 
 const read = (params, credentials) => {
@@ -35,19 +42,13 @@ const read = (params, credentials) => {
   }).catch((err) => console.log(err))
 }
 
-const update = (params, credentials, course) => {
-  return fetch('/api/courses/' + params.courseId, {
-    method: 'PUT',
-    headers: {
-      'Accept': 'application/json',
-      'Authorization': 'Bearer ' + credentials.t
-    },
-    body: course
-  }).then((response) => {
+
+const list = () => {
+  return fetch('/api/courses/', {
+    method: 'GET',
+  }).then(response => {
     return response.json()
-  }).catch((err) => {
-    console.log(err)
-  })
+  }).catch((err) => console.log(err))
 }
 
 const remove = (params, credentials) => {
@@ -78,8 +79,21 @@ const findCourses = (params, credentials) => {
 }
 
 
-const listByUser = (params, credentials) => {
-  return fetch('/api/courses/by/'+ params.userId, {
+const listStudentCourses = (params, credentials) => {
+  return fetch('/api/courses/student/'+ params.userId, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + credentials.t
+    }
+  }).then(response => {
+    return response.json()
+  }).catch((err) => console.log(err))
+}
+
+const listTeacherCourses = (params, credentials) => {
+  return fetch('/api/courses/teacher/'+ params.userId, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
@@ -94,10 +108,11 @@ const listByUser = (params, credentials) => {
 
 export {
   create,
-  list,
+  listStudentCourses,
+  listTeacherCourses,
   read,
   update,
   remove,
   findCourses,
-  listByUser
+  list
 }

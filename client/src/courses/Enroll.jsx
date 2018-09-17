@@ -3,6 +3,8 @@ import { Button } from "mdbreact";
 import {enroll, addToRoster} from '../user/api-user'
 import auth from '../auth/auth-helper.js'
 
+import history from '../history';
+
 class Enroll extends Component {
   state = {
     courseCode: '',
@@ -14,6 +16,7 @@ class Enroll extends Component {
 
   componentDidMount = () => {
     console.log(this.props)
+    console.log(history)
   }
 
   handleChange = name => event => {
@@ -44,6 +47,7 @@ class Enroll extends Component {
         console.log(data.error)
       } else {
         this.setState({courseCode: ''})
+        window.location.reload()
       }
     })
   }

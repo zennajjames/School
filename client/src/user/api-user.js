@@ -157,22 +157,3 @@ export {
   enroll,
   addToRoster
 }
-
-
-// const create = (user) => {
-//   console.log(user)
-//   console.log("New registration!")
-//   return fetch('/api/users/', {
-//       method: 'POST',
-//       headers: {
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/json',
-//         credentials: 'same-origin'
-//       },
-//       body: JSON.stringify(user)
-//     })
-//     .then(response => 
-//       response.text())
-//     .then(text => console.log(text))
-//     .catch((err) => console.log(err))
-// }

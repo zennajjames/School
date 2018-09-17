@@ -4,9 +4,8 @@ import { Row, Col, Button, Chip } from 'mdbreact';
 import Enroll from '../courses/Enroll'
 import Modal from '../core/Modal'
 import CreateCourse from './CreateCourse'
-import { list } from './api-course'
+import { list, listTeacherCourses } from './api-course'
 import auth from '../auth/auth-helper.js'
-
 
 const styles = {
   avatar: {
@@ -37,32 +36,51 @@ class CourseGrid extends Component {
     userId: ''
   }  
 
+  loadCourses = () => {
+    const jwt = auth.isAuthenticated()
+    console.log(jwt)
+    if (jwt.user.role === "teacher") {
+      listTeacherCourses().then((courses) => {
+        console.log(courses)
+        if (!courses) {
+          console.log("No courses!")
+        }
+        else {
+          this.setState({courses: courses})
+          console.log(courses)
+        }
+      })
+    }
+    if (jwt.user.role === "student") {
+      list().then((courses) => {
+        if (!courses) {
+          console.log("No courses!")
+        }
+        else {
+          console.log(courses)
+          let studentCourses = []
+          for (let i=0; i<courses.length; i++) {
+            if (courses[i].students.includes(this.state.userId)) {
+              studentCourses.push(courses[i])
+            }
+          }
+          this.setState({courses: studentCourses})
+          console.log(this.state.courses)
+        }
+      })
+    }
+    else {
+      console.log("Error. No role set.")
+    }
+  }
+
   componentDidMount = () => {
     const jwt = auth.isAuthenticated()
     this.setState({userId: jwt.user._id})
-    list().then((data) => {
-      console.log(data)
-      if (!data) {
-        console.log("No data!")
-      }
-      else {
-        this.setState({courses: data})
-        console.log(data)
-        console.log(this.state.userId)
-      }
-    })
+    this.loadCourses()
   }
 
   render() {
-    let userId = this.state.userId
-    let courses = this.state.courses
-    let userCourses = []
-      for (let i = 0; i<courses.length; i++) {
-        if (courses[i].students.includes(userId)) {
-            userCourses.push(courses[i])
-        }
-      }
-      console.log(userCourses)
 
     return (
       <div>
@@ -70,7 +88,7 @@ class CourseGrid extends Component {
         <Col>
           {this.state.courses.map((course, i) => { 
             const photoUrl = course.photo
-            ? `/api/courses/photo/${this.state.user._id}?${new Date().getTime()}`
+            ? `/api/courses/photo/${this.state.course._id}?${new Date().getTime()}`
             : '/api/courses/defaultphoto'
             return <div className="d-flex-column d-wrap" key={i}>
                       <a href={'course/'+ course._id}><Chip className="justify-content-center z-depth-1-half" bgColor="cyan darken-2" text="white" size="lg" src={photoUrl} alt="Courses" waves>{course.title}</Chip></a>
