@@ -33,7 +33,7 @@ class CreateCourse extends Component {
       if (data.error) {
 				this.setState({error: data.error})
       } else {
-				this.setState({error: '', success: 'Course created! View your courses here.'})
+				window.location.reload()
       }
     })
 	}

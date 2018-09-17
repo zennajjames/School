@@ -27,23 +27,34 @@ const styles = {
   }
 }
 
-
 class CourseGrid extends Component {
   
   state = {
     courses: [],
     open: false,
-    userId: ''
+    userId: '', 
+    gridMessage: ''
   }  
+
+  componentDidMount = () => {
+    this.loadCourses()
+  }
 
   loadCourses = () => {
     const jwt = auth.isAuthenticated()
-    console.log(jwt)
+    console.log(jwt.user)
+
     if (jwt.user.role === "teacher") {
-      listTeacherCourses().then((courses) => {
+      console.log(jwt.user.role)
+      listTeacherCourses({
+        userId: jwt.user._id
+      }, {
+        t: jwt.token
+      }).then((courses) => {
         console.log(courses)
-        if (!courses) {
+        if (courses.length === 0) {
           console.log("No courses!")
+          this.setState({gridMessage: "Create your first course."})
         }
         else {
           this.setState({courses: courses})
@@ -51,10 +62,12 @@ class CourseGrid extends Component {
         }
       })
     }
-    if (jwt.user.role === "student") {
+    else if (jwt.user.role === "student") {
+      console.log(jwt.user.role)
       list().then((courses) => {
-        if (!courses) {
+        if (courses.length === 0) {
           console.log("No courses!")
+          this.setState({gridMessage: "Enroll in class to get started!"})
         }
         else {
           console.log(courses)
@@ -70,14 +83,9 @@ class CourseGrid extends Component {
       })
     }
     else {
+      this.setState({gridMessage: "Error loading courses. No role set."})
       console.log("Error. No role set.")
     }
-  }
-
-  componentDidMount = () => {
-    const jwt = auth.isAuthenticated()
-    this.setState({userId: jwt.user._id})
-    this.loadCourses()
   }
 
   render() {
@@ -98,6 +106,7 @@ class CourseGrid extends Component {
       </Row>  
       <Row>
         <div className="d-inline-flex p-2 float-right">
+            <div>{this.state.gridMessage}</div>
             <Modal header={"Add A Course"} closeButton={"Cancel"} openButton={"Add A Course"} body={<Enroll userId={this.state.userId}/>}/>
             <Modal header={"Create A Course"} closeButton={"Cancel"} openButton={"Create A Course"} body={<CreateCourse userId={this.state.userId}/>}/>
         </div>
