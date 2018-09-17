@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
-import { Container, Card, CardBody, Button, Badge } from 'mdbreact';
+import { Container, Card, CardBody, Badge } from 'mdbreact';
 
-import {Link} from 'react-router-dom'
 import {list} from './api-user.js'
 
 const styles = {

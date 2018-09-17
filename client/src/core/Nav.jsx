@@ -24,7 +24,7 @@ class Nav extends React.Component {
   }
 
   isActive = (history, path) => {
-  if (history.location.pathname == path)
+  if (history.location.pathname === path)
     return {fontWeight: '600'}
     else
       return {fontWeight: '300'}

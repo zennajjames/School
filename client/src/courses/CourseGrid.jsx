@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
-import { Row, Col, Button, Chip } from 'mdbreact';
+import { Row, Col, Chip } from 'mdbreact';
 
 import Enroll from '../courses/Enroll'
 import Modal from '../core/Modal'
 import CreateCourse from './CreateCourse'
-import { list, listTeacherCourses } from './api-course'
+import { list } from './api-course'
 import auth from '../auth/auth-helper.js'
 
 const styles = {
@@ -15,7 +15,9 @@ const styles = {
     borderRadius: 50
   },
   heading: {
-    color: "white"
+    fontWeight: 400,
+    color: "white",
+    paddingTop: 16
   },
   badge: {
     width: 250,
@@ -33,7 +35,9 @@ class CourseGrid extends Component {
     courses: [],
     open: false,
     userId: '', 
-    gridMessage: ''
+    gridMessage: '', 
+    courseLink: '', 
+    role: ''
   }  
 
   componentDidMount = () => {
@@ -41,24 +45,29 @@ class CourseGrid extends Component {
   }
 
   loadCourses = () => {
+
     const jwt = auth.isAuthenticated()
     console.log(jwt.user)
+    this.setState({userId: jwt.user._id})
+    this.setState({role: jwt.user.role})
 
     if (jwt.user.role === "teacher") {
       console.log(jwt.user.role)
-      listTeacherCourses({
-        userId: jwt.user._id
-      }, {
-        t: jwt.token
-      }).then((courses) => {
+      list().then((courses) => {
         console.log(courses)
         if (courses.length === 0) {
           console.log("No courses!")
-          this.setState({gridMessage: "Create your first course."})
+          this.setState({gridMessage: "Create your first course to get started!"})
         }
         else {
-          this.setState({courses: courses})
-          console.log(courses)
+          let teacherCourses = []
+          for (let i=0; i<courses.length; i++) {
+            if (courses[i].instructor === jwt.user._id) {
+              teacherCourses.push(courses[i])
+            }
+          }
+          this.setState({courses: teacherCourses})
+          console.log(this.state.courses)
         }
       })
     }
@@ -92,6 +101,17 @@ class CourseGrid extends Component {
 
     return (
       <div>
+        <div className="d-inline-block">
+          <h5 style={styles.heading} type="title">My Courses</h5>
+        </div>
+        <div className="d-inline-block float-right">
+            { this.state.role === "student"
+              ? <Modal header={"Add A Course"} closeButton={"Cancel"} openButton={"Add A Course"} body={<Enroll userId={this.state.userId}/>}/>
+
+              : <Modal header={"Create A Course"} closeButton={"Cancel"} openButton={"Create A Course"} body={<CreateCourse userId={this.state.userId}/>}/>
+            } 
+        </div>
+        <hr />     
       <Row>      
         <Col>
           {this.state.courses.map((course, i) => { 
@@ -107,8 +127,6 @@ class CourseGrid extends Component {
       <Row>
         <div className="d-inline-flex p-2 float-right">
             <div>{this.state.gridMessage}</div>
-            <Modal header={"Add A Course"} closeButton={"Cancel"} openButton={"Add A Course"} body={<Enroll userId={this.state.userId}/>}/>
-            <Modal header={"Create A Course"} closeButton={"Cancel"} openButton={"Create A Course"} body={<CreateCourse userId={this.state.userId}/>}/>
         </div>
       </Row>
     </div>

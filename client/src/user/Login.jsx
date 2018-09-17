@@ -61,6 +61,10 @@ class LoginPage extends Component {
                 <CardBody>
                 <form>
                   <h3 style={styles.heading} className="text-center mb-4">Log In</h3>
+                  {
+                    this.state.error && (<h4 className="text-center">
+                    <Badge tag="a" href="#!" color="danger">{errorMessage}</Badge></h4>)
+                  }
                   <label htmlFor="defaultFormLoginEmailEx" className="grey-text">Email</label>
                   <input type="text" name="email" id="defaultFormLoginEmailEx" className="form-control" value={this.state.email}
                     onChange={this.handleChange('email')}/>
@@ -69,10 +73,6 @@ class LoginPage extends Component {
                   <input type="password" name="password" value={this.state.password} onChange={this.handleChange('password')} id="defaultFormLoginPasswordEx" className="form-control"/>
                   <p className="font-small grey-text d-flex justify-content-end">Forgot <a href="/" className="dark-grey-text font-weight-bold ml-1"> Password?</a></p>
                   <br/> 
-                  {
-                    this.state.error && (<h4 className="text-center">
-                    <Badge tag="a" href="#!" color="danger">{errorMessage}</Badge></h4>)
-                  }
                   <div className="text-center">
                     <Button onClick={this.handleSubmit}>Login</Button>
                   </div>

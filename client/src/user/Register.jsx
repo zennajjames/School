@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Badge, Button, Card, CardBody, Input, FormInline } from 'mdbreact';
+import { Container, Row, Col, Badge, Button, Card, CardBody } from 'mdbreact';
 
 import {create} from './api-user'
 
@@ -67,6 +67,14 @@ class Register extends Component {
 							<CardBody>
 								<h2 className="text-center mb-4" style={styles.heading}>Register</h2>
 									<hr />
+									{
+										this.state.error && (<h4 className="text-center">
+											<Badge tag="a" href="#!" color="danger">{this.state.error}</Badge></h4>)
+									} 
+										{
+										this.state.success && (<h4 className="text-center">
+											<Badge tag="a" href="/login" color="success">{this.state.success}</Badge></h4>)
+									}
 									<label className="grey-text" htmlFor="name">First Name: </label>
 									<input
 										type="text"
@@ -140,14 +148,6 @@ class Register extends Component {
 										onChange={this.handleChange('courseCode')} 
 									/>
 									<br/> 
-									{
-										this.state.error && (<h4 className="text-center">
-											<Badge tag="a" href="#!" color="danger">{this.state.error}</Badge></h4>)
-									} 
-										{
-										this.state.success && (<h4 className="text-center">
-											<Badge tag="a" href="/login" color="success">{this.state.success}</Badge></h4>)
-									}
 									<div className="text-center">
 										<Button onClick={this.handleSubmit}>Register</Button>
 									</div>

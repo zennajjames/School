@@ -8,7 +8,7 @@ import {read} from '../../user/api-user'
 import {list} from '../api-course'
 
 import classnames from 'classnames';
-import moment from 'moment'
+// import moment from 'moment'
 
 import CourseGrid from '../CourseGrid'
 import PostList from '../../post/PostList'
@@ -133,7 +133,7 @@ class CourseDashboard extends React.Component {
   }
 
   render() {
-    const joined = moment(new Date(this.state.user.created)).format("LL")
+    // const joined = moment(new Date(this.state.user.created)).format("LL")
     const photoUrl = this.state.user._id
               ? `/api/users/photo/${this.state.user._id}?${new Date().getTime()}`
               : '/api/users/defaultphoto'

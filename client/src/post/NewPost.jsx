@@ -1,24 +1,24 @@
 import React, {Component} from 'react'
-import { Button, Input, InputFile } from 'mdbreact';
+import { Button, Input } from 'mdbreact';
 import PropTypes from 'prop-types'
 import {create} from './api-post.js'
 import auth from '../auth/auth-helper.js'
 
-const styles = {
-  media: {
-    maxHeight: 200,
-    maxWidth: 200
-  },
-  avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 50, 
-    marginRight: 15
-  },
-  input: {
-    display: 'none'
-  }
-}
+// const styles = {
+//   media: {
+//     maxHeight: 200,
+//     maxWidth: 200
+//   },
+//   avatar: {
+//     width: 50,
+//     height: 50,
+//     borderRadius: 50, 
+//     marginRight: 15
+//   },
+//   input: {
+//     display: 'none'
+//   }
+// }
 
 class NewPost extends Component {
   

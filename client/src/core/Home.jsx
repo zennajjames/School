@@ -1,21 +1,9 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Button, Fa, Card } from 'mdbreact';
+import { Container, Row, Col, Button, Fa } from 'mdbreact';
 // import PropTypes from 'prop-types'
 import auth from '../auth/auth-helper'
 import Newsfeed from '../post/Newsfeed.jsx'
 import CourseGrid from '../courses/CourseGrid'
-
-const styles = {
-  heading: {
-    fontWeight: 400,
-    color: "white",
-    paddingTop: 16
-  },
-  divider: {
-    color: "white",
-    marginBottom: 20
-  }
-}
 
 class Home extends Component {
 
@@ -67,13 +55,7 @@ class Home extends Component {
               <Newsfeed/>
             </Col>
             <Col className="clo-12 col-lg-4">
-              <div>
-                <h5 style={styles.heading}>My Courses</h5>
-                <hr />
-              </div>
-              <Card style={{padding:20}}>
-                <CourseGrid/>
-              </Card>
+                <CourseGrid/>     
             </Col>
             </Row>
           }
