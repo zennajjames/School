@@ -5,12 +5,6 @@ const authCtrl = require('../../controllers/auth.controller')
 
 const router = express.Router()
 
-router.route('/student/:userId')
-  .get(authCtrl.requireSignin, courseCtrl.list)
-
-router.route('/teacher/:userId')
-  .get(authCtrl.requireSignin, courseCtrl.listCoursesByTeacher)
-
 router.route('/')
   .get(courseCtrl.list)
   .post(courseCtrl.create)
@@ -22,16 +16,14 @@ router.route('/defaultphoto')
 
 router.route('/enroll')
   .put(authCtrl.requireSignin, courseCtrl.addStudent)
-router.route('/unfollow')
-  .put(authCtrl.requireSignin, courseCtrl.removeFollowing, courseCtrl.removeFollower)
 
 router.route('/:courseId')
   .get(authCtrl.requireSignin, userCtrl.read)
   .put(authCtrl.requireSignin, authCtrl.hasAuthorization, courseCtrl.update)
   .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, courseCtrl.remove)
 
-router.route('/:userId')
-  .get(authCtrl.requireSignin, courseCtrl.findCourses)
+// router.route('/:userId')
+//   .get(authCtrl.requireSignin, courseCtrl.findCourses)
 
 
 router.param('courseId', courseCtrl.courseById)

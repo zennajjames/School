@@ -36,7 +36,7 @@ const CourseSchema = new mongoose.Schema({
     postedBy: { type: mongoose.Schema.ObjectId, ref: 'User'}
       }
     ],
-  instructor: {type: mongoose.Schema.ObjectId, ref: 'User'},
+  instructor: String,
   created: {
     type: Date,
     default: Date.now

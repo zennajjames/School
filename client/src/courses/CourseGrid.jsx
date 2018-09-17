@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
-import { Row, Col, Chip } from 'mdbreact';
+import { Row, Col, Chip, Card } from 'mdbreact';
 
 import Enroll from '../courses/Enroll'
 import Modal from '../core/Modal'
 import CreateCourse from './CreateCourse'
 import { list } from './api-course'
+// import {read, update, remove} from '../user/api-user'
 import auth from '../auth/auth-helper.js'
 
 const styles = {
@@ -17,7 +18,7 @@ const styles = {
   heading: {
     fontWeight: 400,
     color: "white",
-    paddingTop: 16
+    paddingTop: 10
   },
   badge: {
     width: 250,
@@ -111,24 +112,30 @@ class CourseGrid extends Component {
               : <Modal header={"Create A Course"} closeButton={"Cancel"} openButton={"Create A Course"} body={<CreateCourse userId={this.state.userId}/>}/>
             } 
         </div>
-        <hr />     
-      <Row>      
-        <Col>
-          {this.state.courses.map((course, i) => { 
-            const photoUrl = course.photo
-            ? `/api/courses/photo/${this.state.course._id}?${new Date().getTime()}`
-            : '/api/courses/defaultphoto'
-            return <div className="d-flex-column d-wrap" key={i}>
-                      <a href={'course/'+ course._id}><Chip className="justify-content-center z-depth-1-half" bgColor="cyan darken-2" text="white" size="lg" src={photoUrl} alt="Courses" waves>{course.title}</Chip></a>
-                   </div>
-          })}
-        </Col>
-      </Row>  
-      <Row>
-        <div className="d-inline-flex p-2 float-right">
-            <div>{this.state.gridMessage}</div>
-        </div>
-      </Row>
+        <hr />  
+        <Card>
+          <Row>  
+          { this.state.courses.length > 0    
+            ? <Col>
+              <div className="m-4">
+                {this.state.courses.map((course, i) => { 
+                  const photoUrl = course.photo
+                  ? `/api/courses/photo/${this.state.course._id}?${new Date().getTime()}`
+                  : '/api/courses/defaultphoto'
+                  return <div className="d-flex-column d-wrap" key={i}>
+                            <a href={'course/'+ course._id}><Chip className="justify-content-center z-depth-1-half" bgColor="cyan darken-2" text="white" size="lg" src={photoUrl} alt="Courses" waves>{course.title}</Chip></a>
+                        </div>
+                })}
+              </div>
+              </Col>
+            :  <Col>
+                  <div className="text-center m-2">
+                     <h5>{this.state.gridMessage}</h5>
+                  </div>
+              </Col>
+            }
+          </Row>       
+        </Card>   
     </div>
     )}
   }

@@ -42,7 +42,6 @@ const read = (params, credentials) => {
   }).catch((err) => console.log(err))
 }
 
-
 const list = () => {
   return fetch('/api/courses/', {
     method: 'GET',
@@ -78,7 +77,6 @@ const findCourses = (params, credentials) => {
   }).catch((err) => console.log(err))
 }
 
-
 const listStudentCourses = (params, credentials) => {
   return fetch('/api/courses/student/'+ params.userId, {
     method: 'GET',
@@ -92,24 +90,23 @@ const listStudentCourses = (params, credentials) => {
   }).catch((err) => console.log(err))
 }
 
-const listTeacherCourses = (params, credentials) => {
-  return fetch('/api/courses/teacher/'+ params.userId, {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + credentials.t
-    }
-  }).then(response => {
-    return response.json()
-  }).catch((err) => console.log(err))
-}
+// const listTeacherCourses = (params, credentials) => {
+//   return fetch('/api/courses/teacher/'+ params.userId, {
+//     method: 'GET',
+//     headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/json',
+//       'Authorization': 'Bearer ' + credentials.t
+//     }
+//   }).then(response => {
+//     return response.json()
+//   }).catch((err) => console.log(err))
+// }
 
 
 export {
   create,
   listStudentCourses,
-  listTeacherCourses,
   read,
   update,
   remove,

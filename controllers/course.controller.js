@@ -1,24 +1,26 @@
 const Course = require('../models/course.model')
+const User = require('../models/user.model')
 const _ = require('lodash')
 const errorHandler = require('../helpers/dbErrorHandler')
 const formidable = require('formidable')
 const fs = require('fs')
 
 const create = (req, res) => {
-  const course = new Course(req.body)
-  course.save((err, result) => {
-    if (err) {
-      return res.status(400).json({
-        error: errorHandler.getErrorMessage(err)
-      })
-    }
-    res.status(200).json({
+  Course.create(req.body)
+    .then(function(dbCourse) {
+      console.log(dbCourse)
+      return User.findOneAndUpdate(req.body.instructor, { $push: { courses: dbCourse.instructor } }, { new: true });
     })
-  })
+    .then(function(dbCourse) {
+      // If the User was updated successfully, send it back to the client
+      res.json(dbCourse);
+    })
+    .catch(function(err) {
+      // If an error occurs, send it back to the client
+      res.json(err);
+    });
 }
-/**
- * Load user and append to req.
- */
+
 const courseById = (req, res, next, id) => {
   Course.findById(id).exec((err, course) => {
     if (err || !course)
@@ -114,7 +116,6 @@ const addStudent = (req, res) => {
 module.exports = {
   create,
   courseById,
-  listCoursesByTeacher,
   remove,
   update,
   photo,

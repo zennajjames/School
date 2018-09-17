@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const crypto = require('crypto')
+var Schema = mongoose.Schema;
 
 const UserSchema = new mongoose.Schema({
   firstname: {
@@ -47,9 +48,14 @@ const UserSchema = new mongoose.Schema({
     trim: true
   },
   courses: 
-    [
-      {type: String}
-    ],
+  [
+    {
+      // Store ObjectIds in the array
+      type: Schema.Types.ObjectId,
+      // The ObjectIds will refer to the ids in the Course model
+      ref: "Course"
+    }
+  ],
   following: 
     [
       {type: mongoose.Schema.ObjectId, ref: 'User'}
@@ -100,4 +106,8 @@ UserSchema.methods = {
   }
 }
 
-module.exports = mongoose.model('User', UserSchema)
+var User =  mongoose.model('User', UserSchema);
+
+// Export the User model
+module.exports = User;
+
