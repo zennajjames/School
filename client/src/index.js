@@ -5,6 +5,6 @@ import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 
-import App from './App'
+import WrapperWithFooter from './App'
 
-ReactDOM.render(<App/>, document.getElementById('root'))
+ReactDOM.render(<WrapperWithFooter />, document.getElementById('root'))

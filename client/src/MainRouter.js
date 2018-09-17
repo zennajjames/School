@@ -15,16 +15,15 @@ import Users from './user/Users.jsx'
 import UserProfile from "./user/profile/Profile";
 import PrivateRoute from './auth/PrivateRoute'
 
-import Foot from './core/Footer'
 
-import "./styles/MainRouter.css";
 class MainRouter extends Component {
 
   render() {
 		return (
 			<div>
 				<Nav/>
-				<div className="main-wrapper" style={{paddingTop: '4rem', paddingBottom: '10rem'}}>
+				<div className="main-wrapper" style={{paddingTop: '6rem'}}
+>
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route exact path="/login" component={LogIn}/>
@@ -36,7 +35,6 @@ class MainRouter extends Component {
 						<PrivateRoute path="/user/edit/:userId" component={EditProfile}/>
 					</Switch>
 				</div>
-				<Foot style={{paddingTop: '2rem', marginTop: '0rem'}}/>
 			</div>
 		);
 	}
@@ -44,3 +42,4 @@ class MainRouter extends Component {
 
 export default MainRouter;
 
+// style={{paddingTop: '2rem', marginTop: '0rem'}}

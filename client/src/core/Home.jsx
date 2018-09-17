@@ -11,16 +11,12 @@ const styles = {
     color: "white",
     paddingTop: 16
   },
-  logo: {
-    maxWidth: 250
-  },
-  fish: {
-    maxWidth: 150
-  },
   divider: {
-    color: "white"
+    color: "white",
+    marginBottom: 20
   }
 }
+
 
 class Home extends Component {
 
@@ -47,20 +43,23 @@ class Home extends Component {
   render() {
     console.log(this.props)
     return(
-      <Container style={{paddingTop: '4rem', paddingBottom: '0'}}>
+      <Container style={{paddingTop: '8%'}}>
         {this.state.defaultPage &&
         <section className="text-center my-5">
-          <img style={styles.logo} src="/assets/images/schoolTitle.png" alt="logo"/><br/>
-          <img style={styles.fish} src="/assets/images/schoolFish.png" alt="logo"/>
-          <hr style={styles.divider} />
-            <h5 className="white-text w-responsive mx-auto mb-5">Are you a student or a teacher?</h5>
+          <img style={{ maxWidth: '35%', WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)', paddingBottom: 5}} src="/assets/images/schoolTitle.png" alt="logo"/><br/>
+          <img style={{ maxWidth: '150px', WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)'}} src="/assets/images/schoolFish.png" alt="logo"/><br/>
+          
+          <h5 className="white-text w-responsive mx-auto mt-5">Are you a student or a teacher?</h5>
+            <br/>
             <Row>
-              <Col md="6" className="mb-4">
-                  <Button href="/courses" color="amber darken-1" rounded size="md"><Fa icon="clone" className="left"/> Students</Button>
+              <Col></Col>
+              <Col md="4" className="mb-2">
+                <Button href="/courses" color="amber darken-1" rounded size="md"><Fa icon="clone" className="left"/> Students</Button>
               </Col>
-              <Col md="6" className="mb-4">
+              <Col md="4" className="mb-2">
                   <Button href="/courses" color="amber darken-1" rounded size="md"><Fa icon="clone" className="left"/> Teachers</Button>
               </Col>
+              <Col></Col>
             </Row>
         </section>   
           }
@@ -87,3 +86,5 @@ class Home extends Component {
 
 
 export default Home;
+
+

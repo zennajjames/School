@@ -1,0 +1,28 @@
+html,
+body {
+  height: 100%;
+  font-family: sans-serif;
+  background: url(/assets/images/blue.jpg) no-repeat center center fixed; 
+  background-size: cover;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.content {
+  flex: 1 0 auto;
+  padding: 10px;
+}
+
+.footer {
+  flex-shrink: 0;
+  text-align: center;
+}
