@@ -1,7 +1,7 @@
 import React from "react";
 import { Fa, Navbar, NavbarBrand, NavbarNav, NavItem, NavLink, NavbarToggler, Collapse, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
 import auth from './../auth/auth-helper'
-import {withRouter} from 'react-router-dom'
+import history from '../history';
 
 const styles = {
   logo: {
@@ -23,23 +23,18 @@ class Nav extends React.Component {
       });
   }
 
-
   isActive = (history, path) => {
-    if (0 === 0)
-      return {fontWeight: '600'}
+  if (history.location.pathname == path)
+    return {fontWeight: '600'}
     else
       return {fontWeight: '300'}
   }
   
-
-  render(history) {
-    console.log(this.props)
+  render() {
+    console.log(history)
     return (
       <Navbar color="amber darken-2" dark expand="md" fixed="top" scrolling>
         <NavbarBrand href="/" >
-          {/* <span>
-          <h3 style={styles.logo}><strong>School</strong></h3><img style={styles.logo} src="" alt="logo"/>
-          </span> */}
             <img style={styles.logo} src="/assets/images/schoolLogo.png" alt="logo"/>
           </NavbarBrand>
           { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}

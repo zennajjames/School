@@ -10,9 +10,8 @@ import {list} from '../api-course'
 import classnames from 'classnames';
 import moment from 'moment'
 
-import FollowGrid from './FollowGrid.js'
-import CourseGrid from '../CourseGrid.js'
-import PostList from '../../post/PostList.js'
+import CourseGrid from '../CourseGrid'
+import PostList from '../../post/PostList'
 
 
 const styles = {
@@ -105,7 +104,7 @@ class CourseDashboard extends React.Component {
 
   loadCourses = (user) => {
     const jwt = auth.isAuthenticated()
-    listByUser({
+    list({
       userId: user
     }, {
       t: jwt.token
@@ -216,7 +215,7 @@ class CourseDashboard extends React.Component {
                   <PostList removeUpdate={this.removePost} posts={this.state.posts}/> 
                 </TabPane>
                 <TabPane tabId="4">
-                <h3>Friends</h3>
+                <h3>Students</h3>
                 <hr />
                 <div style={styles.followGrid}>
                   <h5>Following</h5>
@@ -226,8 +225,7 @@ class CourseDashboard extends React.Component {
                 </div>
                 </TabPane>
                 <TabPane tabId="5">
-                <h3>Classmates</h3>
-                  <FindPeople/>
+                <h3>Galleries</h3>
                 </TabPane>
               </TabContent>
             </div>

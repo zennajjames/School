@@ -17,7 +17,6 @@ const styles = {
   }
 }
 
-
 class Home extends Component {
 
   state = {
@@ -43,7 +42,7 @@ class Home extends Component {
   render() {
     console.log(this.props)
     return(
-      <Container style={{paddingTop: '8%'}}>
+      <Container>
         {this.state.defaultPage &&
         <section className="text-center my-5">
           <img style={{ maxWidth: '35%', WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)', paddingBottom: 5}} src="/assets/images/schoolTitle.png" alt="logo"/><br/>

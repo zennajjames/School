@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Badge, Button, Card, CardBody } from 'mdbreact';
+import { Container, Row, Col, Badge, Button, Card, CardBody, Input } from 'mdbreact';
 
 import {create} from './api-user'
 
@@ -17,16 +17,22 @@ class Register extends Component {
 		password: '',
 		email: '',
 		courseCode: '',
-		modal: false,
+		instructor: false,
 		error: '', 
-		isUploading: false,
 		photo: '',
 		success: ''
   };
 
   handleChange = name => event => {
-    this.setState({[name]: event.target.value})
+		this.setState({[name]: event.target.value})
 	}
+
+	checkbox = (e) => {
+		this.setState({instructor: !e.target.checked});
+		console.log(this.state.instructor)
+	}
+
+	
 
   handleSubmit = (event) => {
 		event.preventDefault();
@@ -38,6 +44,7 @@ class Register extends Component {
       email: this.state.email || undefined,
 			password: this.state.password || undefined,
 			courseCode: this.state.courseCode || undefined,
+			instructor: this.state.instructor || undefined
 		}
     create(user).then((data) => {
 			console.log(data)
@@ -98,7 +105,9 @@ class Register extends Component {
 										onChange={this.handleChange('password')} 
 									/>
 									<br/> 
-									<label className="grey-text" htmlFor="courseCode">Class Code: </label>
+									<label className="grey-text" htmlFor="instructor">Are you an instructor?</label>
+									<input type="checkbox" onClick={this.checkbox} value={!this.state.instructor}></input>
+									<label className="grey-text" htmlFor="courseCode">If you're enrolling in a course, enter the class code below.</label>
 									<input
 										type="courseCode"
 										name="courseCode"

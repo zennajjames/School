@@ -1,22 +1,25 @@
 import React from 'react'
 import MainRouter from './MainRouter'
-import {BrowserRouter} from 'react-router-dom'
+// import {BrowserRouter} from 'react-router-dom'
 import { Col, Container, Row, Footer } from 'mdbreact';
 import { Provider } from "react-redux";
 import "./styles/index.css";
 
+import { Router } from 'react-router-dom';
+import history from './history';
+
 const Foot = () => (
-		<Footer color="amber darken-2" className="font-small pt-0 mt-0">
+		<Footer color="cyan darken-2" className="font-small pt-0 mt-0">
 				<Container>
 						<Row>
 								<Col md="12">
 										<div className="mb-5 flex-center">
-										<a className="fb-ic"><i style={{width:5}} className="fa fa-facebook fa-lg white-text mr-md-5 mr-3 fa-2x"> </i></a>
-										<a className="tw-ic"><i className="fa fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i></a>
-										<a className="gplus-ic"><i className="fa fa-google-plus fa-lg white-text mr-md-5 mr-3 fa-2x"> </i></a>
-										<a className="li-ic"><i className="fa fa-linkedin fa-lg white-text mr-md-5 mr-3 fa-2x"> </i></a>
-										<a className="ins-ic"><i className="fa fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i></a>
-										<a className="pin-ic"><i className="fa fa-pinterest fa-lg white-text fa-2x"> </i></a>
+										<a className="fb-ic"><i className="fa fa-facebook fa-md white-text mr-md-3 mr-1"> </i></a>
+										<a className="tw-ic"><i className="fa fa-twitter fa-md white-text mr-md-3 mr-1"> </i></a>
+										<a className="gplus-ic"><i className="fa fa-google-plus fa-md white-text mr-md-3 mr-1"> </i></a>
+										<a className="li-ic"><i className="fa fa-linkedin fa-md white-text mr-md-3 mr-1"> </i></a>
+										<a className="ins-ic"><i className="fa fa-instagram fa-md white-text mr-md-3 mr-1"> </i></a>
+										<a className="pin-ic"><i className="fa fa-pinterest fa-md white-text"> </i></a>
 										</div>
 								</Col>
 						</Row>
@@ -30,11 +33,11 @@ const Foot = () => (
 	);
 
 const App = () => (
-	<BrowserRouter>
+	<Router history={history}>
 		<div className="content">
 			<MainRouter/>
 		</div>
-	</BrowserRouter>
+	</Router>
 	)
 
 const withFooter = WrappedComponent => () => [

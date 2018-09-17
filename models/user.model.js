@@ -42,7 +42,7 @@ const UserSchema = new mongoose.Schema({
     data: Buffer,
     contentType: String
   },
-  instructor: Boolean,
+  instructor: String,
   courses: 
     [
       {type: String}

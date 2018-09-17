@@ -38,6 +38,7 @@
     "formidable": "^1.2.1",
     "fs": "^0.0.1-security",
     "helmet": "^3.13.0",
+    "history": "^4.7.2",
     "if-env": "^1.0.4",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.10",
