@@ -4,22 +4,6 @@ import PropTypes from 'prop-types'
 import {create} from './api-post.js'
 import auth from '../auth/auth-helper.js'
 
-// const styles = {
-//   media: {
-//     maxHeight: 200,
-//     maxWidth: 200
-//   },
-//   avatar: {
-//     width: 50,
-//     height: 50,
-//     borderRadius: 50, 
-//     marginRight: 15
-//   },
-//   input: {
-//     display: 'none'
-//   }
-// }
-
 class NewPost extends Component {
   
   state = {
@@ -68,7 +52,7 @@ class NewPost extends Component {
           picReader.addEventListener("load", function (event) {
               var picFile = event.target;
               var div = document.createElement("div");
-              div.innerHTML = "<img style='max-width:90px; max-height:90px; float:left; margin:10px; display: inline'src='" + picFile.result + "'" + "title='" + picFile.name + "'/>";
+              div.innerHTML = "<img style='max-width:100px; max-height100px; float:left; margin:10px; display: inline'src='" + picFile.result + "'" + "title='" + picFile.name + "'/>";
               output.insertBefore(div, null);
           });
           //Read the image
@@ -100,19 +84,14 @@ class NewPost extends Component {
         <div>
             <div className="d-flex flex-row">
               <Input onChange={this.handleChange('text')} hint="Share your thoughts ..." value={this.state.text}/>  
-            </div>
-              {/* <input style={styles.input}  onChange={this.handleFileSelect}  multiple="multiple"/> */}
-        
-                <input accept="image/*" onChange={this.handleChange('photo')} id="icon-button-file" type="file" getValue = { this.fileInputHandler }></input>
-
+            </div>        
+                <input accept="image/*" onChange={this.handleChange('photo')} id="icon-button-file" type="file" getValue={this.fileInputHandler}></input>
               <br/>
               <output id="result" />
-
             { this.state.error && (<h5 component="p" color="error">
                   {this.state.error}
                 </h5>)
             }
-    
               <div className='float-right'>
                   <Button size="sm" disabled={this.state.text === ''} onClick={this.clickPost}>Post</Button>
               </div>

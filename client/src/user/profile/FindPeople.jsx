@@ -14,9 +14,9 @@ const styles = {
     margin: 5,
     borderRadius: 50
   },
-  heading: {
-    color: "white"
-  },
+  // heading: {
+  //   color: "white"
+  // },
   badge: {
     width: 250,
     height:90
@@ -75,15 +75,15 @@ class FindPeople extends Component {
     <div>     
       <h4 style={styles.heading}>Classmates</h4>
         <hr />
-        <ListGroup>
-          {this.state.users.map((item, i) => { 
-            return <span className="d-flex flex-row" key={i}>
-            <Chip className="z-depth-1-half" bgColor="amber" text="white" size="lg" src={'/api/users/photo/'+item._id} alt="Classmates" waves>{item.name}</Chip>
-            <h6 className="p-2"><Badge onClick={this.clickFollow.bind(this, item, i)} color="cyan">Follow</Badge></h6>
-            </span>
-          })
-          }
-        </ListGroup>
+        <div className="d-flex flex-row">
+          {this.state.users.map((item, i) => {
+               return <div className="p-2 text-center m-2" key={i}>
+                        <img style={styles.avatar} className="z-depth-1-half mb-2" src={'/api/users/photo/'+item._id} alt="Classmates"/>
+                        <h5><Badge color="cyan">{item.name}</Badge></h5>
+                        <h6><Badge onClick={this.clickFollow.bind(this, item, i)} color="info">Follow</Badge></h6>
+                      </div>
+                  })}  
+          </div> 
       <Badge
           open={this.state.open}
           onClose={this.handleRequestClose}

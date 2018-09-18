@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import { Container, Card, CardBody, Badge } from 'mdbreact';
 
-import {list} from './api-user.js'
+import {listUsers} from './api-user.js'
+import FindPeople from './profile/FindPeople';
 
 const styles = {
   avatar: {
@@ -20,7 +21,7 @@ class Users extends Component {
   }
 
   componentDidMount() {
-    list().then((data) => {
+    listUsers().then((data) => {
       console.log(data)
       if (data.error) {
         console.log(data.error)
@@ -36,17 +37,18 @@ class Users extends Component {
       <Container>
       <Card>
         <CardBody>
+          <FindPeople/>
           <h4>Students</h4>
           <hr />
+          <div className="d-flex flex-row">
           {this.state.users.map((item, i) => {
-               return <span className="d-flex flex-column" key={i}>
-                    <div className="p-2">
-                      <img style={styles.avatar} className="z-depth-1-half" src={'/api/users/photo/'+item._id} alt="Users"/>
-                    </div>
-                    <h6 className="p-2"><Badge color="cyan">{item.name}</Badge></h6>
-                 </span>
-              })
-          }   
+               return <div className="p-2 text-center m-2" key={i}>
+                        <img style={styles.avatar} className="z-depth-1-half mb-2" src={'/api/users/photo/'+item._id} alt="Users"/>
+                        <h5><Badge color="cyan">{item.name}</Badge></h5>
+                        <h6><Badge color="info">Follow</Badge></h6>
+                      </div>
+                  })}  
+          </div> 
         </CardBody>
       </Card>
     </Container>

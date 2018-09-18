@@ -14,7 +14,7 @@ const create = (user) => {
     }).catch((err) => console.log(err))
 }
 
-const list = () => {
+const listUsers = () => {
   return fetch('/api/users/', {
     method: 'GET',
   }).then(response => {
@@ -148,7 +148,7 @@ const addToRoster = (params, credentials, userData) => {
 
 export {
   create,
-  list,
+  listUsers,
   read,
   update,
   remove,
