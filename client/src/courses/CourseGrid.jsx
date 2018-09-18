@@ -76,11 +76,6 @@ class CourseGrid extends Component {
     else if (jwt.user.role === "student") {
       console.log(jwt.user.role)
       list().then((courses) => {
-        if (courses.length === 0) {
-          console.log("No courses!")
-          this.setState({gridMessage: "Enroll in class to get started!"})
-        }
-        else {
           console.log(courses)
           let studentCourses = []
           for (let i=0; i<courses.length; i++) {
@@ -90,7 +85,11 @@ class CourseGrid extends Component {
           }
           this.setState({courses: studentCourses})
           console.log(this.state.courses)
-        }
+          
+          if (studentCourses.length === 0) {
+            console.log("No courses!")
+            this.setState({gridMessage: "Enroll in class to get started!"})
+          }
       })
     }
     else {
