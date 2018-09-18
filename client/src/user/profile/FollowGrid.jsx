@@ -24,7 +24,7 @@ class FollowGrid extends Component {
             return <div key={i} className="p-2">
                       <div className="d-flex flex-column" style={{'height':120}} key={i}>
                         <img className="p-2" style={styles.avatar} alt="avatarPic" src={'/api/users/photo/'+person._id}/>
-                        <a styles={styles.tileText} className="p-2" href={"/user/" + person._id}>
+                        <a styles={styles.tileText} className="p-2" href={"/users/" + person._id}>
                           <p className="p-2" styles={styles.tileText}>{person.name}</p>
                         </a>
                       </div>
