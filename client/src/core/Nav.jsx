@@ -2,6 +2,7 @@ import React from "react";
 import { Fa, Navbar, NavbarBrand, NavbarNav, NavItem, NavLink, NavbarToggler, Collapse, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
 import auth from './../auth/auth-helper'
 import {withRouter} from 'react-router-dom'
+import history from '../history';
 
   const styles = {
     logo: {
@@ -10,28 +11,43 @@ import {withRouter} from 'react-router-dom'
     }
   }
 
-  const isActive = (history, path) => {
-  if (history.location.pathname === path)
-    return {fontWeight: '600'}
-    else
-      return {fontWeight: '300'}
-  }
-  const Nav = withRouter(({history}) => (
+  class Nav extends React.Component {
+
+    state = {
+        collapse: false,
+        isWideEnough: false
+    };
+  
+    onClick = () => {
+        this.setState({
+            collapse: !this.state.collapse,
+        });
+    }
+  
+    isActive = (history, path) => {
+    if (history.location.pathname === path)
+      return {fontWeight: '600'}
+      else
+        return {fontWeight: '300'}
+    }
+    
+    render() {
+       return (
 
       <Navbar color="amber darken-2" dark expand="md" fixed="top" scrolling>
         <NavbarBrand href="/" >
             <img style={styles.logo} src="/assets/images/schoolLogo.png" alt="logo"/>
           </NavbarBrand>
-          {/* { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
-                        <Collapse isOpen = { this.state.collapse } navbar> */}
+          { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
+                        <Collapse isOpen = { this.state.collapse } navbar>
           {
             !auth.isAuthenticated() && (
             <NavbarNav right>
               <NavItem>
-                <NavLink to="/register" style={isActive(history, "/register")}>Register</NavLink>
+                <NavLink to="/register" style={this.isActive(history, "/register")}>Register</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/login" style={isActive(history, "/login")}>Log In</NavLink>
+                <NavLink to="/login" style={this.isActive(history, "/login")}>Log In</NavLink>
               </NavItem>
             </NavbarNav>)
           }
@@ -42,7 +58,7 @@ import {withRouter} from 'react-router-dom'
               <NavLink to={"/"}>Hi, {auth.isAuthenticated().user.name}!  </NavLink>
             </NavItem>
             <NavItem>
-                <NavLink style={isActive(history, "/")} to={"/"}><Fa icon="dashboard"/>{auth.isAuthenticated().user.role.toUpperCase()} Dashboard</NavLink>
+                <NavLink style={this.isActive(history, "/")} to={"/"}><Fa icon="dashboard"/>{auth.isAuthenticated().user.role.toUpperCase()} Dashboard</NavLink>
               </NavItem>
               <NavItem>
                 <Dropdown>
@@ -52,7 +68,7 @@ import {withRouter} from 'react-router-dom'
                             <NavLink to={"/students"}>Connect</NavLink>
                           </DropdownItem>
                           <DropdownItem>
-                            <NavLink to={"/users/" + auth.isAuthenticated().user._id} style={isActive(history, "/users/" + auth.isAuthenticated().user._id)}>Profile</NavLink>
+                            <NavLink to={"/users/" + auth.isAuthenticated().user._id}>Profile</NavLink>
                           </DropdownItem>
                           <DropdownItem>
                             <NavLink to={"/courses"}>My Courses</NavLink>
@@ -63,9 +79,11 @@ import {withRouter} from 'react-router-dom'
                 </NavItem>
             </NavbarNav>)
           }
-        {/* </Collapse> */}
+        </Collapse>
       </Navbar>
-  ))
+        );
+      }
+    }
 
 
 export default Nav;

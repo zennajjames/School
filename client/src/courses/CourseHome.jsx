@@ -1,8 +1,34 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'mdbreact';
+import { Container, Row, Col, Button } from 'mdbreact';
 import Vimeo from '@u-wave/react-vimeo';
 
+import {read} from './api-course'
+import auth from '../auth/auth-helper.js'
+
 class CourseHome extends Component {
+
+  state = {
+    course: [],
+    error: ''
+  }
+
+  componentDidMount = () => {
+    const jwt = auth.isAuthenticated()
+    console.log(jwt)
+    read({
+      courseId: this.props.match.params.courseId
+    }, {t: jwt.token}).then((data) => {
+      console.log(data)
+      if (!data) {
+        this.setState({error: "No data!"})
+      } else {
+        this.setState({course: data})
+        console.log(this.state.course)
+      }
+    })
+  }
+  
+
   render() {
     return(
       <Container>
@@ -13,6 +39,14 @@ class CourseHome extends Component {
             <Col>
               <div className="text-center">
                 <Vimeo video="288973599" autoplay />    
+              </div>
+            </Col>
+          </Row>
+          <Row className="text-center">
+            <Col>
+              <div className="text-center">
+                <br/>
+                <Button size="lg" color="amber darken-2">Lessons</Button>  
               </div>
             </Col>
           </Row>

@@ -25,16 +25,23 @@ const create = (req, res) => {
     })
   };
 
-const courseById = (req, res, next, id) => {
-  Course.findById(id).exec((err, course) => {
-    if (err || !course)
-      return res.status('400').json({
+  const courseById = (req, res, next, id) => {
+    Course.findById(id)
+      // .populate('following', '_id name')
+      // .populate('followers', '_id name')
+      .exec((err, user) => {
+      if (err || !user) return res.status('400').json({
         error: "Course not found."
       })
-    req.course = course
-    next()
-  })
-}
+      req.profile = course
+      next()
+    })
+  }
+  
+  const read = (req, res) => {
+    return res.json(req.profile)
+  }
+
 
 const list = (req, res) => {
   Course.find((err, courses) => {
@@ -120,6 +127,7 @@ const addStudent = (req, res) => {
 module.exports = {
   create,
   courseById,
+  read,
   remove,
   update,
   photo,

@@ -29,19 +29,6 @@ const update = (params, credentials, course) => {
   })
 }
 
-const read = (params, credentials) => {
-  return fetch('/api/courses/' + params.courseId, {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + credentials.t
-    }
-  }).then((response) => {
-    return response.json()
-  }).catch((err) => console.log(err))
-}
-
 const list = () => {
   return fetch('/api/courses/', {
     method: 'GET',
@@ -63,9 +50,9 @@ const remove = (params, credentials) => {
   }).catch((err) => console.log(err))
 }
 
-const findCourses = (params, credentials) => {
+const read = (params, credentials) => {
   console.log(params)
-  return fetch('/api/courses/' + params.userId, {
+  return fetch('/api/courses/' + params.courseId, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
@@ -73,7 +60,7 @@ const findCourses = (params, credentials) => {
       'Authorization': 'Bearer ' + credentials.t
     }
   }).then((response) => {
-    return response.json()
+    return console.log(response)
   }).catch((err) => console.log(err))
 }
 
@@ -110,6 +97,5 @@ export {
   read,
   update,
   remove,
-  findCourses,
   list
 }

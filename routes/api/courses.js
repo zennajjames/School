@@ -18,7 +18,7 @@ router.route('/enroll')
   .put(authCtrl.requireSignin, courseCtrl.addStudent)
 
 router.route('/:courseId')
-  .get(authCtrl.requireSignin, userCtrl.read)
+  .get(courseCtrl.read)
   .put(authCtrl.requireSignin, authCtrl.hasAuthorization, courseCtrl.update)
   .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, courseCtrl.remove)
 
