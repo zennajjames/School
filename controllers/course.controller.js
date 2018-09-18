@@ -8,18 +8,22 @@ const fs = require('fs')
 const create = (req, res) => {
   Course.create(req.body)
     .then(function(dbCourse) {
+      console.log("NEW COURSE:")
       console.log(dbCourse)
-      return User.findOneAndUpdate(req.body.instructor, { $push: { courses: dbCourse.instructor } }, { new: true });
+      // If a Note was created successfully, find one User (there's only one) and push the new Note's _id to the User's `notes` array
+      // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+      // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
+      return User.update({_id:req.body.instructor}, { $push: { courses: dbCourse._id } }, { new: true });
     })
-    .then(function(dbCourse) {
+    .then(function(dbUser) {
       // If the User was updated successfully, send it back to the client
-      res.json(dbCourse);
+      res.json(dbUser);
     })
     .catch(function(err) {
       // If an error occurs, send it back to the client
       res.json(err);
-    });
-}
+    })
+  };
 
 const courseById = (req, res, next, id) => {
   Course.findById(id).exec((err, course) => {

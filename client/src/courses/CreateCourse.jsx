@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { Container, Badge, Button } from 'mdbreact';
-import auth from '../auth/auth-helper'
+// import auth from '../auth/auth-helper'
 
 import {create} from './api-course'
-import {enroll} from '../user/api-user'
 
 class CreateCourse extends Component {
 
@@ -32,26 +31,13 @@ class CreateCourse extends Component {
 		console.log(course.instructor)
     create(course).then((data) => {
 			console.log(data)
-      if (data.error) {
-				this.setState({error: data.error})
+      if (!data) {
+				this.setState({error: "No data!"})
       } else {
 				window.location.reload()
       }
     })
 	}
-
-	// addCourse = (courseID) => {
-  //   console.log(this.state.courseCode)
-  //   const jwt = auth.isAuthenticated()
-  //   enroll({userId: jwt.user._id}, {t: jwt.token}, 
-  //     {userId:this.props.userId, course:courseID}).then((data) => {
-  //     if (data.error) {
-  //       console.log(data.error)
-  //     } else {
-	// 			
-  //     }
-  //   })
-  // }
 
   render() {
 		return (

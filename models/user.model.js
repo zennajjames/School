@@ -47,8 +47,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
-  courses: 
-  [
+  courses: [
     {
       // Store ObjectIds in the array
       type: Schema.Types.ObjectId,

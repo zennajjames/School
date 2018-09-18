@@ -56,17 +56,18 @@ class CourseGrid extends Component {
       console.log(jwt.user.role)
       list().then((courses) => {
         console.log(courses)
-        if (courses.length === 0) {
+        let teacherCourses = []
+        
+        for (let i=0; i<courses.length; i++) {
+          if (courses[i].instructor === jwt.user._id) {
+            teacherCourses.push(courses[i])
+          }
+        }
+        if (teacherCourses.length === 0) {
           console.log("No courses!")
           this.setState({gridMessage: "Create your first course to get started!"})
         }
         else {
-          let teacherCourses = []
-          for (let i=0; i<courses.length; i++) {
-            if (courses[i].instructor === jwt.user._id) {
-              teacherCourses.push(courses[i])
-            }
-          }
           this.setState({courses: teacherCourses})
           console.log(this.state.courses)
         }
