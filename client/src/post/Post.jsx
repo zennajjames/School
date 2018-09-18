@@ -114,9 +114,7 @@ class Post extends Component {
                 <div className="added-images">
                 {this.props.post.photo &&
                     (<div>
-                        <img
-                          className="z-depth-1 rounded mb-md-0 mb-2" alt="post-photos" src={'/api/posts/photo/'+this.props.post._id}
-                          />
+                        <img className="z-depth-1 rounded mb-md-0 mb-2" alt="post-photos" src={'/api/posts/photo/'+this.props.post._id}/>
                     </div>
                     )}
                 </div>

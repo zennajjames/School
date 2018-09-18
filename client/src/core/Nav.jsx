@@ -37,8 +37,6 @@ import {Link} from 'react-router-dom'
     }
     
     render() {
-      console.log(this.props)
-      console.log(history)
        return (
 
       <Navbar color="amber darken-2" dark expand="md" fixed="top" scrolling>

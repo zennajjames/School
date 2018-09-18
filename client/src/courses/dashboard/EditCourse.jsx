@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Container, Button, Card, CardTitle, Fa, CardBody, Input } from 'mdbreact';
 import Modal from '../../core/Modal'
 import auth from '../../auth/auth-helper'
-import {read, update, remove} from '../api-user'
+import {listOne, update, remove} from '../api-course'
 import {Redirect} from 'react-router-dom'
 
 const styles = {
@@ -37,15 +37,13 @@ const styles = {
   }
 }
 
-class EditProfile extends Component {
+class EditCourse extends Component {
   constructor({match}) {
     super()
     this.state = {
-      name: '',
-      about: '',
-      photo: '',
-      email: '',
-      password: '',
+      course: [],
+      role: '',
+      userId: '',
       redirectToProfile: false,
       redirectHome: false,
       id: '',
@@ -55,35 +53,40 @@ class EditProfile extends Component {
   }
 
   componentDidMount = () => {
-    console.log(this.props)
-    this.userData = new FormData()
-    console.log(this.userData)
     const jwt = auth.isAuthenticated()
-    read({
-      userId: this.props.match.params.userId
-    }, {t: jwt.token}).then((data) => {
-      if (data.error) {
-        this.setState({error: data.error})
-      } else {
-        this.setState({id: data._id, name: data.name, email: data.email, about: data.about})
-      }
-    })
+    this.setState({userId: jwt.user._id})
+    this.setState({role: jwt.user.role})
+    this.loadCourseInfo()
+  }
+    
+  loadCourseInfo = () => {
+      // const jwt = auth.isAuthenticated()
+      listOne({
+        courseId: this.props.match.params.courseId
+      }).then((data) => {
+        if (!data) {
+          console.log("No response!")
+        } else {
+          this.setState({course: data})
+          this.setState({videos: data.videos})
+        }
+      })
   }
   
   clickSubmit = () => {
     const jwt = auth.isAuthenticated()
-    const user = {
+    const course = {
       name: this.state.name || undefined,
       email: this.state.email || undefined,
       password: this.state.password || undefined,
       about: this.state.about || undefined
     }
-    console.log(user)
+    console.log(course)
     update({ userId: this.match.params.userId}, 
       { t: jwt.token}, 
       this.userData).then((data) => {
-      if (data.error) {
-        this.setState({error: data.error})
+      if (!data) {
+        this.setState({error: "No data!"})
       } else {
         this.setState({'redirectToProfile': true})
       }
@@ -129,7 +132,7 @@ class EditProfile extends Component {
       <Container>
       <Card>
         <CardBody>
-          <CardTitle>Edit Profile</CardTitle>
+          <CardTitle>Edit Course</CardTitle>
           <hr/>
           <img alt="profilePic" src={photoUrl} style={styles.bigAvatar}/><br/>
           <input style={styles.input} accept="image/*" onChange={this.handleChange('photo')} id="icon-button-file" type="file" />
@@ -148,7 +151,7 @@ class EditProfile extends Component {
           }
           <Button size="sm" color="primary" onClick={this.clickSubmit}>Submit</Button>
           <Button size="sm" color="primary" href={'/user/' + this.state.id}>Cancel</Button>
-          <Modal className="float-right" header={"Confirm to delete your account."} closeButton={"Cancel"} openButton={<div><Fa icon="trash" aria-label="Delete"/>Delete Account</div>} body={<Button className="mx-auto" onClick={this.deleteAccount} color="danger" autoFocus="autoFocus">Confirm.</Button>}></Modal>         
+          <Modal className="float-right" header={"Confirm to delete your account."} closeButton={"Cancel"} openButton={<div><Fa icon="trash" aria-label="Delete"/>Delete Course</div>} body={<Button className="mx-auto" onClick={this.deleteAccount} color="danger" autoFocus="autoFocus">Confirm.</Button>}></Modal>         
         </CardBody>
       </Card>
     </Container>
@@ -156,4 +159,4 @@ class EditProfile extends Component {
   }
 }
 
-export default EditProfile
+export default EditCourse

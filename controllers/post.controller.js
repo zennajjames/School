@@ -43,6 +43,16 @@ const postByID = (req, res, next, id) => {
   })
 }
 
+const photo = (req, res, next) => {
+  console.log("Photo Request:")
+  console.log(req.post.photo.data)
+  res.set("Content-Type", req.post.photo.contentType)
+  console.log("Photo Response:")
+  console.log(req.post.photo.data)
+  return res.send(req.post.photo.data)
+}
+
+
 const listByUser = (req, res) => {
   Post.find({postedBy: req.profile._id})
   .populate('comments', 'text created')
@@ -91,14 +101,6 @@ const remove = (req, res) => {
     })
 }
 
-const photo = (req, res, next) => {
-  console.log("Photo Request:")
-  console.log(req.post.photo.data)
-  res.set("Content-Type", req.post.photo.contentType)
-  console.log("Photo Response:")
-  console.log(req.post.photo.data)
-  return res.send(req.post.photo.data)
-}
 
 const like = (req, res) => {
   Post.findByIdAndUpdate(req.body.postId, {$push: {likes: req.body.userId}}, {new: true})

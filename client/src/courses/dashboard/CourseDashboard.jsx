@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Container, Row, Col, TabPane, TabContent, Nav, NavItem, NavLink } from 'mdbreact';
 import auth from '../../auth/auth-helper.js'
-// import {read} from '../api-user'
+import {read} from '../api-user'
 import { Redirect } from 'react-router-dom'
 import classnames from 'classnames';
 
@@ -47,16 +47,18 @@ class CourseDashboard extends React.Component {
     this.match = match
   }
 
-  init = (courseId) => {
-    console.log(courseId)
+  componentDidMount = () => {
+    console.log(this.props)
+    this.userData = new FormData()
+    console.log(this.userData)
     const jwt = auth.isAuthenticated()
     read({
-      courseId: courseId
+      userId: this.props.match.params.userId
     }, {t: jwt.token}).then((data) => {
       if (data.error) {
-        this.setState({redirectToSignin: true})
+        this.setState({error: data.error})
       } else {
-        console.log(data)
+        this.setState({id: data._id, name: data.name, email: data.email, about: data.about})
       }
     })
   }

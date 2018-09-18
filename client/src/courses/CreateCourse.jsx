@@ -9,6 +9,7 @@ class CreateCourse extends Component {
 		state = {
 			title: '',
 			description: '',
+			tagline: '',
 			instructor: this.props.userId,
 			coursePhoto: '',
 			courseCode: '',
@@ -26,7 +27,8 @@ class CreateCourse extends Component {
 			description: this.state.description || undefined,
 			instructor: this.state.instructor || undefined,
       coursePhoto: this.state.coursePhoto || undefined,
-			courseCode: this.state.courseCode || undefined
+			courseCode: this.state.courseCode || undefined,
+			tagline: this.state.tagline || undefined
 		}
 		console.log(course.instructor)
     create(course).then((data) => {
@@ -50,6 +52,15 @@ class CreateCourse extends Component {
 									  className="form-control"
 										value={this.state.title}
 										onChange={this.handleChange('title')}
+									/>
+									<br/>
+									<label className="grey-text" htmlFor="tagline">Tagline: </label>
+									<input
+										type="tagline"
+										name="tagline"
+									  className="form-control"
+										value={this.state.tagline}
+										onChange={this.handleChange('tagline')} 
 									/>
 									<br/>
 									<label className="grey-text" htmlFor="description">Description: </label>

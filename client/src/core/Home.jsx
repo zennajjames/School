@@ -41,10 +41,10 @@ class Home extends Component {
             <Row>
               <Col></Col>
               <Col md="4" className="mb-2">
-                <Button href="/courses" color="amber darken-1" rounded size="md"><Fa icon="clone" className="left"/> Students</Button>
+                <Button href="/register/student" color="amber darken-1" rounded size="md"><Fa icon="clone" className="left"/> Students</Button>
               </Col>
               <Col md="4" className="mb-2">
-                  <Button href="/courses" color="amber darken-1" rounded size="md"><Fa icon="clone" className="left"/> Teachers</Button>
+                  <Button href="/register/teacher" color="amber darken-1" rounded size="md"><Fa icon="clone" className="left"/> Teachers</Button>
               </Col>
               <Col></Col>
             </Row>

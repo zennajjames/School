@@ -10,18 +10,22 @@ const styles = {
 }
 
 class Register extends Component {
+  constructor(props) {
+		super(props)
+
+		this.state = {
+			firstname: '',
+			lastname: '',
+			password: '',
+			email: '',
+			courseCode: '',
+			role: props.match.params.role,
+			error: '', 
+			photo: '',
+			success: ''
+		};
+	}
   
-  state = {
-		firstname: '',
-		lastname: '',
-		password: '',
-		email: '',
-		courseCode: '',
-		role: '',
-		error: '', 
-		photo: '',
-		success: ''
-  };
 
   handleChange = name => e => {
 
@@ -139,14 +143,23 @@ class Register extends Component {
 													id="radio2" />
 								
 									</FormInline> */}
-									<label className="grey-text" htmlFor="courseCode">If you're enrolling in a course, enter the class code below.</label>
-									<input
-										type="courseCode"
-										name="courseCode"
-									  className="form-control"
-										value={this.state.courseCode}
-										onChange={this.handleChange('courseCode')} 
-									/>
+									{ this.state.role === "student"
+									? (
+										<div>
+											<label className="grey-text" htmlFor="courseCode">If you're enrolling in a course, enter the class code below.</label>
+											<input
+												type="courseCode"
+												name="courseCode"
+												className="form-control"
+												value={this.state.courseCode}
+												onChange={this.handleChange('courseCode')} 
+											/>
+										</div>
+									) : (
+										<div></div>
+									)
+									
+								}
 									<br/> 
 									<div className="text-center">
 										<Button onClick={this.handleSubmit}>Register</Button>

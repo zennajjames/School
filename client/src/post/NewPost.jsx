@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Button, Input } from 'mdbreact';
+import { Button, Input, InputFile } from 'mdbreact';
 import PropTypes from 'prop-types'
 import {create} from './api-post.js'
 import auth from '../auth/auth-helper.js'
@@ -79,19 +79,19 @@ class NewPost extends Component {
           console.log("Your browser does not support File API");
       }
   }
-
+    
   handleChange = name => event => {
     const value = name === 'photo'
-      ? event.target.files[0]
+      ? event.target.files
       : event.target.value
     
-  //   if(name === "photo"){
-  //     for(let i = 0; i < event.target.files.length; i++){
-  //       let file = event.target.files[i];
-  //       this.postData.append('File', file);
-  //   }
-  // }
-    this.postData.set(name, value)
+      if(name === "photo"){
+        for(let i = 0; i < event.target.files.length; i++){
+          let file = event.target.files[i];
+          this.postData.append('File: '+i, file);
+      }
+    }
+    this.postData.append(name, value)
     this.setState({ [name]: value })
   }
 
@@ -103,7 +103,7 @@ class NewPost extends Component {
             </div>
               {/* <input style={styles.input}  onChange={this.handleFileSelect}  multiple="multiple"/> */}
         
-                {/* <InputFile hint="upload" multiple  onChange={this.handleChange('photo')} btnColor="info" type="file" id="files"></InputFile> */}
+                <InputFile hint="upload" multiple  onChange={this.handleChange('photo')} btnColor="info" type="file" id="files"></InputFile>
                 <input accept="image/*" onChange={this.handleChange('photo')} id="icon-button-file" type="file" />
 
               <br/>

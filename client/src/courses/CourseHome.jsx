@@ -44,9 +44,9 @@ class CourseHome extends Component {
     return(
       <Container>
         <section className="text-center my-5">
-          <h1 className="white-text h1-responsive font-weight-bold my-5">{this.state.course.title}</h1>
-          <img alt="coursePhoto" style={{marginBottom:"2rem", width:"30%", maxWidth: "250px"}} src={photoUrl}/>
-          <h2 className="white-text h2-responsive font-weight-bold my-5">{this.state.course.tagline}</h2>
+          <h1 className="white-text h1-responsive font-weight-bold my-4">{this.state.course.title}</h1>
+          <img alt="coursePhoto" style={{marginBottom:"1rem", width:"25%", maxWidth: "250px"}} src={photoUrl}/>
+          <h2 className="white-text h2-responsive my-3">{this.state.course.tagline}</h2>
           <h5 className="white-text h5-responsive mx-auto mb-5">{this.state.course.description}</h5>
           <Row className="text-center">
             <Col>
