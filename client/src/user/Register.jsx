@@ -19,21 +19,22 @@ class Register extends Component {
 			password: '',
 			email: '',
 			courseCode: '',
-			role: props.match.params.role,
+			role: '',
 			error: '', 
 			photo: '',
 			success: ''
 		};
 	}
-  
 
   handleChange = name => e => {
-
-		// const value = name === 'radio'
-		// ? e.currentTarget.value
-		// : e.target.value
-	
 		this.setState({[name]: e.target.value})
+	}
+
+	componentDidMount = () => {
+		console.log(this.props)
+		let roleParam =  this.props.match.params.role;
+		let roleCap = roleParam.charAt(0).toUpperCase() + roleParam.slice(1)
+		this.setState({role: roleCap})
 	}
 
   handleSubmit = (event) => {
@@ -52,7 +53,7 @@ class Register extends Component {
 			console.log(data)
       if (data.error) {
 				this.setState({error: data.error})
-			if (data.error === "11000 duplicate key error collection: SchoolDB.users index: email already exists...") {
+			if (data.error === "11000 duplicate key error collection: schoolDB.users index: email already exists") {
 				this.setState({error: "User already exists. Need to reset your password?"})
 			}
       } else {
@@ -69,7 +70,11 @@ class Register extends Component {
 						<Col className="col-8">
 						<Card>
 							<CardBody>
-								<h2 className="text-center mb-4" style={styles.heading}>Register</h2>
+								{ this.state.role === "Teacher"
+							? (<h2 className="text-center mb-4" style={styles.heading}>Start Teaching!</h2>)
+							: (<h2 className="text-center mb-4" style={styles.heading}>Start Learning!</h2>)
+						}
+								<h5 className="text-center mb-4" style={styles.heading}>{this.state.role} Registration</h5>
 									<hr />
 									{
 										this.state.error && (<h4 className="text-center">
@@ -114,36 +119,8 @@ class Register extends Component {
 										value={this.state.password}
 										onChange={this.handleChange('password')} 
 									/>
-									<br/> 
-									<label className="grey-text" htmlFor="role">Are you a teacher or a student?</label>
-									<input
-										type="role"
-										name="role"
-									  className="form-control"
-										value={this.state.role}
-										onChange={this.handleChange('role')} 
-									/>
-									<br/> 
-									{/* <FormInline>
-											<label className="grey-text" htmlFor="instructor">Are you a teacher or a student?</label>&nbsp;&nbsp;
-											<Input 
-													gap 
-													type="radio" 
-													onClick={this.setRole("teacher")} 
-													checked={this.state.role === "teacher" ? true : false}
-													label="Teacher" 
-													id="radio1" 
-												/>
-												<Input 
-													gap
-													type="radio" 
-													onClick={this.setRole("student")} 
-													checked={this.state.role === "student" ? true : false} 
-													label="Student" 
-													id="radio2" />
-								
-									</FormInline> */}
-									{ this.state.role === "student"
+									<br/>
+									{ this.state.role === "Student"
 									? (
 										<div>
 											<label className="grey-text" htmlFor="courseCode">If you're enrolling in a course, enter the class code below.</label>
@@ -157,9 +134,7 @@ class Register extends Component {
 										</div>
 									) : (
 										<div></div>
-									)
-									
-								}
+									)}
 									<br/> 
 									<div className="text-center">
 										<Button onClick={this.handleSubmit}>Register</Button>
@@ -168,6 +143,13 @@ class Register extends Component {
 								</Card>
 							</Col>
 						<Col></Col>
+					</Row>
+					<Row>
+						<Col>
+								<div className="text-center mt-5">
+									<Button color="amber" size="md" href="/">Back Home</Button>
+								</div>
+						</Col>
 					</Row>
 				</Container>
 		)
