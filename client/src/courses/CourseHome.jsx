@@ -11,7 +11,8 @@ class CourseHome extends Component {
     course: [],
     error: '',
     userId: '',
-    role: ''
+    role: '',
+    videos: []
   }
 
   componentDidMount = () => {
@@ -30,10 +31,7 @@ class CourseHome extends Component {
           console.log("No response!")
         } else {
           this.setState({course: data})
-          let videoCode = '"'+data.landingVid+'"'
-          this.setState({video: videoCode})
-          console.log(this.state.course)
-          console.log(this.state.video)
+          this.setState({videos: data.videos})
         }
       })
   }
@@ -47,8 +45,9 @@ class CourseHome extends Component {
       <Container>
         <section className="text-center my-5">
           <h1 className="white-text h1-responsive font-weight-bold my-5">{this.state.course.title}</h1>
-          <img alt="coursePhoto" style={{marginBottom:"2rem"}} src={photoUrl}/>
-          <h4 className="white-text w-responsive mx-auto mb-5">{this.state.course.description}</h4>
+          <img alt="coursePhoto" style={{marginBottom:"2rem", width:"30%", maxWidth: "250px"}} src={photoUrl}/>
+          <h2 className="white-text h2-responsive font-weight-bold my-5">{this.state.course.tagline}</h2>
+          <h5 className="white-text h5-responsive mx-auto mb-5">{this.state.course.description}</h5>
           <Row className="text-center">
             <Col>
               <div className="text-center">

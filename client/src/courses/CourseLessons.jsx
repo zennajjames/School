@@ -119,37 +119,36 @@ class CourseLessons extends React.Component {
                   </NavItem>
                 </Nav>
                 <TabContent className="card" activeItem={this.state.activeItemClassicTabs1}>
-                  <TabPane tabId="1">
-                      <h3 className="d-inline">About</h3>
-                      <hr />
-                      <Row className="text-center">
-                      <Col>
-                        <div className="text-center">
-                          <Vimeo video="288973599" autoplay />    
-                        </div>
-                      </Col>
-                    </Row>
+                <TabPane tabId="1">
+                  <h3 className="d-inline">Balance Strategies: Organizing The Picture World</h3>
+                  <hr />
+                  <Row className="text-center">
+                    <Col>
+                      <div className="text-center">
+                        <Vimeo video="288973599" autoplay />    
+                      </div>
+                    </Col>
+                  </Row>
                 </TabPane>
                 <TabPane tabId="2">
-                  <h3>Lesson Two</h3>
+                  <h3>Contrast And Relationship</h3>
                   <hr />
                 </TabPane>
                 <TabPane tabId="3">
-                <h3>Lesson Two</h3>
-                <hr />
+                  <h3>Creating The Illusion Of Depth And Dimension</h3>
+                  <hr />
                 </TabPane>
                 <TabPane tabId="4">
-                <h3>Friends</h3>
-                <hr />
-                <div style={styles.followGrid}>
-                  <h5>Following</h5>
-                </div>
-                <div style={styles.followGrid}>
-                  <h5>Followers</h5>
-                </div>
+                  <h3>Focal Point</h3>
+                  <hr />
                 </TabPane>
                 <TabPane tabId="5">
-                <h3>Classmates</h3>
+                  <h3>Strategies For Buiding A Composition</h3>
+                  <hr />
+                </TabPane>
+                <TabPane tabId="6">
+                  <h3>The Abstraction Continuum</h3>
+                  <hr />
                 </TabPane>
               </TabContent>
             </div>

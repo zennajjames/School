@@ -6,6 +6,9 @@ const CourseSchema = new mongoose.Schema({
     type: String,
     required: 'Title is required.'
   },
+  tagline: {
+    type: String,
+  },
   description: {
     type: String,
     required: 'Title is required.'
@@ -43,7 +46,7 @@ const CourseSchema = new mongoose.Schema({
   },
   videos: [
     {
-      videoId: String,
+      videoId: Number,
       title: String
     }
   ]
