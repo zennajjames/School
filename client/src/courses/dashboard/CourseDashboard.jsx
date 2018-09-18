@@ -1,18 +1,13 @@
+import Vimeo from '@u-wave/react-vimeo';
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Container, Row, Badge, Col, Fa, TabPane, TabContent, Nav, NavItem, NavLink } from 'mdbreact';
-import { Redirect } from 'react-router-dom'
-
 import auth from '../../auth/auth-helper.js'
-import {read} from '../../user/api-user'
-import {list} from '../api-course'
-
+// import {read} from '../api-user'
+import { Redirect } from 'react-router-dom'
 import classnames from 'classnames';
-// import moment from 'moment'
 
-import CourseGrid from '../CourseGrid'
-import PostList from '../../post/PostList'
-
+import {read} from '../api-course'
 
 const styles = {
   bigAvatar: {
@@ -36,7 +31,6 @@ const styles = {
     margin: 5
   }
 }
-
 class CourseDashboard extends React.Component {
   constructor({match}) {
     super();
@@ -44,28 +38,25 @@ class CourseDashboard extends React.Component {
     this.toggleClassicTabs1 = this.toggleClassicTabs1.bind(this);
     this.state = {
       activeItemClassicTabs1: '1', 
-      user: {following:[], followers:[]},
-      courses: [],
+      title: '',
+      id: '',
+      description: '',
       redirectToSignin: false,
-      following: false,
       posts: []
     };
     this.match = match
   }
 
-  init = (userId) => {
+  init = (courseId) => {
+    console.log(courseId)
     const jwt = auth.isAuthenticated()
     read({
-      userId: userId
+      courseId: courseId
     }, {t: jwt.token}).then((data) => {
-      console.log(data)
       if (data.error) {
         this.setState({redirectToSignin: true})
       } else {
-        let following = this.checkFollow(data)
-        this.setState({user: data, following: following, courses: data.courses})
-        console.log(this.state.user)
-        this.loadPosts(data._id)
+        console.log(data)
       }
     })
   }
@@ -79,51 +70,6 @@ class CourseDashboard extends React.Component {
     this.init(this.match.params.userId)
   }
 
-  checkFollow = (user) => {
-    const jwt = auth.isAuthenticated()
-    const match = user.followers.find((follower)=> {
-      return follower._id === jwt.user._id
-    })
-    return match
-  }
-
-  clickFollowButton = (callApi) => {
-    const jwt = auth.isAuthenticated()
-    callApi({
-      userId: jwt.user._id
-    }, {
-      t: jwt.token
-    }, this.state.user._id).then((data) => {
-      if (data.error) {
-        this.setState({error: data.error})
-      } else {
-        this.setState({user: data, following: !this.state.following})
-      }
-    })
-  }
-
-  loadCourses = (user) => {
-    const jwt = auth.isAuthenticated()
-    list({
-      userId: user
-    }, {
-      t: jwt.token
-    }).then((data) => {
-      if (data.error) {
-        console.log(data.error)
-      } else {
-        this.setState({courses: data})
-      }
-    })
-  }
-
-  removePost = (post) => {
-    const updatedPosts = this.state.posts
-    const index = updatedPosts.indexOf(post)
-    updatedPosts.splice(index, 1)
-    this.setState({posts: updatedPosts})
-  }
-
   toggleClassicTabs1(tab) {
     if (this.state.activeItemClassicTabs1 !== tab) {
       this.setState({
@@ -133,11 +79,7 @@ class CourseDashboard extends React.Component {
   }
 
   render() {
-    // const joined = moment(new Date(this.state.user.created)).format("LL")
-    const photoUrl = this.state.user._id
-              ? `/api/users/photo/${this.state.user._id}?${new Date().getTime()}`
-              : '/api/users/defaultphoto'
-    const userId = this.state.user._id
+
     const redirectToSignin = this.state.redirectToSignin
     if (redirectToSignin) {
       return <Redirect to='/signin'/>
@@ -151,71 +93,57 @@ class CourseDashboard extends React.Component {
                 <Nav classicTabs color="amber darken-2">
                   <NavItem>
                     <NavLink to="#" className={classnames({ active: this.state.activeItemClassicTabs1 === '1' })} onClick={() => { this.toggleClassicTabs1('1'); }}>
-                      Profile
+                      Lesson One
                     </NavLink>
                   </NavItem>
                   <NavItem>
                     <NavLink to="#" className={classnames({ active: this.state.activeItemClassicTabs1 === '2' })} onClick={() => { this.toggleClassicTabs1('2'); }}>
-                      Courses
+                      Lesson Two
                     </NavLink>
                   </NavItem>
                   <NavItem>
                     <NavLink to="#" className={classnames({ active: this.state.activeItemClassicTabs1 === '3' })} onClick={() => { this.toggleClassicTabs1('3'); }}>
-                      Posts
+                    Lesson Three
                     </NavLink>
                   </NavItem>
                   <NavItem>
                     <NavLink to="#" className={classnames({ active: this.state.activeItemClassicTabs1 === '4' })} onClick={() => { this.toggleClassicTabs1('4'); }}>
-                      Classmates
+                    Lesson Four
                     </NavLink>
                   </NavItem>
                   <NavItem>
                     <NavLink to="#" className={classnames({ active: this.state.activeItemClassicTabs1 === '5' })} onClick={() => { this.toggleClassicTabs1('5'); }}>
-                      Connections
+                      Lesson Five
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink to="#" className={classnames({ active: this.state.activeItemClassicTabs1 === '6' })} onClick={() => { this.toggleClassicTabs1('6'); }}>
+                      Lesson Six
                     </NavLink>
                   </NavItem>
                 </Nav>
                 <TabContent className="card" activeItem={this.state.activeItemClassicTabs1}>
                   <TabPane tabId="1">
                       <h3 className="d-inline">About</h3>
-                        {
-                        auth.isAuthenticated().user && auth.isAuthenticated().user._id === this.state.user._id
-                        ? (
-                          <div className="d-inline">
-                            <Badge style={styles.badge} tag="a" href={"/course/edit/" + this.state.courses._id} className="d-inline float-right align-self-end">
-                                <Fa icon="edit"/>Edit Course&nbsp;
-                            </Badge>&nbsp;
-                          </div>
-                        )
-                        : (<div className="d-inline float-right">
-                                                    </div>
-                        )}  
                       <hr />
-                      <Row>
-                        <Col>
-                            <img className="z-depth-1-half" alt="profilePic" src={photoUrl} style={styles.bigAvatar}/>                   
-                        </Col>
-                        <Col className="col-9">
-                            <div className="float-left">
-                              <h4 style={styles.heading}>{this.state.courses.title}</h4>
-                              <h5><Badge tag="a" href={"mailto:"+this.state.user.email} color="info">{this.state.user.email}</Badge></h5>
-                              <p className="grey-text">{this.state.courses.description}</p>   
-                            </div>
-                        </Col>
-                      </Row>
+                      <Row className="text-center">
+                      <Col>
+                        <div className="text-center">
+                          <Vimeo video="288973599" autoplay />    
+                        </div>
+                      </Col>
+                    </Row>
                 </TabPane>
                 <TabPane tabId="2">
-                  <h3>Courses</h3>
+                  <h3>Lesson Two</h3>
                   <hr />
-                  <CourseGrid userId={userId} courses={this.state.courses}/>
                 </TabPane>
                 <TabPane tabId="3">
-                <h3>Posts</h3>
+                <h3>Lesson Two</h3>
                 <hr />
-                  <PostList removeUpdate={this.removePost} posts={this.state.posts}/> 
                 </TabPane>
                 <TabPane tabId="4">
-                <h3>Students</h3>
+                <h3>Friends</h3>
                 <hr />
                 <div style={styles.followGrid}>
                   <h5>Following</h5>
@@ -225,7 +153,7 @@ class CourseDashboard extends React.Component {
                 </div>
                 </TabPane>
                 <TabPane tabId="5">
-                <h3>Galleries</h3>
+                <h3>Classmates</h3>
                 </TabPane>
               </TabContent>
             </div>
@@ -238,3 +166,11 @@ class CourseDashboard extends React.Component {
 }
 
 export default CourseDashboard;
+
+
+
+    // const joined = moment(new Date(this.state.user.created)).format("LL")
+    // const photoUrl = this.state.course._id
+    //           ? `/api/users/photo/${this.state.user._id}?${new Date().getTime()}`
+    //           : '/api/users/defaultphoto'
+    // const userId = this.state.user._id

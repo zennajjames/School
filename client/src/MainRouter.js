@@ -8,7 +8,7 @@ import Home from "./core/Home";
 import LogIn from "./user/Login.jsx";
 import Register from "./user/Register.jsx";
 import EditProfile from "./user/profile/EditProfile.jsx";
-
+import Foot from "./core/Footer"
 import CourseDashboard from './courses/dashboard/CourseDashboard'
 import CourseHome from './courses/CourseHome'
 import Users from './user/Users.jsx'
@@ -22,17 +22,18 @@ class MainRouter extends Component {
 		return (
 			<div>
 				<Nav/>
-				<div className="main-wrapper" style={{paddingTop: '6rem'}}>
+				<div className="main-wrapper" style={{paddingTop: '6rem', paddingBottom: '5rem', marginBottom: '5rem'}}>
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route exact path="/login" component={LogIn}/>
 						<Route exact path="/students" component={Users} />
 						<Route exact path="/courses" component={CourseDashboard} />
 						<Route exact path="/register" component={Register} />
-						<Route exact path="/user/:userId" component={UserProfile} />
-						<Route exact path="/course/:courseId" component={CourseHome} />
-						<PrivateRoute path="/user/edit/:userId" component={EditProfile}/>
+						<Route exact path="/users/:userId" component={UserProfile} />
+						<Route exact path="/courses/:courseId" component={CourseHome} />
+						<PrivateRoute path="/users/edit/:userId" component={EditProfile}/>
 					</Switch>
+				<Foot/>
 				</div>
 			</div>
 		);

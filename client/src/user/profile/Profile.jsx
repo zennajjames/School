@@ -183,7 +183,7 @@ class Profile extends React.Component {
                         auth.isAuthenticated().user && auth.isAuthenticated().user._id === this.state.user._id
                         ? (
                           <div className="d-inline">
-                            <Badge style={styles.badge} tag="a" href={"/user/edit/" + this.state.user._id} className="d-inline float-right align-self-end">
+                            <Badge style={styles.badge} tag="a" href={"/users/edit/" + this.state.user._id} className="d-inline float-right align-self-end">
                                 <Fa icon="edit"/>Edit Profile&nbsp;
                             </Badge>&nbsp;
                           </div>

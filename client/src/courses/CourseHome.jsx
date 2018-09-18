@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'mdbreact';
 import Vimeo from '@u-wave/react-vimeo';
 
-
-class CompHome extends Component {
+class CourseHome extends Component {
   render() {
     return(
       <Container>
@@ -23,5 +22,4 @@ class CompHome extends Component {
   };
 }
 
-export default CompHome;
- 
+export default CourseHome;

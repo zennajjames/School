@@ -123,7 +123,7 @@ class CourseGrid extends Component {
                   ? `/api/courses/photo/${this.state.course._id}?${new Date().getTime()}`
                   : '/api/courses/defaultphoto'
                   return <div className="d-flex-column d-wrap" key={i}>
-                            <a href={'course/'+ course._id}><Chip className="justify-content-center z-depth-1-half" bgColor="cyan darken-2" text="white" size="lg" src={photoUrl} alt="Courses" waves>{course.title}</Chip></a>
+                            <a href={'courses/'+ course._id}><Chip className="justify-content-center z-depth-1-half" bgColor="cyan darken-2" text="white" size="lg" src={photoUrl} alt="Courses" waves>{course.title}</Chip></a>
                         </div>
                 })}
               </div>
