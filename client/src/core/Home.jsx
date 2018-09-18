@@ -25,6 +25,7 @@ class Home extends Component {
 
   componentDidMount = () => {
     this.init()
+    console.log(this.props)
   }
 
   render() {
@@ -51,10 +52,10 @@ class Home extends Component {
           }
           {!this.state.defaultPage &&
             <Row>
-            <Col className="col-12 col-lg-8 col-sm-10">
+            <Col className="col-12 col-lg-8 col-sm-10" style={{paddingBottom:"2rem"}}>
               <Newsfeed/>
             </Col>
-            <Col className="clo-12 col-lg-4">
+            <Col className="clo-12 col-lg-4 col-sm-10">
                 <CourseGrid/>     
             </Col>
             </Row>

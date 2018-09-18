@@ -23,6 +23,7 @@ const list = () => {
 }
 
 const read = (params, credentials) => {
+  console.log(params)
   return fetch('/api/users/' + params.userId, {
     method: 'GET',
     headers: {

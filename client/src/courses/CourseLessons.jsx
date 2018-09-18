@@ -1,13 +1,13 @@
 import Vimeo from '@u-wave/react-vimeo';
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Container, Row, Col, TabPane, TabContent, Nav, NavItem, NavLink } from 'mdbreact';
-import auth from '../../auth/auth-helper.js'
+import { Button, Container, Row, Col, TabPane, TabContent, Nav, NavItem, NavLink } from 'mdbreact';
+import auth from '../auth/auth-helper.js'
 // import {read} from '../api-user'
 import { Redirect } from 'react-router-dom'
 import classnames from 'classnames';
 
-import {read} from '../api-course'
+import {listOne} from './api-course'
 
 const styles = {
   bigAvatar: {
@@ -31,46 +31,39 @@ const styles = {
     margin: 5
   }
 }
-class CourseDashboard extends React.Component {
-  constructor({match}) {
-    super();
 
-    this.toggleClassicTabs1 = this.toggleClassicTabs1.bind(this);
-    this.state = {
+class CourseLessons extends React.Component {
+  
+   state = {
       activeItemClassicTabs1: '1', 
       title: '',
       id: '',
       description: '',
       redirectToSignin: false,
-      posts: []
-    };
-    this.match = match
-  }
-
-  init = (courseId) => {
-    console.log(courseId)
-    const jwt = auth.isAuthenticated()
-    read({
-      courseId: courseId
-    }, {t: jwt.token}).then((data) => {
-      if (data.error) {
-        this.setState({redirectToSignin: true})
-      } else {
-        console.log(data)
-      }
-    })
-  }
-
-  componentWillReceiveProps = (props) => {
-    console.log(this.props)
-    this.init(props.match.params.userId)
-  }
+      course: []
+    }
 
   componentDidMount = () => {
-    this.init(this.match.params.userId)
+    const jwt = auth.isAuthenticated()
+    console.log(jwt)
+    this.loadCourseInfo()
   }
+      
+  loadCourseInfo = () => {
+      // const jwt = auth.isAuthenticated()
+      listOne({
+        courseId: this.props.match.params.courseId
+      }).then((data) => {
+        if (!data) {
+          console.log("No response!")
+        } else {
+          this.setState({course: data})
+        }
+      })
+    }
+ 
 
-  toggleClassicTabs1(tab) {
+  toggleClassicTabs1 = (tab) => {
     if (this.state.activeItemClassicTabs1 !== tab) {
       this.setState({
         activeItemClassicTabs1: tab,
@@ -87,6 +80,9 @@ class CourseDashboard extends React.Component {
     return (
       <Router>
         <Container>
+          <div className="text-center">
+            <h2 className="white-text h1-responsive font-weight-bold my-5">{this.state.course.title}</h2>
+          </div>
           <Row>
             <Col className="col-10 mx-auto">
               <div className="classic-tabs">
@@ -157,6 +153,9 @@ class CourseDashboard extends React.Component {
                 </TabPane>
               </TabContent>
             </div>
+            <div className="text-center" style={{margin:"2rem"}}>
+                <Button href={'/courses/'+this.state.course._id}>Back To Course Home</Button>
+            </div>
           </Col>
         </Row>
       </Container>
@@ -165,7 +164,7 @@ class CourseDashboard extends React.Component {
   }
 }
 
-export default CourseDashboard;
+export default CourseLessons;
 
 
 

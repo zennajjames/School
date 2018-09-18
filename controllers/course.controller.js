@@ -23,25 +23,30 @@ const create = (req, res) => {
       // If an error occurs, send it back to the client
       res.json(err);
     })
-  };
+};
 
-  const courseById = (req, res, next, id) => {
-    Course.findById(id)
-      // .populate('following', '_id name')
-      // .populate('followers', '_id name')
-      .exec((err, user) => {
-      if (err || !user) return res.status('400').json({
-        error: "Course not found."
-      })
-      req.profile = course
-      next()
+/**
+ * Load user and append to req.
+ */
+const courseById = (req, res, next, id) => {
+  console.log("coursebyID")
+  console.log(id)
+  console.log(req.body)
+  Course.findById(id)
+    // .populate('following', '_id name')
+    // .populate('followers', '_id name')
+    .exec((err, course) => {
+    if (err || !course) return res.status('400').json({
+      error: "Course not found."
     })
-  }
-  
-  const read = (req, res) => {
-    return res.json(req.profile)
-  }
+    req.profile = course
+    next()
+  })
+}
 
+const read = (req, res) => {
+  return res.json(req.profile)
+}
 
 const list = (req, res) => {
   Course.find((err, courses) => {
@@ -52,6 +57,18 @@ const list = (req, res) => {
     }
     res.json(courses)
   }).select('title description courseCode students instructor')
+}
+
+const listOne = (req, res) => {
+  Course.findById(req.params.courseId)
+    .then(function(dbCourse) {
+      // If able to successfully find and associate all Users and Notes, send them back to the client
+      res.json(dbCourse);
+    })
+    .catch(function(err) {
+      // If an error occurs, send it back to the client
+      res.json(err);
+  });
 }
 
 const update = (req, res, next) => {
@@ -133,5 +150,6 @@ module.exports = {
   photo,
   defaultPhoto,
   addStudent,
-  list
+  list, 
+  listOne
 }

@@ -21,6 +21,7 @@ class ModalPage extends React.Component {
           <ModalHeader>{this.props.header}</ModalHeader>
           <ModalBody>
             {this.props.body}
+            {/* <Button onClick={this.toggle} size="sm">{this.props.insideBodyButton}</Button> */}
           </ModalBody>
           <ModalFooter>
             <Button onClick={this.toggle} size="sm">{this.props.closeButton}</Button>

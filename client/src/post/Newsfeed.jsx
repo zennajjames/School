@@ -58,7 +58,7 @@ class Newsfeed extends Component {
           <h3 style={styles.heading} type="title">Newfeed</h3>
         </div>
         <div className="d-inline-block float-right">
-          <Modal header={"Post"} closeButton={"Cancel"} openButton={"Post"} body={<NewPost addUpdate={this.addPost}/>}/>
+          <Modal header={"Post"} closeButton={"Done"} openButton={"Post"} body={<NewPost addUpdate={this.addPost}/>}/>
         </div>
         <hr />
         <Card>

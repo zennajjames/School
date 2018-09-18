@@ -23,6 +23,8 @@ const create = (req, res, next) => {
  * Load user and append to req.
  */
 const userByID = (req, res, next, id) => {
+  console.log("userbyID")
+  console.log(req.body)
   User.findById(id)
     .populate('following', '_id name')
     .populate('followers', '_id name')
@@ -36,6 +38,8 @@ const userByID = (req, res, next, id) => {
 }
 
 const read = (req, res) => {
+  console.log("read")
+  console.log(req.body)
   req.profile.hashed_password = undefined
   req.profile.salt = undefined
   return res.json(req.profile)
@@ -148,7 +152,7 @@ const addCourse = (req, res, next) => {
     })
   }
 
-  const addStudent = (req, res) => {
+const addStudent = (req, res) => {
     let course = req.body.courseCode
     Course.findOneAndUpdate({courseCode: course}, {$push: {students: req.body.userId}}, {new: true}), (err, result) => {
           if (err) {
@@ -159,7 +163,6 @@ const addCourse = (req, res, next) => {
       res.json(result)
     }
   }
-
 
 const removeFollowing = (req, res, next) => {
   User.findByIdAndUpdate(req.body.userId, {$pull: {following: req.body.unfollowId}}, (err, result) => {
@@ -186,8 +189,6 @@ const removeFollower = (req, res) => {
     res.json(result)
   })
 }
-
-
 
 const findPeople = (req, res) => {
   let following = req.profile.following

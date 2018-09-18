@@ -10,6 +10,8 @@ import Register from "./user/Register.jsx";
 import EditProfile from "./user/profile/EditProfile.jsx";
 import Foot from "./core/Footer"
 import CourseDashboard from './courses/dashboard/CourseDashboard'
+import CourseLessons from './courses/CourseLessons'
+
 import CourseHome from './courses/CourseHome'
 import Users from './user/Users.jsx'
 import UserProfile from "./user/profile/Profile";
@@ -21,17 +23,18 @@ class MainRouter extends Component {
   render() {
 		return (
 			<div>
-				<Nav/>
+				<Nav history={this.props}/>
 				<div className="main-wrapper" style={{paddingTop: '6rem', paddingBottom: '5rem', marginBottom: '5rem'}}>
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route exact path="/login" component={LogIn}/>
 						<Route exact path="/students" component={Users} />
-						<Route exact path="/courses" component={CourseDashboard} />
 						<Route exact path="/register" component={Register} />
 						<Route exact path="/users/:userId" component={UserProfile} />
-						<Route exact path="/courses/:courseId" component={CourseHome} />
 						<PrivateRoute path="/users/edit/:userId" component={EditProfile}/>
+						<Route exact path="/courses/edit/:courseId" component={CourseDashboard} />
+						<Route exact path="/courses/:courseId" component={CourseHome} />
+						<Route exact path="/courses/lessons/:courseId" component={CourseLessons} />
 					</Switch>
 				<Foot/>
 				</div>

@@ -1,8 +1,9 @@
 import React from "react";
 import { Fa, Navbar, NavbarBrand, NavbarNav, NavItem, NavLink, NavbarToggler, Collapse, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
 import auth from './../auth/auth-helper'
-import {withRouter} from 'react-router-dom'
 import history from '../history';
+import {Link} from 'react-router-dom'
+
 
   const styles = {
     logo: {
@@ -18,7 +19,7 @@ import history from '../history';
         isWideEnough: false
     };
   
-    onClick = () => {
+    collapse = () => {
         this.setState({
             collapse: !this.state.collapse,
         });
@@ -30,15 +31,21 @@ import history from '../history';
       else
         return {fontWeight: '300'}
     }
+
+    signout = () => {
+      auth.signout(() => this.context.history.push('/'))
+    }
     
     render() {
+      console.log(this.props)
+      console.log(history)
        return (
 
       <Navbar color="amber darken-2" dark expand="md" fixed="top" scrolling>
         <NavbarBrand href="/" >
             <img style={styles.logo} src="/assets/images/schoolLogo.png" alt="logo"/>
           </NavbarBrand>
-          { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
+          { !this.state.isWideEnough && <NavbarToggler onClick = { this.collapse } />}
                         <Collapse isOpen = { this.state.collapse } navbar>
           {
             !auth.isAuthenticated() && (
@@ -73,7 +80,9 @@ import history from '../history';
                           <DropdownItem>
                             <NavLink to={"/courses"}>My Courses</NavLink>
                           </DropdownItem>
-                          <DropdownItem onClick={() => {auth.signout(() => history.push('/'))}}>Sign Out</DropdownItem>
+                          <DropdownItem color="danger">
+                             <Link to="/" onClick={this.signout}>Sign out</Link>
+                          </DropdownItem>
                       </DropdownMenu>
                     </Dropdown>
                 </NavItem>

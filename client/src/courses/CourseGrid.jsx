@@ -55,7 +55,6 @@ class CourseGrid extends Component {
     if (jwt.user.role === "teacher") {
       console.log(jwt.user.role)
       list().then((courses) => {
-        console.log(courses)
         let teacherCourses = []
         
         for (let i=0; i<courses.length; i++) {
@@ -69,7 +68,6 @@ class CourseGrid extends Component {
         }
         else {
           this.setState({courses: teacherCourses})
-          console.log(this.state.courses)
         }
       })
     }
