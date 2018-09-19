@@ -99,7 +99,7 @@ class Comments extends Component {
         <div>
           <div className="d-inline-flex p-2">
                <img className="rounded-circle z-depth-1-half" style={styles.smallAvatar} src={'/api/users/photo/'+item.postedBy._id} alt="profilePic"/>
-              <Link className="align-self-end" to={"/user/" + item.postedBy._id}>{item.postedBy.name}</Link>&nbsp;
+              <Link className="align-self-end" to={"/users/" + item.postedBy._id}>{item.postedBy.name}</Link>&nbsp;
               <span className="align-self-end" style={styles.commentDate}>
                 {(new Date(item.created)).toDateString()}&emsp;&emsp;
                 {auth.isAuthenticated().user._id === item.postedBy._id &&

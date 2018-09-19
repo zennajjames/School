@@ -120,7 +120,7 @@ class EditProfile extends Component {
                  ? `/api/users/photo/${this.state.id}?${new Date().getTime()}`
                  : '/api/users/defaultphoto'
     if (this.state.redirectToProfile) {
-      return (<Redirect to={'/user/' + this.state.id}/>)
+      return (<Redirect to={'/users/' + this.state.id}/>)
     }
     if (this.state.redirectHome) {
       return (<Redirect to={'/'}/>)
@@ -147,7 +147,7 @@ class EditProfile extends Component {
             </h5>)
           }
           <Button size="sm" color="primary" onClick={this.clickSubmit}>Submit</Button>
-          <Button size="sm" color="primary" href={'/user/' + this.state.id}>Cancel</Button>
+          <Button size="sm" color="primary" href={'/users/' + this.state.id}>Cancel</Button>
           <Modal className="float-right" header={"Confirm to delete your account."} closeButton={"Cancel"} openButton={<div><Fa icon="trash" aria-label="Delete"/>Delete Account</div>} body={<Button className="mx-auto" onClick={this.deleteAccount} color="danger" autoFocus="autoFocus">Confirm.</Button>}></Modal>         
         </CardBody>
       </Card>

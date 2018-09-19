@@ -103,11 +103,11 @@ class Post extends Component {
           <div className="mdb-feed">
             <div style={styles.card} className="news">
               <div className="label">
-                <img src={'/api/users/photo/'+this.props.post.postedBy._id} alt="profilePic" className="rounded-circle z-depth-1-half"/>
+                <img src={'/api/users/photo/'+this.props.post.postedBy._id} alt="profilePic" style={{maxWidth: "60px", WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)', paddingBottom: 5, borderRadius: "50%"}}/>  
               </div>
               <div className="excerpt">
                 <div className="brief">
-                  <a className="name" to={"/user/" + this.props.post.postedBy._id}>{this.props.post.postedBy.name}</a>
+                  <a className="name" to={"/users/" + this.props.post.postedBy._id}>{this.props.post.postedBy.name}</a>
                   <div className="date">{moment(new Date(this.props.post.created)).calendar()}</div>
                 </div>
                 <div className="added-text">{this.props.post.text}</div>

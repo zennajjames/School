@@ -123,7 +123,7 @@ class EditCourse extends Component {
                  ? `/api/users/photo/${this.state.id}?${new Date().getTime()}`
                  : '/api/users/defaultphoto'
     if (this.state.redirectToProfile) {
-      return (<Redirect to={'/user/' + this.state.id}/>)
+      return (<Redirect to={'/users/' + this.state.id}/>)
     }
     if (this.state.redirectHome) {
       return (<Redirect to={'/'}/>)

@@ -1,44 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { Container, Row, Badge, Col, TabPane, TabContent, Nav, NavItem, NavLink, Card, CardBody, Avatar, Mask, Fa, View, Button } from 'mdbreact';
-
-// import auth from '../auth/auth-helper.js'
-// import {read} from '../user/api-user'
-// import { Redirect } from 'react-router-dom'
-// import classnames from 'classnames';
-// import moment from 'moment'
-
-// import FollowGrid from '../user/profile/FollowGrid'
-// import CourseGrid from './CourseGrid'
-
-// import PostList from '../post/PostList'
-// import FindPeople from '../user/profile/FindPeople'   
-// import FollowProfileButton from '../user/FollowProfileButton'
-
-// import {listByUser} from '../post/api-post'
-
-// const styles = {
-//   bigAvatar: {
-//     width: 85,
-//     height: 85,
-//     margin: 10,
-//     borderRadius: 50
-//   },
-//   heading: {
-//     fontWeight: 300,
-//   },
-//   followGrid: {
-//     borderWidth: .5,
-//     borderColor:  'rgba(214, 214, 214, 0.4)',
-//     borderStyle: 'groove',
-//     padding: 10,
-//     margin:15
-//   },
-//   badge: {
-//     padding:8,
-//     margin: 5
-//   }
-// }
 
 const MyCourses = () =>  {
   return(

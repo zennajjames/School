@@ -19,8 +19,9 @@ import {listByUser} from '../../post/api-post'
 const styles = {
   bigAvatar: {
     width: 85,
-    height: 85,
-    margin: 10,
+    maxHeight: 120,
+    topMargin: 10,
+    topPadding: 20,
     borderRadius: 50
   },
   heading: {
@@ -195,7 +196,7 @@ class Profile extends React.Component {
                       <hr />
                       <Row>
                         <Col>
-                            <img className="z-depth-1-half" alt="profilePic" src={photoUrl} style={styles.bigAvatar}/>                   
+                            <img className="ml-3" alt="profilePic" src={photoUrl} style={{maxWidth: "80px", WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)', paddingBottom: 5, borderRadius: "50%"}}/>                   
                         </Col>
                         <Col className="col-9">
                             <div className="float-left">

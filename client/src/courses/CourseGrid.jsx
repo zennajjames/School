@@ -5,7 +5,6 @@ import Enroll from '../courses/Enroll'
 import Modal from '../core/Modal'
 import CreateCourse from './CreateCourse'
 import { list } from './api-course'
-// import {read, update, remove} from '../user/api-user'
 import auth from '../auth/auth-helper.js'
 
 const styles = {
