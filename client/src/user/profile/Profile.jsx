@@ -33,10 +33,6 @@ const styles = {
     borderStyle: 'groove',
     padding: 10,
     margin:15
-  },
-  badge: {
-    padding:8,
-    margin: 5
   }
 }
 class Profile extends React.Component {
@@ -184,7 +180,7 @@ class Profile extends React.Component {
                         auth.isAuthenticated().user && auth.isAuthenticated().user._id === this.state.user._id
                         ? (
                           <div className="d-inline">
-                            <Badge style={styles.badge} tag="a" href={"/users/edit/" + this.state.user._id} className="d-inline float-right align-self-end">
+                            <Badge tag="a" href={"/users/edit/" + this.state.user._id} className="d-inline float-right align-self-end">
                                 <Fa icon="edit"/>Edit Profile&nbsp;
                             </Badge>&nbsp;
                           </div>
@@ -196,14 +192,14 @@ class Profile extends React.Component {
                       <hr />
                       <Row>
                         <Col>
-                            <img className="ml-3" alt="profilePic" src={photoUrl} style={{maxWidth: "80px", WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)', paddingBottom: 5, borderRadius: "50%"}}/>                   
+                            <img className="m-2" alt="profilePic" src={photoUrl} style={{width: "100%", maxWidth: "150px", WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)', paddingBottom: 5, borderRadius: "50%"}}/>                   
                         </Col>
                         <Col className="col-9">
                             <div className="float-left">
                               <h4 style={styles.heading}>{this.state.user.name}</h4>
+                              <h4><Badge className="mt-2 mb-2">{this.state.user.role}</Badge></h4>
                               <h5><Badge tag="a" href={"mailto:"+this.state.user.email} color="info">{this.state.user.email}</Badge></h5>
                               <p className="grey-text">Joined: {joined}</p>   
-                              <p style={styles.heading}><strong>About: </strong>{this.state.user.about}</p>
                             </div>
                         </Col>
                       </Row>
