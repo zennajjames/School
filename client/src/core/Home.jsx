@@ -22,7 +22,8 @@ class Home extends Component {
   state = {
     defaultPage: true,
     userFollowing: [],
-    role: ''
+    role: '',
+    userId: ''
   }
 
   init = () => {
@@ -51,6 +52,7 @@ class Home extends Component {
         console.log(data)
         this.setState({userFollowing: data.following})
         this.setState({role: data.role})
+        this.setState({userId: data._id})
       })
     }
 

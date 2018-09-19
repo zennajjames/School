@@ -27,7 +27,8 @@ class CourseGrid extends Component {
     if (jwt.user.role === "Teacher") {
       console.log(jwt.user.role)
       list().then((courses) => {
-        
+        console.log(courses)
+        console.log(jwt.user._id)
         let teacherCourses = []
         
         for (let i=0; i<courses.length; i++) {

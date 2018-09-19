@@ -42,6 +42,7 @@ class CreateCourse extends Component {
 	}
 
   render() {
+		console.log(this.props.userId)
 		return (
 				
 							<Container>
