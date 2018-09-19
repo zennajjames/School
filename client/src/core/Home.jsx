@@ -21,7 +21,8 @@ class Home extends Component {
 
   state = {
     defaultPage: true,
-    userFollowing: []
+    userFollowing: [],
+    role: ''
   }
 
   init = () => {
@@ -49,6 +50,7 @@ class Home extends Component {
       }, {t: jwt.token}).then((data) => {
         console.log(data)
         this.setState({userFollowing: data.following})
+        this.setState({role: data.role})
       })
     }
 
