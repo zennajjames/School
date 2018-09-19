@@ -37,6 +37,7 @@ import {Link} from 'react-router-dom'
     }
     
     render() {
+      console.log(this.props)
        return (
 
       <Navbar color="amber darken-2" dark expand="md" fixed="top" scrolling>
@@ -60,15 +61,15 @@ import {Link} from 'react-router-dom'
               <NavLink to={"/"}>Hi, {auth.isAuthenticated().user.name}!  </NavLink>
             </NavItem>
             <NavItem>
-                <NavLink style={this.isActive(history, "/")} to={"/"}><Fa icon="dashboard"/>{auth.isAuthenticated().user.role} Dashboard</NavLink>
-              </NavItem>
+              <NavLink style={this.isActive(history, "/students")} to={"/students"}>Connect</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink style={this.isActive(history, "/")} to={"/"}><Fa icon="dashboard"/>{auth.isAuthenticated().user.role} Dashboard</NavLink>
+            </NavItem>
               <NavItem>
                 <Dropdown>
                     <DropdownToggle nav caret></DropdownToggle>
                       <DropdownMenu>
-                          <DropdownItem>
-                            <NavLink to={"/students"}>Connect</NavLink>
-                          </DropdownItem>
                           <DropdownItem>
                             <NavLink to={"/users/" + auth.isAuthenticated().user._id}>Profile</NavLink>
                           </DropdownItem>

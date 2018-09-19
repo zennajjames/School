@@ -18,7 +18,7 @@ class PostList extends Component {
         </Row>
       )
       return (
-        <div style={{marginTop: '24px'}}>
+        <div style={{marginTop: '10px'}}>
           {this.props.posts.map((item, i) => {
               return <Post post={item} key={i} onRemove={this.props.removeUpdate}/>
             })

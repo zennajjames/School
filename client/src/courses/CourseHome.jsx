@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Button, Fa } from 'mdbreact';
+import { Container, Row, Col, Button, Fa, Badge } from 'mdbreact';
 import Vimeo from '@u-wave/react-vimeo';
 
 import {listOne} from './api-course'
@@ -37,6 +37,10 @@ class CourseHome extends Component {
   }
 
   render() {
+    const video = [
+      { id: 285529861, name: 'Welcome' }
+    ];
+
     const photoUrl = this.state.course.photo
     ? `/api/courses/photo/${this.state.course._id}?${new Date().getTime()}`
     : '/api/courses/defaultphoto'
@@ -45,13 +49,17 @@ class CourseHome extends Component {
       <Container>
         <section className="text-center my-5">
           <h1 className="white-text h1-responsive font-weight-bold my-4">{this.state.course.title}</h1>
-          <img alt="coursePhoto" style={{marginBottom:"1rem", width:"25%", maxWidth: "250px"}} src={photoUrl}/>
+          { this.state.role === "Teacher"
+          ? (<h3 className="mb-2" ><Badge tag="a" href={"/courses/edit/"+this.props.match.params.courseId} color="amber darken-2" pill>Edit Course</Badge></h3>)
+          : (<div></div>)
+          }
+          <img className="mt-3" alt="coursePhoto" style={{marginBottom:"1rem", width:"20%", maxWidth: "200px"}} src={photoUrl}/>
           <h2 className="white-text h2-responsive my-3">{this.state.course.tagline}</h2>
           <h5 className="white-text h5-responsive mx-auto mb-5">{this.state.course.description}</h5>
           <Row className="text-center">
             <Col>
               <div className="text-center">
-                {/* <Vimeo video={this.state.video} autoplay />     */}
+                <Vimeo video={video.id} autoplay />    
               </div>
             </Col>
           </Row>

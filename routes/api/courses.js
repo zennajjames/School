@@ -18,15 +18,15 @@ router.route('/enroll')
   .put(authCtrl.requireSignin, courseCtrl.addStudent)
 
 router.route('/:courseId')
-  .get(courseCtrl.listOne)
-  .put(authCtrl.requireSignin, authCtrl.hasAuthorization, courseCtrl.update)
+  .get(courseCtrl.read)
+  .put(courseCtrl.update)
   .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, courseCtrl.remove)
 
 // router.route('/:userId')
 //   .get(authCtrl.requireSignin, courseCtrl.findCourses)
 
 
-// router.param('courseId', courseCtrl.courseById)
+router.param('courseId', courseCtrl.courseById)
 router.param('userId', userCtrl.userByID)
 
 module.exports = router 

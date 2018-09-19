@@ -104,7 +104,7 @@ class CourseGrid extends Component {
           <h5 style={styles.heading} type="title">My Courses</h5>
         </div>
         <div className="d-inline-block float-right">
-            { this.state.role === "student"
+            { this.state.role === "Student"
               ? <Modal header={"Add A Course"} closeButton={"Cancel"} openButton={"Add A Course"} body={<Enroll userId={this.state.userId}/>}/>
 
               : <Modal header={"Create A Course"} closeButton={"Cancel"} openButton={"Create A Course"} body={<CreateCourse userId={this.state.userId}/>}/>

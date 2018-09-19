@@ -29,19 +29,16 @@ const create = (req, res) => {
  * Load user and append to req.
  */
 const courseById = (req, res, next, id) => {
-  console.log("coursebyID")
-  console.log(id)
-  console.log(req.body)
-  Course.findById(id)
-    // .populate('following', '_id name')
-    // .populate('followers', '_id name')
-    .exec((err, course) => {
-    if (err || !course) return res.status('400').json({
-      error: "Course not found."
-    })
-    req.profile = course
+  Course.findById(req.params.courseId)
+    .then(function(dbCourse) {
+      // If able to successfully find and associate all Users and Notes, send them back to the client
+      req.profile = dbCourse
     next()
-  })
+    })
+    .catch(function(err) {
+      // If an error occurs, send it back to the client
+      res.json(err);
+  });
 }
 
 const read = (req, res) => {
@@ -72,6 +69,7 @@ const listOne = (req, res) => {
 }
 
 const update = (req, res, next) => {
+  console.log("updating..")
   let form = new formidable.IncomingForm()
   form.keepExtensions = true
   form.parse(req, (err, fields, files) => {
@@ -80,22 +78,20 @@ const update = (req, res, next) => {
         error: "Photo could not be uploaded."
       })
     }
-    let user = req.profile
-    user = _.extend(user, fields)
-    user.updated = Date.now()
+    let course = req.profile
+    course = _.extend(course, fields)
+    course.updated = Date.now()
     if(files.photo){
-      user.photo.data = fs.readFileSync(files.photo.path)
-      user.photo.contentType = files.photo.type
+      course.photo.data = fs.readFileSync(files.photo.path)
+      course.photo.contentType = files.photo.type
     }
-    user.save((err, result) => {
+    course.save((err, result) => {
       if (err) {
         return res.status(400).json({
           error: errorHandler.getErrorMessage(err)
         })
       }
-      user.hashed_password = undefined
-      user.salt = undefined
-      res.json(user)
+      res.json(course)
     })
   })
 }

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Button, Fa } from 'mdbreact';
-// import PropTypes from 'prop-types'
 import auth from '../auth/auth-helper'
 import Newsfeed from '../post/Newsfeed.jsx'
 import CourseGrid from '../courses/CourseGrid'
+import FindPeople from '../user/profile/FindPeople'
 
 class Home extends Component {
 
@@ -53,14 +53,19 @@ class Home extends Component {
         </section>   
           }
           {!this.state.defaultPage &&
-            <Row>
-            <Col className="col-12 col-lg-8 col-sm-10" style={{paddingBottom:"2rem"}}>
-              <Newsfeed/>
-            </Col>
-            <Col className="clo-12 col-lg-4 col-sm-10">
-                <CourseGrid/>     
-            </Col>
-            </Row>
+            <div>
+              <Row>
+              <Col className="col-12 col-lg-8 col-sm-10" style={{paddingBottom:"2rem"}}>
+                <Newsfeed/>
+              </Col>
+              <Col className="clo-12 col-lg-4 col-sm-10">
+                  <CourseGrid/> 
+                  <div className="mt-3">
+                    <FindPeople/> 
+                  </div>   
+              </Col>
+              </Row>
+            </div>
           }
       </Container>
     );

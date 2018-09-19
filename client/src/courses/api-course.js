@@ -14,12 +14,12 @@ const create = (course) => {
     }).catch((err) => console.log(err))
 }
 
-const update = (params, credentials, course) => {
+const update = (params, course) => {
+  console.log(course)
   return fetch('/api/courses/' + params.courseId, {
     method: 'PUT',
     headers: {
       'Accept': 'application/json',
-      'Authorization': 'Bearer ' + credentials.t
     },
     body: course
   }).then((response) => {

@@ -1,11 +1,7 @@
 import React, {Component} from 'react'
-import { Badge, Chip, ListGroup } from 'mdbreact';
-
-
-// import {Link} from 'react-router-dom'
+import { Badge, Card } from 'mdbreact';
 import {findPeople, follow} from '../api-user.js'
 import auth from '../../auth/auth-helper.js'
-
 
 const styles = {
   avatar: {
@@ -14,9 +10,6 @@ const styles = {
     margin: 5,
     borderRadius: 50
   },
-  // heading: {
-  //   color: "white"
-  // },
   badge: {
     width: 250,
     height:90
@@ -24,6 +17,11 @@ const styles = {
   nameLink: {
     color: "black",
     fontSize: 16
+  },
+  heading: {
+    fontWeight: 400,
+    color: "white",
+    paddingTop: 10
   }
 }
 
@@ -72,9 +70,12 @@ class FindPeople extends Component {
   render() {
     // const {classes} = this.props
     return (
-    <div>     
-      <h4 style={styles.heading}>Classmates</h4>
+      <div>
+        <div className="d-inline-block">
+          <h5 style={styles.heading} type="title">Connect</h5>
+        </div>
         <hr />
+        <Card>
         <div className="d-flex flex-row">
           {this.state.users.map((item, i) => {
                return <div className="p-2 text-center m-2" key={i}>
@@ -89,6 +90,7 @@ class FindPeople extends Component {
           onClose={this.handleRequestClose}
           message={<span>{this.state.followMessage}</span>}
       />
+      </Card>
     </div>
       )
   }

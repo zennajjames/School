@@ -1,20 +1,8 @@
 import React, {Component} from 'react'
 import { Container, Card, CardBody, Badge } from 'mdbreact';
 import auth from '../auth/auth-helper.js'
-import {read, listUsers, follow} from './api-user.js'
+import {listUsers} from './api-user.js'
 
-import FollowProfileButton from './FollowProfileButton'
-
-const styles = {
-  avatar: {
-    width: 80,
-    height: 80,
-    borderRadius: 50
-  },
-  userCard: {
-    maxWidth:200
-  }
-}
 
 class Users extends Component {
   state = {
@@ -30,7 +18,6 @@ class Users extends Component {
       if (!users) {
         console.log("No users!")
       } else {
-       
         let students = []
         for (let i = 0; i < users.length; i++) {
           if (users[i]._id !== userId) {
@@ -55,8 +42,8 @@ class Users extends Component {
           <div className="d-flex flex-row">
           {this.state.users.map((person, i) => {
                return <div className="p-2 text-center m-2" key={i}>
-                        <img style={styles.avatar} className="z-depth-1-half mb-2" src={'/api/users/photo/'+person._id} alt="Users"/>
-                        <h5><Badge href={"/users/" + person._id} color="cyan">{person.name}</Badge></h5>
+                        <img style={{maxWidth: "80px", WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)', paddingBottom: 5, borderRadius: "50%"}} src={'/api/users/photo/'+person._id} src={'/api/users/photo/'+person._id} alt="Users"/>
+                        <h5><Badge tag="a" href={"/users/" + person._id} color="cyan">{person.name}</Badge></h5>
                       </div>
                   })}  
           </div> 

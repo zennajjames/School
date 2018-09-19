@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
-import { Container, Button, Card, CardTitle, Fa, CardBody, Input } from 'mdbreact';
+import { Container, Button, Card, CardTitle, Fa, CardBody, Input, Badge } from 'mdbreact';
 import Modal from '../../core/Modal'
 import auth from '../../auth/auth-helper'
-import {listOne, update, remove} from '../api-course'
+import {read, listOne, update, remove} from '../api-course'
 import {Redirect} from 'react-router-dom'
 import AWSUpload from '../../core/FileUpload'
 
@@ -45,7 +45,10 @@ class EditCourse extends Component {
       course: [],
       role: '',
       userId: '',
-      redirectToProfile: false,
+      title: '',
+      tagline: '',
+      description: '',
+      redirectToReferrer: false,
       redirectHome: false,
       id: '',
       error: ''
@@ -54,11 +57,22 @@ class EditCourse extends Component {
   }
 
   componentDidMount = () => {
-    const jwt = auth.isAuthenticated()
-    this.setState({userId: jwt.user._id})
-    this.setState({role: jwt.user.role})
+    console.log(this.props)
+    this.courseData = new FormData()
     this.loadCourseInfo()
   }
+  //   read({
+  //     courseId: this.props.match.params.courseId
+  //   }).then((course) => {
+  //     console.log(course)
+  //     if (!course) {
+  //       this.setState({error: "Error loading course data."})
+  //     } else {
+  //       this.setState({id: course._id, title: course.title, tagline: course.tagline, description: course.description})
+  //     }
+  //   })
+  // }
+
     
   loadCourseInfo = () => {
       // const jwt = auth.isAuthenticated()
@@ -69,27 +83,26 @@ class EditCourse extends Component {
           console.log("No response!")
         } else {
           this.setState({course: data})
+          this.setState({id: data._id, title: data.title, tagline: data.tagline, description: data.description})
           this.setState({videos: data.videos})
+          console.log(this.state.course)
         }
       })
   }
   
   clickSubmit = () => {
-    const jwt = auth.isAuthenticated()
     const course = {
-      name: this.state.name || undefined,
-      email: this.state.email || undefined,
-      password: this.state.password || undefined,
-      about: this.state.about || undefined
+      title: this.state.title || undefined,
+      tagline: this.state.tagline || undefined,
+      description: this.state.description || undefined
     }
     console.log(course)
-    update({ userId: this.match.params.userId}, 
-      { t: jwt.token}, 
-      this.userData).then((data) => {
+    update({ courseId: this.match.params.courseId}, 
+      this.courseData).then((data) => {
       if (!data) {
         this.setState({error: "No data!"})
       } else {
-        this.setState({'redirectToProfile': true})
+        this.setState({redirectToReferrer: true})
       }
     })
   }
@@ -98,32 +111,31 @@ class EditCourse extends Component {
     const value = name === 'photo'
       ? event.target.files[0]
       : event.target.value
-    this.userData.set(name, value)
+    this.courseData.set(name, value)
     this.setState({ [name]: value })
   }
 
 
-  deleteAccount = () => {
+  deleteCourse = () => {
     const jwt = auth.isAuthenticated()
     remove({
-      userId: this.state.id
-    }, {t: jwt.token}).then((data) => {
-      if (data.error) {
-        console.log(data.error)
+      courseId: this.state.id
+    }, {t: jwt.token}).then((course) => {
+      if (!course) {
+        console.log("Error deleting course.")
       } else {
-        auth.signout(() => console.log('Account Deleted.'))
+        auth.signout(() => console.log('Course deleted.'))
         this.setState({redirectHome: true})
       }
     })
   }
 
   render() {
-    console.log(this.props)
     const photoUrl = this.state.id
-                 ? `/api/users/photo/${this.state.id}?${new Date().getTime()}`
-                 : '/api/users/defaultphoto'
-    if (this.state.redirectToProfile) {
-      return (<Redirect to={'/users/' + this.state.id}/>)
+                 ? `/api/courses/photo/${this.state.id}?${new Date().getTime()}`
+                 : '/api/courses/defaultphoto'
+    if (this.state.redirectToReferrer) {
+      return (<Redirect to={'/courses/' + this.state.id}/>)
     }
     if (this.state.redirectHome) {
       return (<Redirect to={'/'}/>)
@@ -133,25 +145,22 @@ class EditCourse extends Component {
       <Card>
         <CardBody>
           <CardTitle>Edit Course</CardTitle>
+          {
+            this.state.error && 
+            (<h5><Badge color="danger">{this.state.error}</Badge></h5>)
+          }
           <hr/>
           <img alt="profilePic" src={photoUrl} style={styles.bigAvatar}/><br/>
           <input style={styles.input} accept="image/*" onChange={this.handleChange('photo')} id="icon-button-file" type="file" />  
           <br/>
-          <Input size="sm" id="name" label="Name" value={this.state.name} onChange={this.handleChange('name')} margin="normal"/>
-          <Input size="sm" id="email" label="Email"  value={this.state.email} onChange={this.handleChange('email')} margin="normal"/>
-          <Input size="sm" id="password" label="Password" value={this.state.password} onChange={this.handleChange('password')} margin="normal"/>
-          <Input type="textarea" hint="Add a short bio..." label="About" icon="pencil" value={this.state.about} onChange={this.handleChange('about')} margin="normal"/>
+          <Input size="sm" id="title" label="Title" value={this.state.title} onChange={this.handleChange('title')} margin="normal"/>
+          <Input size="sm" id="tagline" label="Tagline"  value={this.state.tagline} onChange={this.handleChange('tagline')} margin="normal"/>
+          <Input type="textarea" hint="Add a course description." id="description" value={this.state.description} onChange={this.handleChange('description')} margin="normal"/>
           <AWSUpload/>
           <br/>
-           {
-            this.state.error && (<h5 component="p" color="error">
-              <Fa icon="exclamation-circle">error</Fa>
-              {this.state.error}
-            </h5>)
-          }
           <Button size="sm" color="primary" onClick={this.clickSubmit}>Submit</Button>
           <Button size="sm" color="primary" href={'/users/' + this.state.id}>Cancel</Button>
-          <Modal className="float-right" header={"Confirm to delete your account."} closeButton={"Cancel"} openButton={<div><Fa icon="trash" aria-label="Delete"/>Delete Course</div>} body={<Button className="mx-auto" onClick={this.deleteAccount} color="danger" autoFocus="autoFocus">Confirm.</Button>}></Modal>         
+          <Modal className="float-right" header={"Confirm to delete your course."} closeButton={"Cancel"} openButton={<div><Fa icon="trash" aria-label="Delete"/>Delete Course</div>} body={<Button className="mx-auto" onClick={this.deleteCourse} color="danger" autoFocus="autoFocus">Confirm.</Button>}></Modal>         
         </CardBody>
       </Card>
     </Container>
@@ -160,3 +169,20 @@ class EditCourse extends Component {
 }
 
 export default EditCourse
+
+
+    
+  // loadCourseInfo = () => {
+  //     // const jwt = auth.isAuthenticated()
+  //     listOne({
+  //       courseId: this.props.match.params.courseId
+  //     }).then((data) => {
+  //       if (!data) {
+  //         console.log("No response!")
+  //       } else {
+  //         this.setState({course: data})
+  //         this.setState({videos: data.videos})
+  //       }
+  //     })
+  //     console.log(this.state.course)
+  // }
