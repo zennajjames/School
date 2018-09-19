@@ -77,7 +77,10 @@ class LoginPage extends Component {
                     <Button onClick={this.handleSubmit}>Login</Button>
                   </div>
                   <br />
-                  <p className="font-small grey-text d-flex justify-content-center">Don't have an account? <a href="/register" className="dark-grey-text font-weight-bold ml-1"> Register</a></p>
+                  <p className="font-small grey-text d-flex justify-content-center">Don't have an account?</p>
+                  <div className="text-center">
+                    <p><a href="/register/student" className="grey-text font-small ml-1"> Register as a student.</a><a href="/register/teacher" className="grey-text font-small ml-1"> Register as a teacher.</a></p>
+                  </div>
                 </form>
               </CardBody>
             </Card>

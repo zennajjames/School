@@ -33,8 +33,8 @@ class Home extends Component {
       <Container>
         {this.state.defaultPage &&
         <section className="text-center my-5">
-          <img style={{ maxWidth: '37%', WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)', paddingBottom: 5}} src="/assets/images/schoolTitle.png" alt="logo"/><br/>
-          <img style={{ maxWidth: '32%', WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)'}} src="/assets/images/schoolFish.png" alt="logo"/><br/>
+          <img style={{ maxWidth: '30%', WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)', paddingBottom: 5}} src="/assets/images/schoolTitle.png" alt="logo"/><br/>
+          <img style={{ maxWidth: '25%', WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)'}} src="/assets/images/schoolFish.png" alt="logo"/><br/>
           <h3 className="white-text w-responsive mx-auto mt-5">An online learning community.</h3>
           <h5 className="white-text w-responsive mx-auto mt-5">Are you a student or a teacher?</h5>
             <br/>
