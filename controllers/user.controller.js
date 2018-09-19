@@ -18,7 +18,6 @@ const create = (req, res, next) => {
     })
   })
 }
-
 /**
  * Load user and append to req.
  */
@@ -26,8 +25,8 @@ const userByID = (req, res, next, id) => {
   console.log("userbyID")
   console.log(req.body)
   User.findById(id)
-    .populate('following', '_id name')
-    .populate('followers', '_id name')
+    .populate('following', '_id name role')
+    .populate('followers', '_id name role')
     .exec((err, user) => {
     if (err || !user) return res.status('400').json({
       error: "User not found."
@@ -53,7 +52,7 @@ const list = (req, res) => {
       })
     }
     res.json(users)
-  }).select('name email updated created')
+  }).select('name email updated created following')
 }
 
 const update = (req, res, next) => {
@@ -125,8 +124,8 @@ const addFollowing = (req, res, next) => {
 
 const addFollower = (req, res) => {
   User.findByIdAndUpdate(req.body.followId, {$push: {followers: req.body.userId}}, {new: true})
-  .populate('following', '_id name')
-  .populate('followers', '_id name')
+  .populate('following', '_id name role')
+  .populate('followers', '_id name role')
   .exec((err, result) => {
     if (err) {
       return res.status(400).json({
@@ -175,8 +174,8 @@ const removeFollowing = (req, res, next) => {
 }
 const removeFollower = (req, res) => {
   User.findByIdAndUpdate(req.body.unfollowId, {$pull: {followers: req.body.userId}}, {new: true})
-  .populate('following', '_id name')
-  .populate('followers', '_id name')
+  .populate('following', '_id name role')
+  .populate('followers', '_id name role')
   .exec((err, result) => {
     if (err) {
       return res.status(400).json({
@@ -199,7 +198,7 @@ const findPeople = (req, res) => {
       })
     }
     res.json(users)
-  }).select('name')
+  }).select('name role')
 }
 
 module.exports = {

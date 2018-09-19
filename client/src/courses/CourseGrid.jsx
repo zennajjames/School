@@ -1,34 +1,7 @@
 import React, {Component} from 'react'
 import { Row, Col, Chip, Card } from 'mdbreact';
-
-import Enroll from '../courses/Enroll'
-import Modal from '../core/Modal'
-import CreateCourse from './CreateCourse'
 import { list } from './api-course'
 import auth from '../auth/auth-helper.js'
-
-const styles = {
-  avatar: {
-    width: 75,
-    height: 75,
-    margin: 5,
-    borderRadius: 50
-  },
-  heading: {
-    fontWeight: 400,
-    color: "white",
-    paddingTop: 10
-  },
-  badge: {
-    width: 250,
-    height:90
-  },
-  nameLink: {
-    color: "black",
-    fontSize: 16
-  }
-}
-
 class CourseGrid extends Component {
   
   state = {
@@ -100,18 +73,6 @@ class CourseGrid extends Component {
 
     return (
       <div>
-        <div className="d-inline-block">
-          <h5 style={styles.heading} type="title">My Courses</h5>
-        </div>
-        <div className="d-inline-block float-right">
-            { this.state.role === "Student"
-              ? <Modal header={"Add A Course"} closeButton={"Cancel"} openButton={"Add A Course"} body={<Enroll userId={this.state.userId}/>}/>
-
-              : <Modal header={"Create A Course"} closeButton={"Cancel"} openButton={"Create A Course"} body={<CreateCourse userId={this.state.userId}/>}/>
-            } 
-        </div>
-        <hr />  
-        <Card>
           <Row>  
           { this.state.courses.length > 0    
             ? <Col>
@@ -120,7 +81,7 @@ class CourseGrid extends Component {
                   const photoUrl = course.photo
                   ? `/api/courses/photo/${this.state.course._id}?${new Date().getTime()}`
                   : '/api/courses/defaultphoto'
-                  return <div className="d-flex-column d-wrap" key={i}>
+                  return <div className="d-flex-column d-wrap align-items-center" key={i}>
                             <a href={'courses/'+ course._id}><Chip className="justify-content-center z-depth-1-half" bgColor="cyan darken-2" text="white" size="lg" src={photoUrl} alt="Courses" waves>{course.title}</Chip></a>
                         </div>
                 })}
@@ -132,8 +93,7 @@ class CourseGrid extends Component {
                   </div>
               </Col>
             }
-          </Row>       
-        </Card>   
+          </Row>        
     </div>
     )}
   }

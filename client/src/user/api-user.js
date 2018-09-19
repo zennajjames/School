@@ -24,6 +24,7 @@ const listUsers = () => {
 
 const read = (params, credentials) => {
   console.log(params)
+  console.log("Loading friends..")
   return fetch('/api/users/' + params.userId, {
     method: 'GET',
     headers: {
@@ -35,6 +36,23 @@ const read = (params, credentials) => {
     return response.json()
   }).catch((err) => console.log(err))
 }
+
+// const findFollowing = (params, credentials) => {
+//   console.log("Loading friends..")
+//   console.log(params)
+//   return fetch('/api/users/following/' + params.userId, {
+//     method: 'GET',
+//     headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/json',
+//       'Authorization': 'Bearer ' + credentials.t
+//     }
+//   }).then((response) => {
+//     console.log(response)
+//     return response.json()
+//   }).catch((err) => console.log(err))
+// }
+
 
 const update = (params, credentials, user) => {
   console.log(user)

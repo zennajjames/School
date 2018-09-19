@@ -13,7 +13,7 @@ class PostList extends Component {
         <Row>
           <Col style={{paddingBottom:20}} className="text-center">
             <h5 style={{paddingTop:20, paddingBottom:10}}>No posts yet! Connect with classmates or share something.</h5>
-            <Button href="/users">Classmates</Button>
+            <Button href="/students">Classmates</Button>
           </Col>
         </Row>
       )

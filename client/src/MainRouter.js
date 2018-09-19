@@ -1,16 +1,17 @@
 import React, {Component} from 'react'
 import {Route, Switch} from 'react-router-dom'
 
-
 import Nav from './core/Nav';
 import Home from "./core/Home";
+import Foot from "./core/Footer"
 
 import LogIn from "./user/Login.jsx";
 import Register from "./user/Register.jsx";
 import EditProfile from "./user/profile/EditProfile.jsx";
-import Foot from "./core/Footer"
-import EditCourse from './courses/dashboard/EditCourse'
 import CourseLessons from './courses/CourseLessons'
+
+import EditCourse from './courses/dashboard/EditCourse'
+import MyCourses from './courses/MyCourses'
 
 import CourseHome from './courses/CourseHome'
 import Users from './user/Users.jsx'
@@ -31,6 +32,7 @@ class MainRouter extends Component {
 						<Route exact path="/login" component={LogIn}/>
 						<Route exact path="/students" component={Users} />
 						<Route exact path="/register/:role" component={Register} />
+						<Route exact path="/courses" component={MyCourses} />
 						<Route exact path="/users/:userId" component={UserProfile} />
 						<PrivateRoute path="/users/edit/:userId" component={EditProfile}/>
 						<Route exact path="/courses/edit/:courseId" component={EditCourse} />

@@ -2,10 +2,9 @@ import React, {Component} from 'react'
 import { Container, Button, Card, CardTitle, Fa, CardBody, Input, Badge } from 'mdbreact';
 import Modal from '../../core/Modal'
 import auth from '../../auth/auth-helper'
-import {read, listOne, update, remove} from '../api-course'
+import {listOne, update, remove} from '../api-course'
 import {Redirect} from 'react-router-dom'
 import AWSUpload from '../../core/FileUpload'
-
 
 const styles = {
   card: {
@@ -61,18 +60,6 @@ class EditCourse extends Component {
     this.courseData = new FormData()
     this.loadCourseInfo()
   }
-  //   read({
-  //     courseId: this.props.match.params.courseId
-  //   }).then((course) => {
-  //     console.log(course)
-  //     if (!course) {
-  //       this.setState({error: "Error loading course data."})
-  //     } else {
-  //       this.setState({id: course._id, title: course.title, tagline: course.tagline, description: course.description})
-  //     }
-  //   })
-  // }
-
     
   loadCourseInfo = () => {
       // const jwt = auth.isAuthenticated()
@@ -158,9 +145,11 @@ class EditCourse extends Component {
           <Input type="textarea" hint="Add a course description." id="description" value={this.state.description} onChange={this.handleChange('description')} margin="normal"/>
           <AWSUpload/>
           <br/>
-          <Button size="sm" color="primary" onClick={this.clickSubmit}>Submit</Button>
-          <Button size="sm" color="primary" href={'/users/' + this.state.id}>Cancel</Button>
-          <Modal className="float-right" header={"Confirm to delete your course."} closeButton={"Cancel"} openButton={<div><Fa icon="trash" aria-label="Delete"/>Delete Course</div>} body={<Button className="mx-auto" onClick={this.deleteCourse} color="danger" autoFocus="autoFocus">Confirm.</Button>}></Modal>         
+          <div className="d-flex d-inline float-right">
+            <Button size="sm" color="primary" onClick={this.clickSubmit}>Save</Button>
+            <Button size="sm" color="primary" href={'/users/' + this.state.id}>Cancel</Button>
+            <Modal className="float-right" header={"Confirm to delete your course."} closeButton={"Cancel"} openButton={<div><Fa icon="trash" aria-label="Delete"/></div>} body={<Button className="mx-auto" onClick={this.deleteCourse} color="danger" autoFocus="autoFocus">Confirm.</Button>}></Modal>
+          </div>         
         </CardBody>
       </Card>
     </Container>
@@ -169,20 +158,3 @@ class EditCourse extends Component {
 }
 
 export default EditCourse
-
-
-    
-  // loadCourseInfo = () => {
-  //     // const jwt = auth.isAuthenticated()
-  //     listOne({
-  //       courseId: this.props.match.params.courseId
-  //     }).then((data) => {
-  //       if (!data) {
-  //         console.log("No response!")
-  //       } else {
-  //         this.setState({course: data})
-  //         this.setState({videos: data.videos})
-  //       }
-  //     })
-  //     console.log(this.state.course)
-  // }

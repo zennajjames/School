@@ -154,9 +154,11 @@ class EditProfile extends Component {
               {this.state.error}
             </h5>)
           }
-          <Button size="sm" color="primary" onClick={this.clickSubmit}>Submit</Button>
-          <Button size="sm" color="primary" href={'/users/' + this.state.id}>Cancel</Button>
-          <Modal className="float-right" header={"Confirm to delete your account."} closeButton={"Cancel"} openButton={<div><Fa icon="trash" aria-label="Delete"/>Delete Account</div>} body={<Button className="mx-auto" onClick={this.deleteAccount} color="danger" autoFocus="autoFocus">Confirm.</Button>}></Modal>         
+          <div className="d-flex d-inline float-right">
+            <Button size="sm" color="primary" onClick={this.clickSubmit}>Save</Button>
+            <Button size="sm" color="primary" href={'/users/' + this.state.id}>Cancel</Button>
+            <Modal className="float-right" header={"Confirm to delete your account."} closeButton={"Cancel"} openButton={<div><Fa icon="trash" aria-label="Delete"/>Delete Account</div>} body={<Button className="mx-auto" onClick={this.deleteAccount} color="danger" autoFocus="autoFocus">Confirm.</Button>}></Modal>         
+          </div>
         </CardBody>
       </Card>
     </Container>

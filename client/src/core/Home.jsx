@@ -1,14 +1,27 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Button, Fa } from 'mdbreact';
+import { Container, Card, Row, Col, Button, Fa } from 'mdbreact';
 import auth from '../auth/auth-helper'
 import Newsfeed from '../post/Newsfeed.jsx'
 import CourseGrid from '../courses/CourseGrid'
-import FindPeople from '../user/profile/FindPeople'
+import FollowGrid from '../user/profile/FollowGrid'
+import {read} from '../user/api-user'
 
+import Enroll from '../courses/Enroll'
+import Modal from './Modal'
+import CreateCourse from '../courses/CreateCourse'
+
+const styles = {
+  heading: {
+    fontWeight: 400,
+    color: "white",
+    paddingTop: 10
+  }
+}
 class Home extends Component {
 
   state = {
-    defaultPage: true
+    defaultPage: true,
+    userFollowing: []
   }
 
   init = () => {
@@ -25,8 +38,19 @@ class Home extends Component {
 
   componentDidMount = () => {
     this.init()
-    console.log(this.props)
+    this.loadFollowing()
   }
+
+  loadFollowing = () => {
+    const jwt = auth.isAuthenticated()
+    console.log(jwt.user)
+      read({
+        userId: jwt.user._id
+      }, {t: jwt.token}).then((data) => {
+        console.log(data)
+        this.setState({userFollowing: data.following})
+      })
+    }
 
   render() {
     return(
@@ -59,9 +83,26 @@ class Home extends Component {
                 <Newsfeed/>
               </Col>
               <Col className="clo-12 col-lg-4 col-sm-10">
+                  <div className="d-inline-block">
+                  <h5 style={styles.heading} type="title">My Courses</h5>
+                </div>
+                <div className="d-inline-block float-right">
+                    { this.state.role === "Student"
+                      ? <Modal header={"Add A Course"} closeButton={"Cancel"} openButton={"Add A Course"} body={<Enroll userId={this.state.userId}/>}/>
+
+                      : <Modal header={"Create A Course"} closeButton={"Cancel"} openButton={"Create A Course"} body={<CreateCourse userId={this.state.userId}/>}/>
+                    } 
+                </div>
+                <hr />  
+              <Card>
                   <CourseGrid/> 
+              </Card>
                   <div className="mt-3">
-                    <FindPeople/> 
+                  <h5 style={styles.heading} type="title">Connections</h5>
+                  <hr />
+                  <Card>
+                    <FollowGrid people={this.state.userFollowing}/> 
+                  </Card>
                   </div>   
               </Col>
               </Row>

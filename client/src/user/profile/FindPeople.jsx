@@ -1,15 +1,9 @@
 import React, {Component} from 'react'
-import { Badge, Card } from 'mdbreact';
+import { Button, Badge, Card, Fa } from 'mdbreact';
 import {findPeople, follow} from '../api-user.js'
 import auth from '../../auth/auth-helper.js'
 
 const styles = {
-  avatar: {
-    width: 75,
-    height: 75,
-    margin: 5,
-    borderRadius: 50
-  },
   badge: {
     width: 250,
     height:90
@@ -76,20 +70,29 @@ class FindPeople extends Component {
         </div>
         <hr />
         <Card>
-        <div className="d-flex flex-row">
-          {this.state.users.map((item, i) => {
+       
+         {this.state.users.length > 0
+        ? ( <div className="d-flex flex-row flex-wrap justify-content-center">
+          {this.state.users.map((person, i) => {
                return <div className="p-2 text-center m-2" key={i}>
-                        <img style={styles.avatar} className="z-depth-1-half mb-2" src={'/api/users/photo/'+item._id} alt="Classmates"/>
-                        <h5><Badge color="cyan">{item.name}</Badge></h5>
-                        <h6><Badge onClick={this.clickFollow.bind(this, item, i)} color="info">Follow</Badge></h6>
+                        <img style={{maxWidth: "80px", WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)', paddingBottom: 5, borderRadius: "50%"}} src={'/api/users/photo/'+person._id} alt="Classmates"/>
+                        <div className="d-flex d-inline">
+                            {person.role === "Teacher"
+                          ?(<h6 className="p-1"><Badge className="d-inline" color="amber darken-2" pill><Fa icon="star-o" aria-hidden="true"/></Badge></h6>)
+                          : (<div></div>)
+                          }
+                        <h5><Badge color="cyan">{person.name}</Badge></h5>
+                        </div>
+                        <h6><Badge onClick={this.clickFollow.bind(this, person, i)} color="info">Follow</Badge></h6>
                       </div>
                   })}  
           </div> 
-      <Badge
-          open={this.state.open}
-          onClose={this.handleRequestClose}
-          message={<span>{this.state.followMessage}</span>}
-      />
+          )
+        : (<div className="text-center mb-4">
+              <h3 className="m-2 p-2"><Badge>Awesome! You are connected with of the students in your classes!</Badge></h3>
+              <Button href="/" color="amber darken-2">Return To Dashboard</Button>
+          </div>)
+        }
       </Card>
     </div>
       )
@@ -99,4 +102,3 @@ class FindPeople extends Component {
 
 export default FindPeople;
 
- 
