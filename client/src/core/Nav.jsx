@@ -8,8 +8,7 @@ import {Link} from 'react-router-dom'
   const styles = {
     logo: {
       display: 'inline-block',
-      maxWidth: 150,
-      role: ''
+      maxWidth: 150
     }
   }
 
@@ -19,13 +18,6 @@ import {Link} from 'react-router-dom'
         collapse: false,
         isWideEnough: false
     };
-
-    componentDidMount = () => {
-      console.log(this.props)
-      let roleParam =  auth.isAuthenticated().user.role;
-      let roleCap = roleParam.charAt(0).toUpperCase() + roleParam.slice(1)
-      this.setState({role: roleCap})
-    }
   
     collapse = () => {
         this.setState({
@@ -68,7 +60,7 @@ import {Link} from 'react-router-dom'
               <NavLink to={"/"}>Hi, {auth.isAuthenticated().user.name}!  </NavLink>
             </NavItem>
             <NavItem>
-                <NavLink style={this.isActive(history, "/")} to={"/"}><Fa icon="dashboard"/>{this.state.role} Dashboard</NavLink>
+                <NavLink style={this.isActive(history, "/")} to={"/"}><Fa icon="dashboard"/>{auth.isAuthenticated().user.role} Dashboard</NavLink>
               </NavItem>
               <NavItem>
                 <Dropdown>
