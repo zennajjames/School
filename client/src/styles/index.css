@@ -26,3 +26,9 @@ body {
   flex-shrink: 0;
   text-align: center;
 }
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}

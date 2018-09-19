@@ -15,7 +15,8 @@ const CourseSchema = new mongoose.Schema({
   },
   courseCode: {
     type: String,
-    required: 'Course code is required.'
+    required: 'Course code is required.',
+    unique: 'Course code already exists.',
   },
   coursePhoto: {
     data: Buffer,

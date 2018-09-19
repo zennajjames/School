@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import auth from '../auth/auth-helper'
-import {Fa, Collapse } from 'mdbreact';
+import {Fa, Collapse, Badge } from 'mdbreact';
 import moment from 'moment'
 
 import {remove, like, unlike} from './api-post'
@@ -90,10 +90,9 @@ class Post extends Component {
   }
 
   render() {
-    console.log("Post: "+this.props.post._id)
+    console.log(this.props)
     if (this.props.post.photo) {
       console.log("There is a photo!")
-      console.log(this.props.post.photo)
     }
     else {
       console.log("No photos.")
@@ -107,7 +106,13 @@ class Post extends Component {
               </div>
               <div className="excerpt">
                 <div className="brief">
-                  <a className="name" to={"/users/" + this.props.post.postedBy._id}>{this.props.post.postedBy.name}</a>
+                  <div className="d-inline-flex">
+                    <a className="name d-inline mr-2" to={"/users/" + this.props.post.postedBy._id}>{this.props.post.postedBy.name}</a>
+                    { this.props.post.postedBy.role === "Teacher"
+                      ?(<h6><Badge className="d-inline" color="amber darken-2" pill><Fa icon="star-o" aria-hidden="true"/></Badge></h6>)
+                      : (<div></div>)
+                      }
+                  </div>
                   <div className="date">{moment(new Date(this.props.post.created)).calendar()}</div>
                 </div>
                 <div className="added-text">{this.props.post.text}</div>

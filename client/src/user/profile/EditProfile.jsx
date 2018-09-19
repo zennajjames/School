@@ -41,10 +41,12 @@ class EditProfile extends Component {
   constructor({match}) {
     super()
     this.state = {
-      name: '',
+      firstname: '',
+      lastname: '',
       about: '',
       photo: '',
       email: '',
+      role: '',
       password: '',
       redirectToProfile: false,
       redirectHome: false,
@@ -72,11 +74,15 @@ class EditProfile extends Component {
   
   clickSubmit = () => {
     const jwt = auth.isAuthenticated()
+    const fullname = this.state.firstname + ' ' + this.state.lastname;
     const user = {
-      name: this.state.name || undefined,
+      firstname: this.state.firstname || undefined,
+			lastname: this.state.lastname || undefined,
+      name: fullname || undefined,
       email: this.state.email || undefined,
       password: this.state.password || undefined,
-      about: this.state.about || undefined
+      about: this.state.about || undefined,
+      role: this.state.about || undefined
     }
     console.log(user)
     update({ userId: this.match.params.userId}, 
@@ -135,9 +141,11 @@ class EditProfile extends Component {
           <input style={styles.input} accept="image/*" onChange={this.handleChange('photo')} id="icon-button-file" type="file" />
           <br/>
           
-          <Input size="sm" id="name" label="Name" value={this.state.name} onChange={this.handleChange('name')} margin="normal"/>
+          <Input size="sm" id="firstname" label="First Name" value={this.state.firstname} onChange={this.handleChange('firstname')} margin="normal"/>
+          <Input size="sm" id="lastname" label="Last Name" value={this.state.lastname} onChange={this.handleChange('lastname')} margin="normal"/>
           <Input size="sm" id="email" label="Email"  value={this.state.email} onChange={this.handleChange('email')} margin="normal"/>
           <Input size="sm" id="password" label="Password" value={this.state.password} onChange={this.handleChange('password')} margin="normal"/>
+          <Input size="sm" id="role" label="Role" value={this.state.role} onChange={this.handleChange('role')} margin="normal"/>
           <Input type="textarea" hint="Add a short bio..." label="About" icon="pencil" value={this.state.about} onChange={this.handleChange('about')} margin="normal"/>
           <br/>
            {

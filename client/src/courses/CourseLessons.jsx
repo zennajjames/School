@@ -3,34 +3,12 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Button, Container, Row, Col, TabPane, TabContent, Nav, NavItem, NavLink } from 'mdbreact';
 import auth from '../auth/auth-helper.js'
-// import {read} from '../api-user'
+
 import { Redirect } from 'react-router-dom'
 import classnames from 'classnames';
 
 import {listOne} from './api-course'
 
-const styles = {
-  bigAvatar: {
-    width: 85,
-    height: 85,
-    margin: 10,
-    borderRadius: 50
-  },
-  heading: {
-    fontWeight: 300,
-  },
-  followGrid: {
-    borderWidth: .5,
-    borderColor:  'rgba(214, 214, 214, 0.4)',
-    borderStyle: 'groove',
-    padding: 10,
-    margin:15
-  },
-  badge: {
-    padding:8,
-    margin: 5
-  }
-}
 
 class CourseLessons extends React.Component {
   
@@ -40,8 +18,16 @@ class CourseLessons extends React.Component {
       id: '',
       description: '',
       redirectToSignin: false,
-      course: []
+      course: [],
+      videoIndex: 0,
+      volume: 1,
+      paused: false,
     }
+
+  selectVideo(index) {
+    this.setState({ videoIndex: index });
+  }
+
 
   componentDidMount = () => {
     const jwt = auth.isAuthenticated()
@@ -72,7 +58,14 @@ class CourseLessons extends React.Component {
   }
 
   render() {
-
+    const videos = [
+      { id: 285529861, name: 'Symmetry' },
+      { id: 290527909, name: 'Color and Relationship' },
+      { id: 285529794, name: 'Radial Balance' },
+      { id: 290527936, name: 'Focal Point: Part One' },
+      { id: 290528007, name: 'Strategies For Building A Composition' },
+      { id: 290528168, name: 'The Abstraction Continuum' }
+    ];
     const redirectToSignin = this.state.redirectToSignin
     if (redirectToSignin) {
       return <Redirect to='/signin'/>
@@ -124,31 +117,156 @@ class CourseLessons extends React.Component {
                   <hr />
                   <Row className="text-center">
                     <Col>
-                      <div className="text-center">
-                        <Vimeo video="288973599" autoplay />    
+                      <div className="text-center m-1">
+                        <Vimeo
+                            className="m-3"
+                            video={videos[0].id}
+                            autoplay
+                          />  
                       </div>
+                    </Col>
+                  </Row>
+                  <Row className="text-center m-3">
+                    <Col>
+                      <Button color="cyan darken-1">Lecture Notes</Button>
+                    </Col>
+                    <Col>
+                      <Button color="cyan darken-1">Exercises</Button>
+                    </Col>
+                    <Col>
+                      <Button color="cyan darken-1">Assignments</Button>
                     </Col>
                   </Row>
                 </TabPane>
                 <TabPane tabId="2">
                   <h3>Contrast And Relationship</h3>
                   <hr />
+                  <Row className="text-center">
+                    <Col>
+                      <div className="text-center">
+                      <Vimeo
+                            className="m-3"
+                            video={videos[1].id}
+                            autoplay
+                          />  
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row className="text-center m-3">
+                    <Col>
+                      <Button color="cyan darken-1">Lecture Notes</Button>
+                    </Col>
+                    <Col>
+                      <Button color="cyan darken-1">Exercises</Button>
+                    </Col>
+                    <Col>
+                      <Button color="cyan darken-1">Assignments</Button>
+                    </Col>
+                  </Row>
                 </TabPane>
                 <TabPane tabId="3">
-                  <h3>Creating The Illusion Of Depth And Dimension</h3>
+                  <h3>Radial and Crystallographic Balance</h3>
                   <hr />
+                  <Row className="text-center">
+                    <Col>
+                      <div className="text-center">
+                      <Vimeo
+                            className="m-3"
+                            video={videos[2].id}
+                            autoplay
+                          />  
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row className="text-center m-3">
+                    <Col>
+                      <Button color="cyan darken-1">Lecture Notes</Button>
+                    </Col>
+                    <Col>
+                      <Button color="cyan darken-1">Exercises</Button>
+                    </Col>
+                    <Col>
+                      <Button color="cyan darken-1">Assignments</Button>
+                    </Col>
+                  </Row>
                 </TabPane>
                 <TabPane tabId="4">
                   <h3>Focal Point</h3>
                   <hr />
+                  <Row className="text-center">
+                    <Col>
+                      <div className="text-center">
+                      <Vimeo
+                            className="m-3"
+                            video={videos[3].id}
+                            autoplay
+                          />  
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row className="text-center m-3">
+                    <Col>
+                      <Button color="cyan darken-1">Lecture Notes</Button>
+                    </Col>
+                    <Col>
+                      <Button color="cyan darken-1">Exercises</Button>
+                    </Col>
+                    <Col>
+                      <Button color="cyan darken-1">Assignments</Button>
+                    </Col>
+                  </Row>
                 </TabPane>
                 <TabPane tabId="5">
                   <h3>Strategies For Buiding A Composition</h3>
                   <hr />
+                  <Row className="text-center">
+                    <Col>
+                      <div className="text-center">
+                      <Vimeo
+                            className="m-3"
+                            video={videos[4].id}
+                            autoplay
+                          />  
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row className="text-center m-3">
+                    <Col>
+                      <Button color="cyan darken-1">Lecture Notes</Button>
+                    </Col>
+                    <Col>
+                      <Button color="cyan darken-1">Exercises</Button>
+                    </Col>
+                    <Col>
+                      <Button color="cyan darken-1">Assignments</Button>
+                    </Col>
+                  </Row>
                 </TabPane>
                 <TabPane tabId="6">
                   <h3>The Abstraction Continuum</h3>
                   <hr />
+                  <Row className="text-center">
+                    <Col>
+                      <div className="text-center">
+                      <Vimeo
+                            className="m-3"
+                            video={videos[5].id}
+                            autoplay
+                          />  
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row className="text-center m-3">
+                    <Col>
+                      <Button color="cyan darken-1">Lecture Notes</Button>
+                    </Col>
+                    <Col>
+                      <Button color="cyan darken-1">Exercises</Button>
+                    </Col>
+                    <Col>
+                      <Button color="cyan darken-1">Assignments</Button>
+                    </Col>
+                  </Row>
                 </TabPane>
               </TabContent>
             </div>

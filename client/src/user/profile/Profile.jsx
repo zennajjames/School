@@ -203,12 +203,8 @@ class Profile extends React.Component {
                               <h4 style={styles.heading}>{this.state.user.name}</h4>
                               <h5><Badge tag="a" href={"mailto:"+this.state.user.email} color="info">{this.state.user.email}</Badge></h5>
                               <p className="grey-text">Joined: {joined}</p>   
+                              <p style={styles.heading}><strong>About: </strong>{this.state.user.about}</p>
                             </div>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col>
-                            <h4 style={styles.heading}>{this.state.user.about}</h4>
                         </Col>
                       </Row>
                 </TabPane>

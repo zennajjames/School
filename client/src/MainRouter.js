@@ -17,14 +17,15 @@ import Users from './user/Users.jsx'
 import UserProfile from "./user/profile/Profile";
 import PrivateRoute from './auth/PrivateRoute'
 
+import "./styles/index.css";
 
 class MainRouter extends Component {
 
   render() {
 		return (
-			<div>
+			<div className="innerroot">
 				<Nav history={this.props}/>
-				<div className="main-wrapper" style={{paddingTop: '6rem', paddingBottom: '5rem', marginBottom: '5rem'}}>
+				<div className="main-wrapper" style={{height: '100%', paddingTop: '6rem', paddingBottom: '5rem', marginBottom: '5rem'}}>
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route exact path="/login" component={LogIn}/>

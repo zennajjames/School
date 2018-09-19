@@ -77,7 +77,7 @@ const listNewsFeed = (req, res) => {
   Post.find({postedBy: { $in : req.profile.following } })
   .populate('comments', 'text created')
   .populate('comments.postedBy', '_id name')
-  .populate('postedBy', '_id name')
+  .populate('postedBy', '_id name role')
   .sort('-created')
   .exec((err, posts) => {
     if (err) {
