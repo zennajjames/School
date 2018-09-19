@@ -84,6 +84,13 @@ class LoginPage extends Component {
             </Col>
             <Col></Col>
           </Row>
+          <Row>
+						<Col>
+								<div className="text-center mt-5">
+									<Button color="amber" size="md" href="/">Back Home</Button>
+								</div>
+						</Col>
+					</Row>
         </Container>
       );
     }

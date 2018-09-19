@@ -8,7 +8,8 @@ import {Link} from 'react-router-dom'
   const styles = {
     logo: {
       display: 'inline-block',
-      maxWidth: 150
+      maxWidth: 150,
+      role: ''
     }
   }
 
@@ -18,6 +19,13 @@ import {Link} from 'react-router-dom'
         collapse: false,
         isWideEnough: false
     };
+
+    componentDidMount = () => {
+      console.log(this.props)
+      let roleParam =  auth.isAuthenticated().user.role;
+      let roleCap = roleParam.charAt(0).toUpperCase() + roleParam.slice(1)
+      this.setState({role: roleCap})
+    }
   
     collapse = () => {
         this.setState({
@@ -49,9 +57,6 @@ import {Link} from 'react-router-dom'
             !auth.isAuthenticated() && (
             <NavbarNav right>
               <NavItem>
-                <NavLink to="/register" style={this.isActive(history, "/register")}>Register</NavLink>
-              </NavItem>
-              <NavItem>
                 <NavLink to="/login" style={this.isActive(history, "/login")}>Log In</NavLink>
               </NavItem>
             </NavbarNav>)
@@ -63,7 +68,7 @@ import {Link} from 'react-router-dom'
               <NavLink to={"/"}>Hi, {auth.isAuthenticated().user.name}!  </NavLink>
             </NavItem>
             <NavItem>
-                <NavLink style={this.isActive(history, "/")} to={"/"}><Fa icon="dashboard"/>{auth.isAuthenticated().user.role.toUpperCase()} Dashboard</NavLink>
+                <NavLink style={this.isActive(history, "/")} to={"/"}><Fa icon="dashboard"/>{this.state.role} Dashboard</NavLink>
               </NavItem>
               <NavItem>
                 <Dropdown>

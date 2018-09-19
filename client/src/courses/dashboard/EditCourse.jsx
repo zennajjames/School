@@ -4,6 +4,8 @@ import Modal from '../../core/Modal'
 import auth from '../../auth/auth-helper'
 import {listOne, update, remove} from '../api-course'
 import {Redirect} from 'react-router-dom'
+import AWSUpload from '../../core/FileUpload'
+
 
 const styles = {
   card: {
@@ -36,7 +38,6 @@ const styles = {
     marginLeft:'10px'
   }
 }
-
 class EditCourse extends Component {
   constructor({match}) {
     super()
@@ -116,7 +117,6 @@ class EditCourse extends Component {
     })
   }
 
-
   render() {
     console.log(this.props)
     const photoUrl = this.state.id
@@ -135,13 +135,13 @@ class EditCourse extends Component {
           <CardTitle>Edit Course</CardTitle>
           <hr/>
           <img alt="profilePic" src={photoUrl} style={styles.bigAvatar}/><br/>
-          <input style={styles.input} accept="image/*" onChange={this.handleChange('photo')} id="icon-button-file" type="file" />
+          <input style={styles.input} accept="image/*" onChange={this.handleChange('photo')} id="icon-button-file" type="file" />  
           <br/>
-          
           <Input size="sm" id="name" label="Name" value={this.state.name} onChange={this.handleChange('name')} margin="normal"/>
           <Input size="sm" id="email" label="Email"  value={this.state.email} onChange={this.handleChange('email')} margin="normal"/>
           <Input size="sm" id="password" label="Password" value={this.state.password} onChange={this.handleChange('password')} margin="normal"/>
           <Input type="textarea" hint="Add a short bio..." label="About" icon="pencil" value={this.state.about} onChange={this.handleChange('about')} margin="normal"/>
+          <AWSUpload/>
           <br/>
            {
             this.state.error && (<h5 component="p" color="error">
@@ -150,7 +150,7 @@ class EditCourse extends Component {
             </h5>)
           }
           <Button size="sm" color="primary" onClick={this.clickSubmit}>Submit</Button>
-          <Button size="sm" color="primary" href={'/user/' + this.state.id}>Cancel</Button>
+          <Button size="sm" color="primary" href={'/users/' + this.state.id}>Cancel</Button>
           <Modal className="float-right" header={"Confirm to delete your account."} closeButton={"Cancel"} openButton={<div><Fa icon="trash" aria-label="Delete"/>Delete Course</div>} body={<Button className="mx-auto" onClick={this.deleteAccount} color="danger" autoFocus="autoFocus">Confirm.</Button>}></Modal>         
         </CardBody>
       </Card>
