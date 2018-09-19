@@ -1,13 +1,6 @@
 import React, {Component} from 'react'
-import { Card, Badge, Fa, Button } from 'mdbreact';
+import { Badge, Fa } from 'mdbreact';
 
-const styles = {
-  heading: {
-    fontWeight: 400,
-    color: "white",
-    paddingTop: 10
-  }
-}
 class FollowGrid extends Component {
   render() {
     console.log(this.props.people)
@@ -26,9 +19,6 @@ class FollowGrid extends Component {
                       </div>
                   </div>
                 })}
-          </div>
-          <div className="text-center">
-              <Button color="amber darken-2 m-2" size="md" href="/students">Find More Connections</Button>
           </div>
         </div>
        )

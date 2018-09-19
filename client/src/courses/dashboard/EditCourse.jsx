@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
-import { Container, Button, Card, CardTitle, Fa, CardBody, Input, Badge } from 'mdbreact';
+import { Row, Col, Container, Button, Card, CardTitle, Fa, CardBody, Input, Badge, InputFile } from 'mdbreact';
 import Modal from '../../core/Modal'
 import auth from '../../auth/auth-helper'
 import {listOne, update, remove} from '../api-course'
 import {Redirect} from 'react-router-dom'
-import AWSUpload from '../../core/FileUpload'
+// import AWSUpload from '../../core/FileUpload'
 
 const styles = {
   card: {
@@ -117,6 +117,10 @@ class EditCourse extends Component {
     })
   }
 
+  fileInputHandler = (files) => {
+    console.log(files) // returns FileList object
+  }
+
   render() {
     const photoUrl = this.state.id
                  ? `/api/courses/photo/${this.state.id}?${new Date().getTime()}`
@@ -129,29 +133,53 @@ class EditCourse extends Component {
     }
     return (
       <Container>
-      <Card>
-        <CardBody>
-          <CardTitle>Edit Course</CardTitle>
-          {
-            this.state.error && 
-            (<h5><Badge color="danger">{this.state.error}</Badge></h5>)
-          }
-          <hr/>
-          <img alt="profilePic" src={photoUrl} style={styles.bigAvatar}/><br/>
-          <input style={styles.input} accept="image/*" onChange={this.handleChange('photo')} id="icon-button-file" type="file" />  
-          <br/>
-          <Input size="sm" id="title" label="Title" value={this.state.title} onChange={this.handleChange('title')} margin="normal"/>
-          <Input size="sm" id="tagline" label="Tagline"  value={this.state.tagline} onChange={this.handleChange('tagline')} margin="normal"/>
-          <Input type="textarea" hint="Add a course description." id="description" value={this.state.description} onChange={this.handleChange('description')} margin="normal"/>
-          <AWSUpload/>
-          <br/>
-          <div className="d-flex d-inline float-right">
-            <Button size="sm" color="primary" onClick={this.clickSubmit}>Save</Button>
-            <Button size="sm" color="primary" href={'/users/' + this.state.id}>Cancel</Button>
-            <Modal className="float-right" header={"Confirm to delete your course."} closeButton={"Cancel"} openButton={<div><Fa icon="trash" aria-label="Delete"/></div>} body={<Button className="mx-auto" onClick={this.deleteCourse} color="danger" autoFocus="autoFocus">Confirm.</Button>}></Modal>
-          </div>         
-        </CardBody>
-      </Card>
+        <Row>
+           <Col className="col-12 col-lg-8 col-sm-10">
+            <Card className="mt-2 p-2">
+              <CardBody>
+                <CardTitle>Edit Course</CardTitle>
+                {
+                  this.state.error && 
+                  (<h5><Badge color="danger">{this.state.error}</Badge></h5>)
+                }
+                <hr/>
+                <img alt="profilePic" src={photoUrl} style={styles.bigAvatar}/><br/>
+                <input style={styles.input} accept="image/*" onChange={this.handleChange('photo')} id="icon-button-file" type="file" />  
+                <br/>
+                <Input id="title" label="Title" value={this.state.title} onChange={this.handleChange('title')} margin="normal"/>
+                <Input id="tagline" label="Tagline"  value={this.state.tagline} onChange={this.handleChange('tagline')} margin="normal"/>
+                <Input hint="Add a course description." id="description" value={this.state.description} onChange={this.handleChange('description')} margin="normal"/>
+                
+                <br/>
+                <div className="d-flex d-inline float-right">
+                  <Button size="sm" color="primary" onClick={this.clickSubmit}>Save</Button>
+                  <Button size="sm" color="primary" href={'/users/' + this.state.id}>Cancel</Button>
+                  <Modal className="float-right" header={"Confirm to delete your course."} closeButton={"Cancel"} openButton={<div><Fa icon="trash" aria-label="Delete"/></div>} body={<Button className="mx-auto" onClick={this.deleteCourse} color="danger" autoFocus="autoFocus">Confirm.</Button>}></Modal>
+                </div>         
+              </CardBody>
+            </Card>
+          </Col>
+          <Col className="col-12 col-lg-4 col-sm-10">
+            <Card className="mt-2">
+              <CardBody>
+                <CardTitle>Add Video</CardTitle>
+                <hr/>
+                <input className="m-2 form-control form-control-sm" type="text" placeholder="Lesson Number"/>
+                <input className="m-2 form-control form-control-sm" type="text" placeholder="Video Title"/>
+                <input className="m-2 form-control form-control-sm" type="text" placeholder="Video ID"/>
+                <Button className="float-right" size="sm" color="primary" onClick={this.clickSubmit}>Save</Button>
+              </CardBody>
+            </Card>
+            <Card className="mt-3">
+              <CardBody>
+                <CardTitle>Add Files</CardTitle>
+                <hr/>
+                <InputFile getValue = { this.fileInputHandler }></InputFile>
+                <Button className="float-right" size="sm" color="primary" onClick={this.clickSubmit}>Save</Button>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
     </Container>
     )
   }

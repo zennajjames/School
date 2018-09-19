@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Row, Col, Chip, Card } from 'mdbreact';
+import { Row, Col, Chip } from 'mdbreact';
 import { list } from './api-course'
 import auth from '../auth/auth-helper.js'
 class CourseGrid extends Component {

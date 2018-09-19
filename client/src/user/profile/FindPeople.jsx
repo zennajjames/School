@@ -65,11 +65,6 @@ class FindPeople extends Component {
     // const {classes} = this.props
     return (
       <div>
-        <div className="d-inline-block">
-          <h5 style={styles.heading} type="title">Connect</h5>
-        </div>
-        <hr />
-        <Card>
        
          {this.state.users.length > 0
         ? ( <div className="d-flex flex-row flex-wrap justify-content-center">
@@ -93,7 +88,6 @@ class FindPeople extends Component {
               <Button href="/" color="amber darken-2">Return To Dashboard</Button>
           </div>)
         }
-      </Card>
     </div>
       )
   }

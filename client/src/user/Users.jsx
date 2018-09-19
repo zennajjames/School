@@ -1,9 +1,16 @@
 import React, {Component} from 'react'
-import { Container, Card, CardBody, Badge } from 'mdbreact';
+import { Row, Col, Container, Card } from 'mdbreact';
 import auth from '../auth/auth-helper.js'
 import {listUsers} from './api-user.js'
 import FindPeople from './profile/FindPeople'
 
+const styles = {
+  heading: {
+    fontWeight: 400,
+    padding: 10,
+    color: "white"
+  }
+}
 class Users extends Component {
   state = {
       users: [],
@@ -31,11 +38,17 @@ class Users extends Component {
   }
 
   render() {
-    console.log(this.state)
-    console.log(this.props)
     return (
       <Container>
-      <FindPeople/>
+      <Row>
+        <Col>
+            <h3 style={styles.heading} type="title">Connect</h3>
+          <hr />
+          <Card>
+            <FindPeople/>
+          </Card>
+        </Col>
+      </Row>    
     </Container>
     )
   }

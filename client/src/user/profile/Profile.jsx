@@ -209,6 +209,8 @@ class Profile extends React.Component {
                       </Row>
                 </TabPane>
                 <TabPane tabId="2">
+                  <h3>Courses</h3>
+                   <hr />
                   <CourseGrid userId={userId} courses={this.state.courses}/>
                 </TabPane>
                 <TabPane tabId="3">

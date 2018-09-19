@@ -27,6 +27,7 @@ class Home extends Component {
   init = () => {
     if(auth.isAuthenticated()){
       this.setState({defaultPage: false})
+      this.loadFollowing()
     }else{
       this.setState({defaultPage: true})
     }
@@ -38,7 +39,6 @@ class Home extends Component {
 
   componentDidMount = () => {
     this.init()
-    this.loadFollowing()
   }
 
   loadFollowing = () => {
@@ -58,8 +58,8 @@ class Home extends Component {
         {this.state.defaultPage &&
         <section className="align-middle text-center my-5">
           <div className="align-middle text-center mt-3">
-            <img className="w-responsive mx-auto" style={{ minWidth: "180px", maxWidth: '30%', WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)', paddingBottom: 5}} src="/assets/images/schoolTitle.png" alt="logo"/><br/>
-            <img className="w-responsive mx-auto" style={{ minWidth: "130px", maxWidth: '25%', WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)'}} src="/assets/images/schoolFish.png" alt="logo"/><br/>
+            <img className="w-responsive mx-auto" style={{ minWidth: "180px", maxWidth: '25%', WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)', paddingBottom: 5}} src="/assets/images/schoolTitle.png" alt="logo"/><br/>
+            <img className="w-responsive mx-auto" style={{ minWidth: "130px", maxWidth: '20%', WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)'}} src="/assets/images/schoolFish.png" alt="logo"/><br/>
             <h3 className="white-text w-responsive mx-auto mt-5">An online learning community.</h3>
             <h5 className="white-text w-responsive mx-auto mt-5">Are you a student or a teacher?</h5>
               <br/>
@@ -82,7 +82,7 @@ class Home extends Component {
               <Col className="col-12 col-lg-8 col-sm-10" style={{paddingBottom:"2rem"}}>
                 <Newsfeed/>
               </Col>
-              <Col className="clo-12 col-lg-4 col-sm-10">
+              <Col className="col-12 col-lg-4 col-sm-10">
                   <div className="d-inline-block">
                   <h5 style={styles.heading} type="title">My Courses</h5>
                 </div>
@@ -103,6 +103,9 @@ class Home extends Component {
                   <Card>
                     <FollowGrid people={this.state.userFollowing}/> 
                   </Card>
+                  <div className="text-center">
+                      <Button color="amber darken-2 m-2" size="md" href="/students">Find More Connections</Button>
+                  </div>
                   </div>   
               </Col>
               </Row>
