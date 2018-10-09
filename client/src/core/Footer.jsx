@@ -19,7 +19,7 @@ const container = {
 class FooterPage extends React.Component {
     render(){
         return(
-                <Footer style={style} color="cyan darken-2" className="footer font-small">
+                <Footer style={style} color="stylish-color-dark" className="footer font-small">
                         <Container style={container}>
                                 <Row>
                                         <Col md="12">
