@@ -3,7 +3,6 @@ import {Route, Switch} from 'react-router-dom'
 
 import Nav from './core/Nav';
 import Home from "./core/Home";
-import HomeVid from "./core/HomeVid";
 import Foot from "./core/Footer"
 
 import LogIn from "./user/Login.jsx";
@@ -26,10 +25,10 @@ class MainRouter extends Component {
   render() {
 		return (
 			<div className="innerroot">
-				{/* <Nav history={this.props}/> */}
-				<div className="main-wrapper">
+				<Nav history={this.props}/>
+				<div className="main-wrapper" style={{paddingTop: '2rem', marginTop: '4rem', marginBottom: '3rem'}}>
 					<Switch>
-						<Route exact path="/" component={HomeVid} />
+						<Route exact path="/" component={Home} />
 						<Route exact path="/login" component={LogIn}/>
 						<Route exact path="/students" component={Users} />
 						<Route exact path="/register/:role" component={Register} />
@@ -40,7 +39,7 @@ class MainRouter extends Component {
 						<Route exact path="/courses/:courseId" component={CourseHome} />
 						<Route exact path="/courses/lessons/:courseId" component={CourseLessons} />
 					</Switch>
-				{/* <Foot/> */}
+				<Foot/>
 				</div>
 			</div>
 		);
@@ -49,4 +48,3 @@ class MainRouter extends Component {
 
 export default MainRouter;
 
-// style={{paddingTop: '2rem', marginTop: '0rem'}}

@@ -16,7 +16,7 @@ class ModalPage extends React.Component {
   render() {
     return (
       <div>
-        <Button className="p-2" size="sm" onClick={this.toggle}>{this.props.openButton}</Button>
+        <Button color="amber" className="p-2" size="sm" onClick={this.toggle}>{this.props.openButton}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>{this.props.header}</ModalHeader>
           <ModalBody>

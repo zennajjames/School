@@ -2,6 +2,15 @@ import React, {Component} from 'react'
 import { Row, Col, Chip } from 'mdbreact';
 import { list } from './api-course'
 import auth from '../auth/auth-helper.js'
+
+const styles = {
+  heading: {
+    fontWeight: 400,
+    color: "white",
+    paddingTop: "1.5rem",
+    paddingLeft: "1.5rem"
+  }
+}
 class CourseGrid extends Component {
   
   state = {
@@ -83,7 +92,7 @@ class CourseGrid extends Component {
                   ? `/api/courses/photo/${this.state.course._id}?${new Date().getTime()}`
                   : '/api/courses/defaultphoto'
                   return <div className="d-flex-column d-wrap align-items-center" key={i}>
-                            <a href={'courses/'+ course._id}><Chip className="justify-content-center z-depth-1-half" bgColor="cyan darken-2" text="white" size="lg" src={photoUrl} alt="Courses" waves>{course.title}</Chip></a>
+                            <a href={'courses/'+ course._id}><Chip className="justify-content-center z-depth-1-half" bgColor="cyan" text="white" size="lg" src={photoUrl} alt="Courses" waves>{course.title}</Chip></a>
                         </div>
                 })}
               </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Container, Row, Badge, Col, Fa, TabPane, TabContent, Nav, NavItem, NavLink } from 'mdbreact';
+import { Container, Row, Badge, Col, Fa, TabPane, TabContent, Nav, NavItem, NavLink, Button } from 'mdbreact';
 import auth from '../../auth/auth-helper.js'
 import {read} from '../api-user'
 import { Redirect } from 'react-router-dom'
@@ -180,9 +180,9 @@ class Profile extends React.Component {
                         auth.isAuthenticated().user && auth.isAuthenticated().user._id === this.state.user._id
                         ? (
                           <div className="d-inline">
-                            <Badge tag="a" href={"/users/edit/" + this.state.user._id} className="d-inline float-right align-self-end">
-                                <Fa icon="edit"/>Edit Profile&nbsp;
-                            </Badge>&nbsp;
+                            <Button size="sm" href={"/users/edit/" + this.state.user._id} color="cyan" className="d-inline float-right align-self-end">
+                                <Fa icon="edit"/> Edit Profile
+                            </Button>
                           </div>
                         )
                         : (<div className="d-inline float-right">
@@ -197,8 +197,8 @@ class Profile extends React.Component {
                         <Col className="col-9">
                             <div className="float-left">
                               <h4 style={styles.heading}>{this.state.user.name}</h4>
-                              <h4><Badge className="mt-2 mb-2">{this.state.user.role}</Badge></h4>
-                              <h5><Badge tag="a" href={"mailto:"+this.state.user.email} color="info">{this.state.user.email}</Badge></h5>
+                              <h4><Badge color="amber" className="mt-2 mb-2">{this.state.user.role}</Badge></h4>
+                              <h5><Badge tag="a" href={"mailto:"+this.state.user.email} color="cyan">{this.state.user.email}</Badge></h5>
                               <p className="grey-text">Joined: {joined}</p>   
                             </div>
                         </Col>

@@ -2,8 +2,9 @@ html,
 body {
   height: 100%;
   font-family: sans-serif;
-  /* background: url(/assets/images/chalkboard.jpg) no-repeat center center fixed;  */
+  background: url(/assets/images/blackboardCrop.jpg) no-repeat center center fixed; 
   background-size: cover;
+  font-family: "benton-sans"
 }
 
 body {

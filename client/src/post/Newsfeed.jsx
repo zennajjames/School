@@ -6,12 +6,13 @@ import NewPost from './NewPost.jsx'
 import PostList from './PostList'
 import Modal from '../core/Modal'
 
-import { Card } from 'mdbreact';
-
 const styles = {
   heading: {
     fontWeight: 400,
-    color: "white"
+    color: "black",
+    paddingTop: "1.5rem",
+    paddingLeft: "1rem",
+    fontFamily: "benton-sans"
   }
 }
 
@@ -55,15 +56,13 @@ class Newsfeed extends Component {
     return (
       <div>
         <div className="d-inline-block">
-          <h3 style={styles.heading} type="title">Newfeed</h3>
+          <h4 style={styles.heading} type="title">Newsfeed</h4>
         </div>
         <div className="d-inline-block float-right">
           <Modal header={"Post"} closeButton={"Done"} openButton={"Post"} body={<NewPost addUpdate={this.addPost}/>}/>
         </div>
-        <hr />
-        <Card>
+        <hr style={{width: "80%"}} />
           <PostList removeUpdate={this.removePost} posts={this.state.posts}/>
-        </Card>
       </div>
     )
   }

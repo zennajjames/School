@@ -63,7 +63,7 @@ class FindPeople extends Component {
                                 }
                           </div>
                             <h5><Badge tag="a" href={"/users/" + person._id} color="cyan">{person.name}</Badge></h5>
-                            <h6><Badge onClick={this.clickFollow.bind(this, person, i)} color="info">Follow</Badge></h6>
+                            <h6><Badge onClick={this.clickFollow.bind(this, person, i)} color="amber">Follow</Badge></h6>
                         </div>
                       })}
                       </div> 

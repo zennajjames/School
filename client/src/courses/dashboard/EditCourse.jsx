@@ -152,8 +152,8 @@ class EditCourse extends Component {
                 
                 <br/>
                 <div className="d-flex d-inline float-right">
-                  <Button size="sm" color="primary" onClick={this.clickSubmit}>Save</Button>
-                  <Button size="sm" color="primary" href={'/users/' + this.state.id}>Cancel</Button>
+                  <Button size="sm" color="cyan" onClick={this.clickSubmit}>Save</Button>
+                  <Button size="sm" color="cyan" href={'/users/' + this.state.id}>Cancel</Button>
                   <Modal className="float-right" header={"Confirm to delete your course."} closeButton={"Cancel"} openButton={<div><Fa icon="trash" aria-label="Delete"/></div>} body={<Button className="mx-auto" onClick={this.deleteCourse} color="danger" autoFocus="autoFocus">Confirm.</Button>}></Modal>
                 </div>         
               </CardBody>
@@ -167,7 +167,7 @@ class EditCourse extends Component {
                 <input className="m-2 form-control form-control-sm" type="text" placeholder="Lesson Number"/>
                 <input className="m-2 form-control form-control-sm" type="text" placeholder="Video Title"/>
                 <input className="m-2 form-control form-control-sm" type="text" placeholder="Video ID"/>
-                <Button className="float-right" size="sm" color="primary" onClick={this.clickSubmit}>Save</Button>
+                <Button className="float-right" size="sm" color="cyan" onClick={this.clickSubmit}>Save</Button>
               </CardBody>
             </Card>
             <Card className="mt-3">
@@ -175,7 +175,7 @@ class EditCourse extends Component {
                 <CardTitle>Add Files</CardTitle>
                 <hr/>
                 <InputFile getValue = { this.fileInputHandler }></InputFile>
-                <Button className="float-right" size="sm" color="primary" onClick={this.clickSubmit}>Save</Button>
+                <Button className="float-right" size="sm" color="cyan" onClick={this.clickSubmit}>Save</Button>
               </CardBody>
             </Card>
           </Col>

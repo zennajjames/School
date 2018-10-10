@@ -13,8 +13,10 @@ import CreateCourse from '../courses/CreateCourse'
 const styles = {
   heading: {
     fontWeight: 400,
-    color: "white",
-    paddingTop: 10
+    color: "black",
+    paddingTop: "1rem",
+    paddingLeft: "1rem",
+    fontFamily: "benton-sans"
   }
 }
 class Home extends Component {
@@ -62,18 +64,18 @@ class Home extends Component {
         {this.state.defaultPage &&
         <section className="align-middle text-center my-5">
           <div className="align-middle text-center mt-3">
-            <img className="w-responsive mx-auto" style={{ minWidth: "180px", maxWidth: '25%', WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)', paddingBottom: 5}} src="/assets/images/schoolTitle.png" alt="logo"/><br/>
+            <img className="w-responsive mx-auto" style={{ minWidth: "180px", maxWidth: '25%', WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)', paddingBottom: 5}} src="/assets/images/logo1.png" alt="logo"/><br/>
             <img className="w-responsive mx-auto" style={{ minWidth: "130px", maxWidth: '20%', WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)'}} src="/assets/images/schoolFish.png" alt="logo"/><br/>
-            <h3 className="white-text w-responsive mx-auto mt-5">An online learning community.</h3>
+            <h4 className="white-text w-responsive mx-auto mt-5">An online learning community for creatives.</h4>
             <h5 className="white-text w-responsive mx-auto mt-5">Are you a student or a teacher?</h5>
               <br/>
             <Row>
               <Col></Col>
               <Col md="4" className="mb-2">
-                <Button href="/register/student" color="amber darken-1" rounded size="md"><Fa icon="clone" className="left"/> Students</Button>
+                <Button href="/register/student" color="teal darken-1" rounded size="lg"><Fa icon="clone" className="left"/> Students</Button>
               </Col>
               <Col md="4" className="mb-2">
-                  <Button href="/register/teacher" color="amber darken-1" rounded size="md"><Fa icon="clone" className="left"/> Teachers</Button>
+                  <Button href="/register/teacher" color="teal darken-1" rounded size="lg"><Fa icon="clone" className="left"/> Teachers</Button>
               </Col>
               <Col></Col>
             </Row>
@@ -84,33 +86,37 @@ class Home extends Component {
             <div>
               <Row>
               <Col className="col-12 col-lg-8 col-sm-10" style={{paddingBottom:"2rem"}}>
-                <Newsfeed/>
+                <Card style={{background: "rgba(255, 255, 255, 1)"}}>
+                   <Newsfeed/>
+                </Card>
               </Col>
               <Col className="col-12 col-lg-4 col-sm-10">
-                  <div className="d-inline-block">
-                  <h5 style={styles.heading} type="title">My Courses</h5>
-                </div>
-                <div className="d-inline-block float-right">
+                <Card style={{background: "rgba(255, 255, 255, 1)"}}>
+                  <div className="d-flex justify-content-between">
+                    <h5 style={styles.heading} type="title">My Courses</h5>
+                    <div>
                     { this.state.role === "Student"
                       ? <Modal header={"Add A Course"} closeButton={"Cancel"} openButton={"Add A Course"} body={<Enroll userId={this.state.userId}/>}/>
 
                       : <Modal header={"Create A Course"} closeButton={"Cancel"} openButton={"Create A Course"} body={<CreateCourse userId={this.state.userId}/>}/>
                     } 
-                </div>
-                <hr />  
-              <Card>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <hr align="center" style={{width: "80%"}} />  
+                  </div>
                   <CourseGrid/> 
               </Card>
-                  <div className="mt-3">
+              <Card style={{background: "rgba(255, 255, 255, 1)"}} className="mt-3">
                   <h5 style={styles.heading} type="title">Connections</h5>
-                  <hr />
-                  <Card>
-                    <FollowGrid people={this.state.userFollowing}/> 
-                  </Card>
                   <div className="text-center">
-                      <Button color="amber darken-2 m-2" size="md" href="/students">Find More Connections</Button>
-                  </div>
+                     <hr style={{width: "80%", justifyContent: "center"}} />
                   </div>   
+                    <FollowGrid people={this.state.userFollowing}/> 
+                  <div className="text-center">
+                      <Button color="amber lighten-1" className="mb-3" size="md" href="/students">Find Connections</Button>
+                  </div>
+              </Card>   
               </Col>
               </Row>
             </div>

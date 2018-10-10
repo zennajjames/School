@@ -107,7 +107,7 @@ class Post extends Component {
               <div className="excerpt">
                 <div className="brief">
                   <div className="d-inline-flex">
-                    <a className="name d-inline mr-2" to={"/users/" + this.props.post.postedBy._id}>{this.props.post.postedBy.name}</a>
+                    <a className="name text-info d-inline mr-2" to={"/users/" + this.props.post.postedBy._id}>{this.props.post.postedBy.name}</a>
                     { this.props.post.postedBy.role === "Teacher"
                       ?(<h6><Badge className="d-inline" color="amber darken-2" pill><Fa icon="star-o" aria-hidden="true"/></Badge></h6>)
                       : (<div></div>)

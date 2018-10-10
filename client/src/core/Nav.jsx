@@ -4,14 +4,13 @@ import auth from './../auth/auth-helper'
 import history from '../history';
 import {Link} from 'react-router-dom'
 
-
   const styles = {
     logo: {
       display: 'inline-block',
-      maxWidth: 150
+      maxWidth: 80,
+      marginLeft: 3
     }
   }
-
   class Nav extends React.Component {
 
     state = {
@@ -40,17 +39,26 @@ import {Link} from 'react-router-dom'
       console.log(this.props)
        return (
 
-      <Navbar color="grey lighten-5" dark expand="md" fixed="top" scrolling>
-        <NavbarBrand href="/" >
-            <img style={styles.logo} src="/assets/images/schoolLogo.png" alt="logo"/>
+      <Navbar transparent dark expand="md" fixed="top" scrolling>
+        <NavbarBrand style={{marginLeft: 40}} href="/" >
+            <img style={styles.logo} src="/assets/images/schoolFish.png" alt="logo"/>
           </NavbarBrand>
           { !this.state.isWideEnough && <NavbarToggler onClick = { this.collapse } />}
                         <Collapse isOpen = { this.state.collapse } navbar>
           {
             !auth.isAuthenticated() && (
             <NavbarNav right>
-              <NavItem>
+              <NavItem style={{marginRight: 20}}>
                 <NavLink to="/login" style={this.isActive(history, "/login")}>Log In</NavLink>
+              </NavItem>
+              <NavItem>
+                    <NavLink to="/login" className="fb-ic m-0"><i className="fa fa-facebook fa-md white-text"> </i></NavLink>
+              </NavItem>
+              <NavItem>
+                    <NavLink to="/login" className="tw-ic"><i className="fa fa-twitter fa-md white-text"> </i></NavLink>
+              </NavItem>
+              <NavItem style={{marginRight: 40}}>
+                    <NavLink to="/login" className="tw-ic"><i className="fa fa-instagram fa-md white-text"> </i></NavLink>
               </NavItem>
             </NavbarNav>)
           }
@@ -66,7 +74,7 @@ import {Link} from 'react-router-dom'
             <NavItem>
               <NavLink style={this.isActive(history, "/")} to={"/"}><Fa icon="dashboard"/>{auth.isAuthenticated().user.role} Dashboard</NavLink>
             </NavItem>
-              <NavItem>
+              <NavItem style={{marginRight: 40}}>
                 <Dropdown>
                     <DropdownToggle nav caret></DropdownToggle>
                       <DropdownMenu>
@@ -89,7 +97,6 @@ import {Link} from 'react-router-dom'
         );
       }
     }
-
 
 export default Nav;
 
