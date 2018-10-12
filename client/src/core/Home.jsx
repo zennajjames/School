@@ -64,7 +64,7 @@ class Home extends Component {
         {this.state.defaultPage &&
         <section className="align-middle text-center my-5">
           <div className="align-middle text-center mt-3">
-            <img className="w-responsive mx-auto" style={{ minWidth: "180px", maxWidth: '25%', WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)', paddingBottom: 5}} src="/assets/images/logo1.png" alt="logo"/><br/>
+            <img className="w-responsive mx-auto" style={{ minWidth: "180px", maxWidth: '25%', WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)', paddingBottom: 5}} src="/assets/images/school.png" alt="logo"/><br/>
             <img className="w-responsive mx-auto" style={{ minWidth: "130px", maxWidth: '20%', WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)'}} src="/assets/images/schoolFish.png" alt="logo"/><br/>
             <h4 className="white-text w-responsive mx-auto mt-5">An online learning community for creatives.</h4>
             <h5 className="white-text w-responsive mx-auto mt-5">Are you a student or a teacher?</h5>
