@@ -1,1 +1,1 @@
-# testingSchool
+# School
