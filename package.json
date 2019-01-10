@@ -4,11 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-   
-    "deploy": "per-env",
-    "start": "NODE_ENV=production per-env && npm run start:prod || npm run start:dev",
-    "start:prod": "node server.js",
-    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "start": "per-env",
+    "start:development": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "start:production": "node server.js",
     "client": "cd client && npm run start",
     "seed": "node scripts/seedDB.js",
     "install": "cd client && yarn install",
