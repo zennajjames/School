@@ -62,7 +62,7 @@ class Home extends Component {
     return(
       <Container>
         {this.state.defaultPage &&
-        <section className="align-middle text-center my-5">
+        <section className="align-middle text-center my-3">
           <div className="align-middle text-center mt-3">
             <img className="w-responsive mx-auto" style={{ minWidth: "180px", maxWidth: '25%', WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)', paddingBottom: 5}} src="/assets/images/school.png" alt="logo"/><br/>
             <img className="w-responsive mx-auto" style={{ minWidth: "130px", maxWidth: '20%', WebkitFilter: 'drop-shadow(1px 1px 1px #8a8a8a)', filter: 'drop-shadow(1px 1px 1px #4d4d4d)'}} src="/assets/images/schoolFish.png" alt="logo"/><br/>

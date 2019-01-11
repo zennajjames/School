@@ -1,6 +1,16 @@
+* {
+  box-sizing: border-box;
+ }
+
+*:before,
+*:after {
+ box-sizing: border-box;
+}
+
 html,
 body {
   height: 100%;
+  position: relative;
   font-family: sans-serif;
   background: url(/assets/images/blackboardCrop.jpg) no-repeat center center fixed; 
   background-size: cover;
@@ -18,18 +28,14 @@ body {
   height: 100%;
 }
 
-.content {
-  flex: 1 0 auto;
-  padding: 10px;
-}
-
 .footer {
-  flex-shrink: 0;
   text-align: center;
 }
 
 .main-wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 90px;
 }

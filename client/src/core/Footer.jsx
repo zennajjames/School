@@ -2,17 +2,18 @@ import React from 'react';
 import { Col, Container, Row, Footer } from 'mdbreact';
 
 var style = {
-        position: "fixed",
+        position: "absolute",
         left: "0",
         bottom: "0",
-        height: "60px",
+        height: "90px",
         width: "100%",
+        paddingTop: "2rem"
 }
     
 class FooterPage extends React.Component {
     render(){
         return(
-                <Footer transparent style={style}>
+                <Footer blue-grey scrolling style={style}>
                         <div className="footer-copyright text-center py-3">
                                 <Container fluid>
                                         &copy; {(new Date().getFullYear())} Copyright: <a href="https://www.zennajduke.com"> CreativeClassroom.com </a>

@@ -26,7 +26,7 @@ class MainRouter extends Component {
 		return (
 			<div className="innerroot">
 				<Nav history={this.props}/>
-				<div className="main-wrapper" style={{paddingTop: '2rem', marginTop: '4rem', marginBottom: '3rem'}}>
+				<div className="main-wrapper" style={{paddingTop: '2rem', marginTop: '2rem'}}>
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route exact path="/login" component={LogIn}/>

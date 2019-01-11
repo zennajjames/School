@@ -39,7 +39,7 @@ import {Link} from 'react-router-dom'
       console.log(this.props)
        return (
 
-      <Navbar transparent dark expand="md" fixed="top" scrolling>
+      <Navbar transparent dark expand="md" scrolling>
         <NavbarBrand style={{marginLeft: 40}} href="/" >
             <img style={styles.logo} src="/assets/images/schoolFish.png" alt="logo"/>
           </NavbarBrand>
