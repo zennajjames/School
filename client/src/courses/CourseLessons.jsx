@@ -28,7 +28,6 @@ class CourseLessons extends React.Component {
     this.setState({ videoIndex: index });
   }
 
-
   componentDidMount = () => {
     const jwt = auth.isAuthenticated()
     console.log(jwt)
@@ -47,7 +46,6 @@ class CourseLessons extends React.Component {
         }
       })
     }
- 
 
   toggleClassicTabs1 = (tab) => {
     if (this.state.activeItemClassicTabs1 !== tab) {

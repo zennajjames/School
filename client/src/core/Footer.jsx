@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Container, Row, Footer } from 'mdbreact';
+import { Container, Footer } from 'mdbreact';
 
 var style = {
         position: "absolute",
@@ -13,7 +13,7 @@ var style = {
 class FooterPage extends React.Component {
     render(){
         return(
-                <Footer blue-grey scrolling style={style}>
+                <Footer style={style}>
                         <div className="footer-copyright text-center py-3">
                                 <Container fluid>
                                         &copy; {(new Date().getFullYear())} Copyright: <a href="https://www.zennajduke.com"> CreativeClassroom.com </a>

@@ -14,6 +14,21 @@ const create = (course) => {
     }).catch((err) => console.log(err))
 }
 
+const upload = (formData) => {
+  console.log(formData)
+  console.log("Uploading file...")
+  return fetch('/api/courses/test-upload', formData, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    .then((response) => {
+      console.log("response")
+      console.log(response)
+    }).catch((err) => console.log(err))
+}
+
 const update = (params, course) => {
   console.log(course)
   return fetch('/api/courses/' + params.courseId, {
@@ -74,6 +89,7 @@ const read = (params) => {
 
 export {
   create,
+  upload,
   update,
   remove,
   list, 

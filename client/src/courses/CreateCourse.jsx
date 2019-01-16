@@ -37,7 +37,7 @@ class CreateCourse extends Component {
 				this.setState({error: "No data!"})
       } else {
 				window.location.reload()
-      }
+			}
     })
 	}
 

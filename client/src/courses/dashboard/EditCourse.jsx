@@ -4,7 +4,7 @@ import Modal from '../../core/Modal'
 import auth from '../../auth/auth-helper'
 import {listOne, update, remove} from '../api-course'
 import {Redirect} from 'react-router-dom'
-// import AWSUpload from '../../core/FileUpload'
+import axios from 'axios'
 
 const styles = {
   card: {
@@ -50,7 +50,8 @@ class EditCourse extends Component {
       redirectToReferrer: false,
       redirectHome: false,
       id: '',
-      error: ''
+      error: '',
+      file: null
     }
     this.match = match
   }
@@ -102,7 +103,6 @@ class EditCourse extends Component {
     this.setState({ [name]: value })
   }
 
-
   deleteCourse = () => {
     const jwt = auth.isAuthenticated()
     remove({
@@ -117,8 +117,30 @@ class EditCourse extends Component {
     })
   }
 
-  fileInputHandler = (files) => {
-    console.log(files) // returns FileList object
+  handleFileUpload = event => {
+    console.log(event.target.files);
+    this.setState({
+      file: event.target.files
+    });
+  }
+
+  submitFile = (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('file', this.state.file[0]);
+    axios.post(`/test-upload`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(response => {
+      console.log(response)
+    }).catch(error => {
+      console.log(error)
+    });
+  }
+
+  handleFileUpload = (event) => {
+    this.setState({file: event.target.files});
   }
 
   render() {
@@ -174,8 +196,10 @@ class EditCourse extends Component {
               <CardBody>
                 <CardTitle>Add Files</CardTitle>
                 <hr/>
-                <InputFile getValue = { this.fileInputHandler }></InputFile>
-                <Button className="float-right" size="sm" color="cyan" onClick={this.clickSubmit}>Save</Button>
+                 <form onSubmit={this.submitFile}>
+                  <input label='upload file' type='file' onChange={this.handleFileUpload} />
+                  <button type='submit'>Send</button>
+                </form>
               </CardBody>
             </Card>
           </Col>
@@ -186,3 +210,9 @@ class EditCourse extends Component {
 }
 
 export default EditCourse
+
+
+ /* <form onSubmit={this.submitFile}>
+                 <InputFile label='upload file' type='file' onChange={this.handleFileUpload} ></InputFile>
+                 <Button type='submit' className="float-right" size="sm" color="cyan" onClick={this.clickSubmit}>Save</Button>
+                </form>     */

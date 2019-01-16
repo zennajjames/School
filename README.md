@@ -12,9 +12,23 @@ School provides teachers a cost-effective and simple way to share their content 
 
 ## Installation and Use
 
+Clone this repo:
+
 `$ git clone git@github.com:zenjduke/School.git`
+
+Open the folder:
+
 `$ cd School\`
+
+Install all dependancies:
+
+`$ yarn install`
+
+Start the app:
+
 `$ yarn start`
+
+The app will be automatically in your browser at http://localhost:3000/.
 
 ## Development
 
