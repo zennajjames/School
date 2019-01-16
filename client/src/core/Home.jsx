@@ -114,7 +114,7 @@ class Home extends Component {
                 <TableBody>
                   <tr>
                     <td>Email: teach@school.io</td>
-                    <td>Password: demo</td>
+                    <td>Password: school-demo</td>
                   </tr>
                 </TableBody>
               </Table>
