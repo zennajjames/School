@@ -20,8 +20,8 @@ const multiparty = require('multiparty');
 
 // configure the keys for accessing AWS
 AWS.config.update({
-  accessKeyId: 'AKIAJCIBM3IODSZI3ECA',
-  secretAccessKey: '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'
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 
 
