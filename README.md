@@ -6,10 +6,6 @@ Built with Javascript, Express, React, Node and MongoDB. User authentication bui
 
 <img width="1294" alt="screen shot 2019-01-10 at 6 41 28 pm" src="https://user-images.githubusercontent.com/35474050/51006123-67169b80-1507-11e9-88e7-e5fca0c7c096.png">
 
-## Why School?
-
-School provides teachers a cost-effective and simple way to share their content and students an easy-to-navigate, personal online learning experience.
-
 ## Installation and Use
 
 Clone this repo:
