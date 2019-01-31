@@ -4,6 +4,8 @@ School is a lightweight learning management system and social media application.
 
 Built with Javascript, Express, React, Node and MongoDB. User authentication built using JWT. Amazon Web Services provides storage services.
 
+School is deployed on Heroku [here.](https://schoolschool.herokuapp.com/)
+
 <img width="1294" alt="screen shot 2019-01-10 at 6 41 28 pm" src="https://user-images.githubusercontent.com/35474050/51006123-67169b80-1507-11e9-88e7-e5fca0c7c096.png">
 
 ## Installation and Use
