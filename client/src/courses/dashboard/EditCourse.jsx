@@ -4,7 +4,9 @@ import Modal from '../../core/Modal'
 import auth from '../../auth/auth-helper'
 import {listOne, update, remove} from '../api-course'
 import {Redirect} from 'react-router-dom'
-import axios from 'axios'
+import S3FileUpload from 'react-s3';
+import S3 from 'aws-s3';
+
 
 const styles = {
   card: {
@@ -37,6 +39,14 @@ const styles = {
     marginLeft:'10px'
   }
 }
+
+const config = {
+  bucketName: 'schooldemo',
+  region: 'us-east-1',
+  accessKeyId: 'AKIAILH73QI3IOL6POKQ',
+  secretAccessKey: '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',
+}
+
 class EditCourse extends Component {
   constructor({match}) {
     super()
@@ -95,6 +105,8 @@ class EditCourse extends Component {
     })
   }
 
+  
+
   handleChange = name => event => {
     const value = name === 'photo'
       ? event.target.files[0]
@@ -118,29 +130,22 @@ class EditCourse extends Component {
   }
 
   handleFileUpload = event => {
-    console.log(event.target.files);
     this.setState({
       file: event.target.files
     });
   }
 
   submitFile = (event) => {
+    console.log("file file");
+    console.log(this.state.file)
     event.preventDefault();
-    const formData = new FormData();
-    formData.append('file', this.state.file[0]);
-    axios.post(`/test-upload`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then(response => {
-      console.log(response)
-    }).catch(error => {
-      console.log(error)
-    });
-  }
+    
+  const S3Client = new S3(config);
 
-  handleFileUpload = (event) => {
-    this.setState({file: event.target.files});
+  S3Client
+      .uploadFile(this.state.file)
+      .then(data => console.log(data))
+      .catch(err => console.error(err))
   }
 
   render() {

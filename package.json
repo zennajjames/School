@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@u-wave/react-vimeo": "^0.5.0",
+    "aws-s3": "^2.0.2",
     "aws-sdk": "^2.306.0",
     "axios": "^0.18.0",
     "bluebird": "^3.5.2",
