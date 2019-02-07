@@ -39,3 +39,34 @@ body {
   position: relative;
   padding-bottom: 90px;
 }
+
+/* ----- Upload Form ---*/
+
+.upload {
+  text-align: center;
+}
+
+.upload-logo {
+  animation: upload-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.upload-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.upload-title {
+  font-size: 1.5em;
+}
+
+.upload-intro {
+  font-size: large;
+}
+
+@keyframes upload-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

@@ -1,39 +1,60 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import {upload} from '../courses/api-course'
 
-class AWSUpload extends Component {
+class FileUpload extends Component {
 
-    state = {
-      file: null
-    }
+		state = {
+			imageURL: ''
+		};
 
-  submitFile = (event) => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append('file', this.state.file[0]);
-    axios.post(`/upload`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then(response => {
-      // handle your response;
-    }).catch(error => {
-      // handle your error
-    });
-  }
 
-  handleFileUpload = (event) => {
-    this.setState({file: event.target.files});
-  }
+	handleUploadImage = (e) => {
+		e.preventDefault();
+    console.log("testing")
+		const data = new FormData();
+		data.append('file', this.uploadInput.files[0]);
+		data.append('filename', this.fileName.value);
 
-  render () {
-    return (
-      <form onSubmit={this.submitFile}>
-        <input label='upload file' type='file' onChange={this.handleFileUpload} />
-        <button type='submit'>Send</button>
-      </form>
-    );
-  }
+		upload({newdata:data}).then(response => {
+			response.json().then(body => {
+				this.setState({ imageURL: `http://localhost:3001/${body.file}` });
+			});
+		});
+	}
+
+	render() {
+		return (
+			<div className="upload">
+				<h1 className="display-3">FileUpload</h1>
+				<form onSubmit={this.handleUploadImage}>
+					<div>
+						<input
+							ref={ref => {
+								this.uploadInput = ref;
+							}}
+							type="file"
+						/>
+					</div>
+					<br />
+					<div>
+						<input
+							ref={ref => {
+								this.fileName = ref;
+							}}
+							type="text"
+							placeholder="Enter the desired name of file"
+						/>
+					</div>
+					<br />
+					<div>
+						<button className="btn btn-success">Upload</button>
+					</div>
+					<hr />
+					<p>Uploaded Image:</p>
+					<img src={this.state.imageURL} alt="img" />
+				</form>
+			</div>
+		);
+	}
 }
-
-export default AWSUpload
+export default FileUpload;

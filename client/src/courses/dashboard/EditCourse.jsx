@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
 import { Row, Col, Container, Button, Card, CardTitle, Fa, CardBody, Input, Badge, InputFile } from 'mdbreact';
 import Modal from '../../core/Modal'
+import FileUpload from '../../core/FileUpload'
 import auth from '../../auth/auth-helper'
 import {listOne, update, remove} from '../api-course'
 import {Redirect} from 'react-router-dom'
-import S3FileUpload from 'react-s3';
-import S3 from 'aws-s3';
 
 
 const styles = {
@@ -40,12 +39,7 @@ const styles = {
   }
 }
 
-const config = {
-  bucketName: 'schooldemo',
-  region: 'us-east-1',
-  accessKeyId: 'AKIAILH73QI3IOL6POKQ',
-  secretAccessKey: '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',
-}
+
 
 class EditCourse extends Component {
   constructor({match}) {
@@ -129,24 +123,24 @@ class EditCourse extends Component {
     })
   }
 
-  handleFileUpload = event => {
-    this.setState({
-      file: event.target.files
-    });
-  }
+  // handleFileUpload = event => {
+  //   this.setState({
+  //     file: event.target.files
+  //   });
+  // }
 
-  submitFile = (event) => {
-    console.log("file file");
-    console.log(this.state.file)
-    event.preventDefault();
+  // submitFile = (event) => {
+  //   console.log(config.accessKeyId);
+  //   console.log(this.state.file)
+  //   event.preventDefault();
     
-  const S3Client = new S3(config);
+  // const S3Client = new S3(config);
 
-  S3Client
-      .uploadFile(this.state.file)
-      .then(data => console.log(data))
-      .catch(err => console.error(err))
-  }
+  // S3Client
+  //     .uploadFile(this.state.file)
+  //     .then(data => console.log(data))
+  //     .catch(err => console.error(err))
+  // }
 
   render() {
     const photoUrl = this.state.id
@@ -201,10 +195,7 @@ class EditCourse extends Component {
               <CardBody>
                 <CardTitle>Add Files</CardTitle>
                 <hr/>
-                 <form onSubmit={this.submitFile}>
-                  <input label='upload file' type='file' onChange={this.handleFileUpload} />
-                  <button type='submit'>Send</button>
-                </form>
+                <FileUpload />
               </CardBody>
             </Card>
           </Col>
@@ -221,3 +212,4 @@ export default EditCourse
                  <InputFile label='upload file' type='file' onChange={this.handleFileUpload} ></InputFile>
                  <Button type='submit' className="float-right" size="sm" color="cyan" onClick={this.clickSubmit}>Save</Button>
                 </form>     */
+
