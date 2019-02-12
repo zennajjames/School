@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 import { Row, Col, Container, Button, Card, CardTitle, Fa, CardBody, Input, Badge, InputFile } from 'mdbreact';
 import Modal from '../../core/Modal'
-import FileUpload from '../../core/FileUpload'
 import auth from '../../auth/auth-helper'
-import {listOne, update, remove} from '../api-course'
+import {listOne, update, remove, upload} from '../api-course'
 import {Redirect} from 'react-router-dom'
 
+import "isomorphic-fetch";
+import "es6-promise/auto";
+// import S3Uploader from '../../core/S3Uploader'
 
 const styles = {
   card: {
@@ -38,8 +40,6 @@ const styles = {
     marginLeft:'10px'
   }
 }
-
-
 
 class EditCourse extends Component {
   constructor({match}) {
@@ -82,7 +82,7 @@ class EditCourse extends Component {
       })
   }
   
-  clickSubmit = () => {
+  clickSave = () => {
     const course = {
       title: this.state.title || undefined,
       tagline: this.state.tagline || undefined,
@@ -98,8 +98,6 @@ class EditCourse extends Component {
       }
     })
   }
-
-  
 
   handleChange = name => event => {
     const value = name === 'photo'
@@ -123,24 +121,23 @@ class EditCourse extends Component {
     })
   }
 
-  // handleFileUpload = event => {
-  //   this.setState({
-  //     file: event.target.files
-  //   });
-  // }
+  handleSelectedFile = e => {
+    this.setState({
+      file: e.target.files
+    });
+  }
 
-  // submitFile = (event) => {
-  //   console.log(config.accessKeyId);
-  //   console.log(this.state.file)
-  //   event.preventDefault();
-    
-  // const S3Client = new S3(config);
 
-  // S3Client
-  //     .uploadFile(this.state.file)
-  //     .then(data => console.log(data))
-  //     .catch(err => console.error(err))
-  // }
+  submitFile = (e) => {
+    e.preventDefault();
+      const file = this.state.file[0];
+      console.log(file);
+      const data = new FormData();
+            data.append("file", file);
+            console.log(data);
+            upload(data)
+            .then(response => console.log("File uploaded!"));
+  }
 
   render() {
     const photoUrl = this.state.id
@@ -173,7 +170,7 @@ class EditCourse extends Component {
                 
                 <br/>
                 <div className="d-flex d-inline float-right">
-                  <Button size="sm" color="cyan" onClick={this.clickSubmit}>Save</Button>
+                  <Button size="sm" color="cyan" onClick={this.clickSave}>Save</Button>
                   <Button size="sm" color="cyan" href={'/users/' + this.state.id}>Cancel</Button>
                   <Modal className="float-right" header={"Confirm to delete your course."} closeButton={"Cancel"} openButton={<div><Fa icon="trash" aria-label="Delete"/></div>} body={<Button className="mx-auto" onClick={this.deleteCourse} color="danger" autoFocus="autoFocus">Confirm.</Button>}></Modal>
                 </div>         
@@ -188,14 +185,17 @@ class EditCourse extends Component {
                 <input className="m-2 form-control form-control-sm" type="text" placeholder="Lesson Number"/>
                 <input className="m-2 form-control form-control-sm" type="text" placeholder="Video Title"/>
                 <input className="m-2 form-control form-control-sm" type="text" placeholder="Video ID"/>
-                <Button className="float-right" size="sm" color="cyan" onClick={this.clickSubmit}>Save</Button>
+                <Button className="float-right" size="sm" color="cyan" onClick={this.submitFile}>Save</Button>
               </CardBody>
             </Card>
             <Card className="mt-3">
               <CardBody>
                 <CardTitle>Add Files</CardTitle>
                 <hr/>
-                <FileUpload />
+                <form>
+                  <input label='upload file' type='file' onChange={this.handleSelectedFile} ></input>
+                  <Button type='submit' className="float-right" size="sm" color="cyan" onClick={this.submitFile}>Save</Button>
+                </form>
               </CardBody>
             </Card>
           </Col>
@@ -206,10 +206,4 @@ class EditCourse extends Component {
 }
 
 export default EditCourse
-
-
- /* <form onSubmit={this.submitFile}>
-                 <InputFile label='upload file' type='file' onChange={this.handleFileUpload} ></InputFile>
-                 <Button type='submit' className="float-right" size="sm" color="cyan" onClick={this.clickSubmit}>Save</Button>
-                </form>     */
 

@@ -17,8 +17,8 @@ const create = (course) => {
   const upload = (data) => {
     console.log(data)
     console.log("Uploading file...")
-    return fetch('/api/upload', {
-			method: 'POST',
+    return fetch('/api/upload/', {
+      method: 'POST',
 			body: data
 		})
       .then((response) => {

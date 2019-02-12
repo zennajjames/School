@@ -1,45 +1,75 @@
-const upload = (req, res, next) => {
-  var aws = require('aws-sdk'); 
-  require('dotenv').config(); // Configure dotenv to load in the .env file
-  // Configure aws with your accessKeyId and your secretAccessKey
-  aws.config.update({
-    region: 'us-east-1', // Put your aws region here
-    accessKeyId: process.env.AWSAccessKeyId,
-    secretAccessKey: process.env.AWSSecretKey
-  })
+const dotenv = require("dotenv");
+dotenv.config();
 
-  const S3_BUCKET = process.env.bucket
-  // Now lets export this function so we can call it from somewhere else
-  exports.sign_s3 = (req,res) => {
-    const s3 = new aws.S3();  // Create a new instance of S3
-    const fileName = req.body.fileName;
-    const fileType = req.body.fileType;
-  // Set up the payload of what we are sending to the S3 api
-    const s3Params = {
-      Bucket: S3_BUCKET,
-      Key: fileName,
-      Expires: 500,
-      ContentType: fileType,
-      ACL: 'public-read'
+const AWS = require('aws-sdk');
+const s3 = new AWS.S3();
+
+const BUCKET_NAME = 'schooldemo';
+const IAM_USER_KEY = process.env.AWS_ACCESS_KEY_ID;
+const IAM_USER_SECRET = process.env.AWS_SECRET_ACCESS_KEY;
+
+function uploadToS3(file){
+  let s3bucket = new AWS.S3({
+    accessKeyId: IAM_USER_KEY,
+    secretAccessKey: IAM_USER_SECRET,
+    Bucket: BUCKET_NAME
+  });
+  s3bucket.createBucket(function(){
+    var params = {
+      Bucket: BUCKET_NAME,
+      Key: file.name,
+      Body: file.data
     };
-  // Make a request to the S3 API to get a signed URL which we can use to upload our file
-  s3.getSignedUrl('putObject', s3Params, (err, data) => {
+    s3bucket.upload(params, function(err, data){
       if(err){
+        console.log('error in callback');
         console.log(err);
-        res.json({success: false, error: err})
       }
-      // Data payload of what we are sending back, the url of the signedRequest and a URL where we can access the content after its saved. 
-  const returnData = {
+      console.log('success');
+      console.log(data);
+    })
+  })
+}
+
+const upload = (req, res) => {
+
+  console.log("Request:");
+  console.log(req.files.file);
+
+  uploadToS3(req.files.file);
+  res.send("!")
+}
+
+const sign = (req, res) => {
+  const { fileName, fileType } = req.query;
+
+  const s3Params = {
+    Bucket: process.env.AWS_S3_BUCKET,
+    Key: fileName,
+    ContentType: fileType,
+    ACL: 'public-read'
+  };
+
+  s3.getSignedUrl('putObject', s3Params, (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.error(data);
+      res.json({
         signedRequest: data,
-        url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
-      };
-      // Send it all back
-      res.json({success:true, data:{returnData}});
-    });
-  }
+        url: `https://${process.env.AWS_S3_BUCKET}.s3.amazonaws.com/${fileName}`
+      });
+    }
+   });
+  };
+
+
 
   module.exports = {
-    upload
+    upload,
+    sign
   }
 
 
+  // uploadToS3(req.files.file);
+  // res.send("!")

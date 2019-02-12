@@ -10,19 +10,17 @@ const cookieParser = require('cookie-parser')
 
 const mongoose = require("mongoose");
 const routes = require("./routes");
-
-const cors = require('cors'); 
 const fileUpload = require('express-fileupload'); 
-app.use(logger());
+const cors = require('cors')
+app.use(cors());
+app.use(fileUpload());
 
-const PORT = process.env.PORT || 3001;
+app.use(logger());
 
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(cors());
-app.use(fileUpload());
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
@@ -33,6 +31,11 @@ app.use(routes);
 
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/schoolDB", { useNewUrlParser: true });
+
+const PORT = process.env.PORT || 3001;
+
+app.use(express.static("public"));
+
 // Catch unauthorised errors
 app.use((err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {
