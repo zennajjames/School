@@ -28,7 +28,7 @@ Start the app:
 
 The app will be automatically in your browser at http://localhost:3000/.
 
-## Development
+## Development --
 
 <img width="646" alt="screen shot 2019-01-10 at 4 48 20 pm" src="https://user-images.githubusercontent.com/35474050/51002030-a1783c80-14f7-11e9-95ec-729174899c24.png">
 
