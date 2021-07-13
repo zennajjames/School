@@ -100,6 +100,9 @@ class Home extends Component {
                 alt="logo"
               />
               <br />
+              <h2 className="white-text w-responsive mx-auto mt-5">
+                School is currently unavailable. Back in a flash!
+              </h2>
               <h4 className="white-text w-responsive mx-auto mt-5">
                 An online learning community for creatives.
               </h4>
