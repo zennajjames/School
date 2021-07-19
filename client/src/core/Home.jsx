@@ -103,12 +103,6 @@ class Home extends Component {
               <h4 className="white-text w-responsive mx-auto mt-5">
                 An online learning community for creatives.
               </h4>
-              <h5 className="white-text w-responsive mx-auto mt-5">
-                Some features of School are currently unavailable while our team performs scheduled updates.
-              </h5>
-              <h5 className="white-text w-responsive mx-auto mt-5">
-                Thank you for your understanding - back in a flash!
-              </h5>
               <h4
                 className="white-text w-responsive mx-auto mt-5"
                 style={{ fontWeight: "500" }}
