@@ -2,6 +2,9 @@
   "name": "mern",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "12.10.0"
+  },
   "main": "server.js",
   "scripts": {
     "start": "per-env",
