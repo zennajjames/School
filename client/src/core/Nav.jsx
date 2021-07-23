@@ -48,7 +48,7 @@ import {Link} from 'react-router-dom'
           {
             !auth.isAuthenticated() && (
             <NavbarNav right>
-              <NavItem style={{marginRight: 20}}>
+              <NavItem style={{marginRight: 1}}>
                 <NavLink to="/login" style={this.isActive(history, "/login")}>Log In</NavLink>
               </NavItem>
               <NavItem>
@@ -64,17 +64,11 @@ import {Link} from 'react-router-dom'
           }
           {
             auth.isAuthenticated() && (
-            <NavbarNav right>
+            <NavbarNav right style={{marginRight: 40}}>
             <NavItem>
               <NavLink to={"/"}>Hi, {auth.isAuthenticated().user.name}!  </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink style={this.isActive(history, "/students")} to={"/students"}>Connect</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink style={this.isActive(history, "/")} to={"/"}><Fa icon="dashboard"/>{auth.isAuthenticated().user.role} Dashboard</NavLink>
-            </NavItem>
-              <NavItem style={{marginRight: 40}}>
                 <Dropdown>
                     <DropdownToggle nav caret></DropdownToggle>
                       <DropdownMenu>
@@ -90,6 +84,12 @@ import {Link} from 'react-router-dom'
                       </DropdownMenu>
                     </Dropdown>
                 </NavItem>
+            <NavItem>
+              <NavLink style={this.isActive(history, "/students")} to={"/students"}>Connect</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink style={this.isActive(history, "/")} to={"/"}><Fa icon="dashboard"/>{auth.isAuthenticated().user.role} Dashboard</NavLink>
+            </NavItem>  
             </NavbarNav>)
           }
         </Collapse>
