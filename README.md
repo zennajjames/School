@@ -22,10 +22,6 @@ Install all dependancies:
 
 `$ yarn install`
 
-Install MongoDB locally:
-
-https://docs.mongodb.com/guides/server/install/
-
 Start the app:
 
 `$ yarn start`

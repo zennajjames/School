@@ -1,6 +1,6 @@
-const create =  async (params, credentials, post) => {
-  console.log("incoming.." + post);
-  return await fetch('/api/posts/new/'+ params.userId, {
+const create = (params, credentials, post) => {
+  console.log(post)
+  return fetch('/api/posts/new/'+ params.userId, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -8,27 +8,11 @@ const create =  async (params, credentials, post) => {
     },
     body: post
   }).then((response) => {
-    return response.json();
+    return response.json()
   }).catch((err) => {
-    console.log(err);
+    console.log(err)
   })
 }
-
-/*
-axios({
-  method: "post",
-  url: "myurl",
-  data: bodyFormData,
-  headers: { "Content-Type": "multipart/form-data" },
-})
-  .then(function (response) {
-    //handle success
-    console.log(response);
-  })
-  .catch(function (response) {
-    //handle error
-    console.log(response);
-  });*/
 
 const listByUser = (params, credentials) => {
   return fetch('/api/posts/by/'+ params.userId, {

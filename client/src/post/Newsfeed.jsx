@@ -17,11 +17,9 @@ const styles = {
 }
 
 class Newsfeed extends Component {
-
   state = {
       posts: []
   }
-
   loadPosts = () => {
     const jwt = auth.isAuthenticated()
     listNewsFeed({

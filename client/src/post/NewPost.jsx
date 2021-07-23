@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Button, MDBInput, MDBFileInput } from 'mdbreact';
+import { Button, Input } from 'mdbreact';
 import PropTypes from 'prop-types'
 import {create} from './api-post.js'
 import auth from '../auth/auth-helper.js'
@@ -8,7 +8,7 @@ class NewPost extends Component {
   
   state = {
     text: '',
-    file: [],
+    photo: '',
     error: '',
     user: {}
   }
@@ -19,7 +19,6 @@ class NewPost extends Component {
   }
 
   clickPost = () => {
-    this.postData.append('text', this.state.text)
     console.log("Posting...")
     const jwt = auth.isAuthenticated()
     create({
@@ -27,37 +26,68 @@ class NewPost extends Component {
     }, {
       t: jwt.token
     }, this.postData).then((data) => {
-      console.log(data)
+      console.log(this.postData)
       if (!data) {
         this.setState({error: "There was an error. Try again."})
       } else {
-        this.setState({text:'', file: ''})
+        this.setState({text:'', photo: ''})
         this.props.addUpdate(data)
       }
     })
-    window.location.reload();
   }
 
-  fileInputHandler = (event) => {
-    let file = (event.target.files[0]);
-    this.postData.append('File', file, file.name);
-  };
+  fileInputHandler = (files) => {
+     console.log(files) // returns FileList object
+     //Check File API support
+     if (window.File && window.FileList && window.FileReader) {
+  
+      var output = document.getElementById("result");
+
+      for (var i = 0; i < files.length; i++) {
+          var file = files[i];
+          //Only pics
+          if (!file.type.match('image')) continue;
+
+          var picReader = new FileReader();
+          picReader.addEventListener("load", function (event) {
+              var picFile = event.target;
+              var div = document.createElement("div");
+              div.innerHTML = "<img style='max-width:100px; max-height100px; float:left; margin:10px; display: inline'src='" + picFile.result + "'" + "title='" + picFile.name + "'/>";
+              output.insertBefore(div, null);
+          });
+          //Read the image
+          picReader.readAsDataURL(file);
+      }
+
+      } else {
+          console.log("Your browser does not support File API");
+      }
+  }
     
   handleChange = name => event => {
     const value = name === 'photo'
       ? event.target.files[0]
       : event.target.value
+    
+    //   if(name === "photo"){
+    //     for(let i = 0; i < event.target.files.length; i++){
+    //       let file = event.target.files[i];
+    //       this.postData.append('File: '+i, file);
+    //   }
+    // }
+    this.postData.append(name, value)
     this.setState({ [name]: value })
   }
 
   render() {
     return (
-        <div>    
-              <form action="/upload/photo" enctype="multipart/form-data" method="POST"> 
-                <MDBInput onChange={this.handleChange('text')} label="Share your thoughts ..." value={this.state.text}/>
-              </form>
+        <div>
+            <div className="d-flex flex-row">
+              <Input onChange={this.handleChange('text')} hint="Share your thoughts ..." value={this.state.text}/>  
+            </div>        
+                <input accept="image/*" onChange={this.handleChange('photo')} id="icon-button-file" type="file" getValue={this.fileInputHandler}></input>
+              <br/>
               <output id="result" />
-              <img src={this.state.file}/>
             { this.state.error && (<h5 component="p" color="error">
                   {this.state.error}
                 </h5>)
@@ -77,4 +107,3 @@ export default NewPost;
 
 
 //getValue={this.fileInputHandler}
- 
