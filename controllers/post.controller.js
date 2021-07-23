@@ -6,19 +6,23 @@ const fs = require('fs')
 
 
 const create = (req, res, next) => {
-  let form = new formidable.IncomingForm()
+  console.log("requesting...");
+  console.log(req);
+  console.log("Body: " + req.body);
+  let form = new formidable.IncomingForm();
   form.keepExtensions = true
   form.parse(req, (err, fields, files) => {
+    console.log("Fields: " +fields);
     if (err) {
       return res.status(400).json({
         error: "Image could not be uploaded"
-      })
+      });
     }
-    let post = new Post(fields)
-    post.postedBy= req.profile
+    let post = new Post(fields);
+    post.postedBy= req.profile;
     if(files.photo){
-      post.photo.data = fs.readFileSync(files.photo.path)
-      post.photo.contentType = files.photo.type
+      post.photo.data = fs.readFileSync(files.photo.path);
+      post.photo.contentType = files.photo.type;
     }
     post.save((err, result) => {
       if (err) {

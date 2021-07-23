@@ -36,4 +36,4 @@ router.route('/:postId')
 router.param('userId', userCtrl.userByID)
 router.param('postId', postCtrl.postByID)
 
-module.exports = router
+module.exports = router;
