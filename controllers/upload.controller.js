@@ -23,26 +23,20 @@ function uploadToS3(file){
     s3bucket.upload(params, function(err, data){
       if(err){
         console.log('error in callback');
-        console.log(err);
       }
-      console.log('success');
-      console.log(data);
+      console.log('s3 success');
     })
   })
 }
 
 const upload = (req, res) => {
-
-  console.log("Request:");
-  console.log(req.files.file);
-
+  console.log("s3Request:");
   uploadToS3(req.files.file);
   res.send("!")
 }
 
 const sign = (req, res) => {
   const { fileName, fileType } = req.query;
-
   const s3Params = {
     Bucket: process.env.AWS_S3_BUCKET,
     Key: fileName,

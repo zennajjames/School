@@ -29,7 +29,7 @@ const signin = (req, res) => {
 
     return res.json({
       token,
-      user: {_id: user._id, name: user.name, email: user.email, role: user.role, courses: user.courses}
+      user: {_id: user._id, name: user.name, firstname: user.firstname, email: user.email, role: user.role, courses: user.courses}
     })
 
   })

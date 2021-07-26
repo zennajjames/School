@@ -1,5 +1,4 @@
 const User = require('../models/user.model')
-
 const _ = require('lodash')
 const errorHandler = require('./../helpers/dbErrorHandler')
 const formidable = require('formidable')
@@ -13,7 +12,6 @@ const create = (req, res, next) => {
         error: errorHandler.getErrorMessage(err)
       })
     }
-    console.log(res)
     res.status(200).json({
     })
   })
@@ -22,8 +20,6 @@ const create = (req, res, next) => {
  * Load user and append to req.
  */
 const userByID = (req, res, next, id) => {
-  console.log("userbyID")
-  console.log(req.body)
   User.findById(id)
     .populate('following', '_id name role')
     .populate('followers', '_id name role')
@@ -37,11 +33,9 @@ const userByID = (req, res, next, id) => {
 }
 
 const read = (req, res) => {
-  console.log("read")
-  console.log(req.body)
   req.profile.hashed_password = undefined
   req.profile.salt = undefined
-  return res.json(req.profile)
+  return res.json(req.profile);
 }
 
 const list = (req, res) => {
@@ -172,6 +166,7 @@ const removeFollowing = (req, res, next) => {
     next()
   })
 }
+
 const removeFollower = (req, res) => {
   User.findByIdAndUpdate(req.body.unfollowId, {$pull: {followers: req.body.userId}}, {new: true})
   .populate('following', '_id name role')

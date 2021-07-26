@@ -44,7 +44,7 @@ class Register extends Component {
 			firstname: this.state.firstname || undefined,
 			lastname: this.state.lastname || undefined,
 			name: fullname || undefined,
-      email: this.state.email || undefined,
+      		email: this.state.email || undefined,
 			password: this.state.password || undefined,
 			courseCode: this.state.courseCode || undefined,
 			role: this.state.role|| undefined

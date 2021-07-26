@@ -14,7 +14,6 @@ const signin = (user) => {
 }
 
 const signout = () => {
-  console.log("Signing out...")
   return fetch('/api/auth/signout/', {
     method: 'GET',
   }).then(response => {

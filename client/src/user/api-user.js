@@ -51,7 +51,6 @@ const read = (params, credentials) => {
 
 
 const update = (params, credentials, user) => {
-  console.log(user)
   return fetch('/api/users/' + params.userId, {
     method: 'PUT',
     headers: {
@@ -60,9 +59,9 @@ const update = (params, credentials, user) => {
     },
     body: user
   }).then((response) => {
-    return response.json()
+    return response.json();
   }).catch((err) => {
-    console.log(err)
+    console.log(err);
   })
 }
 

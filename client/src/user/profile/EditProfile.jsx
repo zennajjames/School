@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import { Container, Button, Card, CardTitle, Fa, CardBody, Input } from 'mdbreact';
-import Modal from '../../core/Modal'
-import auth from '../../auth/auth-helper'
-import {read, update, remove} from '../api-user'
-import {Redirect} from 'react-router-dom'
+import Modal from '../../core/Modal';
+import auth from '../../auth/auth-helper';
+import {read, update, remove} from '../api-user';
+import {Redirect} from 'react-router-dom';
 
 const styles = {
   card: {
@@ -27,13 +27,17 @@ const styles = {
     borderRadius:50
   },
   input: {
-    fontSize: 10
+    fontSize: 14
   },
   span: {
     fontSize: 10
   },
   filename:{
     marginLeft:'10px'
+  },
+  placer:{
+    color: 939393,
+    fontSize: 10
   }
 }
 
@@ -57,9 +61,7 @@ class EditProfile extends Component {
   }
 
   componentDidMount = () => {
-    console.log(this.props)
     this.userData = new FormData()
-    console.log(this.userData)
     const jwt = auth.isAuthenticated()
     read({
       userId: this.props.match.params.userId
@@ -67,41 +69,41 @@ class EditProfile extends Component {
       if (data.error) {
         this.setState({error: data.error})
       } else {
-        this.setState({id: data._id, name: data.name, email: data.email, about: data.about})
+        this.setState({id: data._id, firstname: data.firstname, lastname: data.lastname, email: data.email, about: data.about, role: data.role})
       }
     })
   }
   
   clickSubmit = () => {
-    const jwt = auth.isAuthenticated()
-    const fullname = this.state.firstname + ' ' + this.state.lastname;
+    let fullname = this.state.firstname + " " + this.state.lastname;
+    this.userData.set("name", fullname);
+    const jwt = auth.isAuthenticated();
     const user = {
       firstname: this.state.firstname || undefined,
 			lastname: this.state.lastname || undefined,
-      name: fullname || undefined,
       email: this.state.email || undefined,
       password: this.state.password || undefined,
       about: this.state.about || undefined,
       role: this.state.about || undefined
     }
-    console.log(user)
     update({ userId: this.match.params.userId}, 
       { t: jwt.token}, 
       this.userData).then((data) => {
       if (data.error) {
         this.setState({error: data.error})
       } else {
-        this.setState({'redirectToProfile': true})
+        this.setState({'redirectToProfile': true});
       }
     })
+    window.location.href = window.location.href;
   }
 
   handleChange = name => event => {
     const value = name === 'photo'
       ? event.target.files[0]
       : event.target.value
-    this.userData.set(name, value)
-    this.setState({ [name]: value })
+    this.userData.set(name, value);
+    this.setState({ [name]: value });
   }
 
 
@@ -119,9 +121,7 @@ class EditProfile extends Component {
     })
   }
 
-
   render() {
-    console.log(this.props)
     const photoUrl = this.state.id
                  ? `/api/users/photo/${this.state.id}?${new Date().getTime()}`
                  : '/api/users/defaultphoto'
@@ -140,7 +140,6 @@ class EditProfile extends Component {
           <img alt="profilePic" src={photoUrl} style={styles.bigAvatar}/><br/>
           <input style={styles.input} accept="image/*" onChange={this.handleChange('photo')} id="icon-button-file" type="file" />
           <br/>
-          
           <Input size="sm" id="firstname" label="First Name" value={this.state.firstname} onChange={this.handleChange('firstname')} margin="normal"/>
           <Input size="sm" id="lastname" label="Last Name" value={this.state.lastname} onChange={this.handleChange('lastname')} margin="normal"/>
           <Input size="sm" id="email" label="Email"  value={this.state.email} onChange={this.handleChange('email')} margin="normal"/>

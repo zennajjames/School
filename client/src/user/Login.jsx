@@ -23,12 +23,10 @@ class LoginPage extends Component {
       password: this.state.password || undefined
     }
     signin(user).then((data) => {
-      console.log(data)
       if (data.error) {
         this.setState({error: data.error})
       } else {
         auth.authenticate(data, () => {
-          console.log("Successful sign in!")
           this.setState({redirectToReferrer: true})
         })
       }

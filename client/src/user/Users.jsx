@@ -21,7 +21,6 @@ class Users extends Component {
     const jwt = auth.isAuthenticated()
     let userId = jwt.user._id
     listUsers().then((users) => {
-      console.log(users)
       if (!users) {
         console.log("No users!")
       } else {
@@ -33,7 +32,6 @@ class Users extends Component {
         }
         this.setState({users: students})
       }
-      console.log(this.state.users)
     })
   }
 

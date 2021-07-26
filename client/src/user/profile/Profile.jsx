@@ -56,7 +56,6 @@ class Profile extends React.Component {
     read({
       userId: userId
     }, {t: jwt.token}).then((data) => {
-      console.log(data)
       if (data.error) {
         this.setState({redirectToSignin: true})
       } else {
@@ -196,7 +195,7 @@ class Profile extends React.Component {
                         </Col>
                         <Col className="col-9">
                             <div className="float-left">
-                              <h4 style={styles.heading}>{this.state.user.name}</h4>
+                              <h4 style={styles.heading}>{this.state.user.firstname} {this.state.user.lastname}</h4>
                               <h4><Badge color="amber" className="mt-2 mb-2">{this.state.user.role}</Badge></h4>
                               <h5><Badge tag="a" href={"mailto:"+this.state.user.email} color="cyan">{this.state.user.email}</Badge></h5>
                               <p className="grey-text">Joined: {joined}</p>   

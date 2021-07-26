@@ -16,7 +16,7 @@ class FollowGrid extends Component {
                           : (<div></div>)
                           }
                     </div>
-                      <h5><Badge tag="a" href={"/users/" + person._id} color="cyan">{person.name}</Badge></h5>
+                      <h5><Badge tag="a" href={"/users/" + person._id} color="cyan">{person.firstname} {person.lastname}</Badge></h5>
                   </div>
                 })}
           </div>

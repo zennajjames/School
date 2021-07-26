@@ -45,13 +45,9 @@ const postByID = (req, res, next, id) => {
 
 const photo = (req, res, next) => {
   console.log("Photo Request:")
-  console.log(req.post.photo.data)
   res.set("Content-Type", req.post.photo.contentType)
-  console.log("Photo Response:")
-  console.log(req.post.photo.data)
   return res.send(req.post.photo.data)
 }
-
 
 const listByUser = (req, res) => {
   Post.find({postedBy: req.profile._id})
@@ -60,7 +56,6 @@ const listByUser = (req, res) => {
   .populate('postedBy', '_id name')
   .sort('-created')
   .exec((err, posts) => {
-    console.log(posts)
     if (err) {
       return res.status(400).json({
         error: errorHandler.getErrorMessage(err)
@@ -71,7 +66,6 @@ const listByUser = (req, res) => {
 }
 
 const listNewsFeed = (req, res) => {
-  console.log(req.profile)
   let following = req.profile.following
   following.push(req.profile._id)
   Post.find({postedBy: { $in : req.profile.following } })
@@ -142,6 +136,7 @@ const comment = (req, res) => {
     res.json(result)
   })
 }
+
 const uncomment = (req, res) => {
   let comment = req.body.comment
   Post.findByIdAndUpdate(req.body.postId, {$pull: {comments: {_id: comment._id}}}, {new: true})
@@ -180,57 +175,3 @@ module.exports = {
   uncomment,
   isPoster
 }
-
-
-// const create = (req, res, next) => {
-//   console.log(req.body)
-//   let form = new formidable.IncomingForm()
-//   form.keepExtensions = true
-//   form.multiples = true;
-//   form.parse(req, (err, fields, files) => {
-
-//     for(let i in files){
-//       console.log("Logging files..")
-//       console.log(files.File);
-//     }
-
-//     if (err) {
-//       return res.status(400).json({
-//         error: "Image could not be uploaded."
-//       })
-//     }
-
-//     let post = new Post(fields)
-
-//     if(files){
-      
-//       // var fileArray = files.map(a => a.File);
-//       // console(fileArray)
-
-//       console.log("Files exist!")
-//       let photoArray = []
-//       let length = files.File.length
-//       console.log(length)
-
-//       for (let i=0; i<length; i++) {
-//         photoArray.push({
-//           data: fs.readFileSync(files.File[i].path),
-//           contentType: files.File[i].type,
-//           index: [i]
-//         })
-//       }
-//       console.log(photoArray)
-//       post.photos = photoArray
-//       post.postedBy = req.profile._id
-//       console.log(post)
-//     } 
-     
-//     post.save((err, result) => {
-//       if (err) {
-//         return res.status(400).json({
-//           error: errorHandler.getErrorMessage(err)
-//         })
-//       }
-//       res.json(result)
-//     })
-//   })
