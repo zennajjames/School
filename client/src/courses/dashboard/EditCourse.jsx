@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Row, Col, Container, Button, Card, CardTitle, Fa, CardBody, Input, Badge, InputFile } from 'mdbreact';
+import { Row, Col, Container, Button, Card, CardTitle, Fa, CardBody, Input, Badge } from 'mdbreact';
 import Modal from '../../core/Modal'
 import auth from '../../auth/auth-helper'
 import {listOne, update, remove, upload} from '../api-course'

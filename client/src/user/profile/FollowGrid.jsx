@@ -4,7 +4,6 @@ import "./badgeOverlay.css";
 
 class FollowGrid extends Component {
   render() {
-    console.log(this.props.people)
     return (
           <div>
             <div className="d-flex flex-wrap flex-row justify-content-center">

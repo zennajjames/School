@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Button, MDBInput, MDBFileInput } from 'mdbreact';
+import { Button, MDBInput } from 'mdbreact';
 import PropTypes from 'prop-types'
 import {create} from './api-post.js'
 import auth from '../auth/auth-helper.js'
@@ -20,14 +20,12 @@ class NewPost extends Component {
 
   clickPost = () => {
     this.postData.append('text', this.state.text)
-    console.log("Posting...")
     const jwt = auth.isAuthenticated()
     create({
       userId: jwt.user._id
     }, {
       t: jwt.token
     }, this.postData).then((data) => {
-      console.log(data)
       if (!data) {
         this.setState({error: "There was an error. Try again."})
       } else {
@@ -57,7 +55,7 @@ class NewPost extends Component {
                 <MDBInput onChange={this.handleChange('text')} label="Share your thoughts ..." value={this.state.text}/>
               </form>
               <output id="result" />
-              <img src={this.state.file}/>
+              <img alt= "..." src={this.state.file}/>
             { this.state.error && (<h5 component="p" color="error">
                   {this.state.error}
                 </h5>)

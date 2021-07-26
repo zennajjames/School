@@ -55,14 +55,12 @@ class Home extends Component {
 
   loadFollowing = () => {
     const jwt = auth.isAuthenticated();
-    console.log(jwt.user);
     read(
       {
         userId: jwt.user._id
       },
       { t: jwt.token }
     ).then(data => {
-      console.log(data);
       this.setState({ userFollowing: data.following });
       this.setState({ role: data.role });
       this.setState({ userId: data._id });

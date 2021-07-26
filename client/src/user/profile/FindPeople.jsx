@@ -26,13 +26,11 @@ class FindPeople extends Component {
 
   clickFollow = (user, index) => {
     const jwt = auth.isAuthenticated()
-    console.log(user)
     follow({
       userId: jwt.user._id
     }, {
       t: jwt.token
     }, user._id).then((data) => {
-      console.log(data)
       if (data.error) {
         this.setState({error: data.error})
       } else {

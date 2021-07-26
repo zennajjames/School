@@ -4,12 +4,15 @@
   "icons": [
     {
       "src": "favicon.ico",
-      "sizes": "192x192",
+      "sizes": "16x16",
       "type": "image/png"
     }
   ],
   "start_url": "./index.html",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "web_accessible_resources": [
+    "tileset/*.json", "layer/*.json", "sound/*.ogg", "script.js"
+  ]
 }

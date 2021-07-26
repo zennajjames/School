@@ -1,5 +1,4 @@
 const create = (params, credentials, post) => {
-  console.log(post)
   return fetch('/api/posts/new/'+ params.userId, {
     method: 'POST',
     headers: {
@@ -88,7 +87,6 @@ const unlike = (params, credentials, postId) => {
 }
 
 const comment = (params, credentials, postId, comment) => {
-  console.log(comment, postId)
   return fetch('/api/posts/comment/', {
     method: 'PUT',
     headers: {

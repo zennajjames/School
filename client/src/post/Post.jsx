@@ -90,13 +90,12 @@ class Post extends Component {
   }
 
   render() {
-    console.log(this.props)
-    if (this.props.post.photo) {
+  /*  if (this.props.post.photo) {
       console.log("There is a photo!")
     }
     else {
       console.log("No photos.")
-    }
+    }*/
     return (
 
           <div className="mdb-feed">

@@ -36,7 +36,6 @@ import {Link} from 'react-router-dom'
     }
     
     render() {
-      console.log(this.props)
        return (
 
       <Navbar transparent dark expand="md" scrolling>
@@ -66,7 +65,7 @@ import {Link} from 'react-router-dom'
             auth.isAuthenticated() && (
             <NavbarNav right style={{marginRight: 40}}>
             <NavItem>
-              <NavLink to={"/"}>Hi, {auth.isAuthenticated().user.name}!  </NavLink>
+              <NavLink to={"/"}>Hi, {auth.isAuthenticated().user.firstname}!  </NavLink>
             </NavItem>
             <NavItem>
                 <Dropdown>

@@ -3,14 +3,14 @@ import { Row, Col, Chip } from 'mdbreact';
 import { list } from './api-course'
 import auth from '../auth/auth-helper.js'
 
-const styles = {
+/*const styles = {
   heading: {
     fontWeight: 400,
     color: "white",
     paddingTop: "1.5rem",
     paddingLeft: "1.5rem"
   }
-}
+}*/
 class CourseGrid extends Component {
   
   state = {
@@ -29,15 +29,11 @@ class CourseGrid extends Component {
   loadCourses = () => {
 
     const jwt = auth.isAuthenticated()
-    console.log(jwt.user)
     this.setState({userId: jwt.user._id})
     this.setState({role: jwt.user.role})
 
     if (jwt.user.role === "Teacher") {
-      console.log(jwt.user.role)
       list().then((courses) => {
-        console.log(courses)
-        console.log(jwt.user._id)
         let teacherCourses = []
         
         for (let i=0; i<courses.length; i++) {
@@ -46,7 +42,6 @@ class CourseGrid extends Component {
           }
         }
         if (teacherCourses.length === 0) {
-          console.log("No courses!")
           this.setState({gridMessage: "Create your first course to get started!"})
         }
         else {
@@ -55,20 +50,15 @@ class CourseGrid extends Component {
       })
     }
     else if (jwt.user.role === "Student") {
-      console.log(jwt.user.role)
       list().then((courses) => {
-          console.log(courses)
           let studentCourses = []
           for (let i=0; i<courses.length; i++) {
             if (courses[i].students.includes(this.state.userId)) {
               studentCourses.push(courses[i])
             }
           }
-          this.setState({courses: studentCourses})
-          console.log(this.state.courses)
-          
+          this.setState({courses: studentCourses})          
           if (studentCourses.length === 0) {
-            console.log("No courses!")
             this.setState({gridMessage: "Enroll in class to get started!"})
           }
       })

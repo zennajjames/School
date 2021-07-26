@@ -1,6 +1,4 @@
 const create = (user) => {
-  console.log(user)
-  console.log("New registration!")
   return fetch('/api/users/', {
       method: 'POST',
       headers: {
@@ -23,8 +21,6 @@ const listUsers = () => {
 }
 
 const read = (params, credentials) => {
-  console.log(params)
-  console.log("Loading friends..")
   return fetch('/api/users/' + params.userId, {
     method: 'GET',
     headers: {
