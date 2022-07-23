@@ -36,7 +36,7 @@
     "express-fileupload": "^0.4.0",
     "express-jwt": "^5.3.1",
     "express-session": "^1.15.6",
-    "file-type": "^9.0.0",
+    "file-type": "^16.5.4",
     "formidable": "^1.2.1",
     "fs": "^0.0.1-security",
     "helmet": "^3.13.0",
